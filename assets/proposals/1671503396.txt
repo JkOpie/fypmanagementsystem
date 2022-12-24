@@ -1,0 +1,4 @@
+quotation and contract 
+-remove grand total gst & gst
+-remain total before gst
+
