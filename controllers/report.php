@@ -65,7 +65,7 @@
     }
     </style>
     <hr>
-        <div style="text-align: center; font-size: 18pt; display:block">Final Year Project Management System UNISEL</div>
+        <div style="text-align: center; font-size: 18pt; display:block">Final Year Project Management UNISEL</div>
     <hr>
     <h4>Proposals Reports</h4>
     <table class="table table-bordered table-striped table-hover">
