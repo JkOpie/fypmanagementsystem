@@ -6,10 +6,20 @@
     $conn = setDbConnection();
     session_start();
 
-    $email = $_POST['email'];
+   
     $password = $_POST['password'];
 
-    $sql = "select * from users where email = '".$email."' and password = '".$password."'";
+    if(isset($_POST['email'])){
+        $email = $_POST['email'];
+        $sql = "select * from users where email = '".$email."' and password = '".$password."'";
+    }
+
+    if(isset($_POST['matric_number'])){
+        $matric_number = $_POST['matric_number'];
+        $sql = "select users.* from users left join students on students.user_id = users.id where students.matric_number = '".$matric_number."' and users.password = '".$password."'";
+    }
+
+    
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {

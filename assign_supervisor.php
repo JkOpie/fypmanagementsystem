@@ -163,7 +163,6 @@ include('controllers/validateAuthentication.php');
     
     <script>
         function assignSupervisor(student_id){
-            console.log(student_id);
             $('form#assignSupervisor input[name=student_id]').val(student_id);
         }
     </script>

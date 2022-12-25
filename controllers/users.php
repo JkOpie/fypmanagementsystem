@@ -232,7 +232,7 @@
     }
 
     function assignSupervisor($supervisor_id, $student_id){
-         global $conn;
+        global $conn;
         $query = "update students set supervisor_id = '".$supervisor_id."', status = 'pending' where id = '".$student_id."'";
         $result = $conn->query($query);
 

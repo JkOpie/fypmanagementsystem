@@ -19,20 +19,46 @@
                             <div class="col-lg-5">
                                 <!-- Basic login form-->
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header justify-content-center"><h3 class="fw-light my-4">Login</h3></div>
+                                    <div class="card-header justify-content-center">
+                                        <?php 
+                                            if(isset($_REQUEST['type'])){
+                                                echo ('<h3 class="fw-light my-4">Staff Login</h3>');
+                                            }else{  
+                                                echo ('<h3 class="fw-light my-4">Student Login</h3>');
+                                            }
+                                        ?>
+                                        
+                                     </div>
                                     <div class="card-body">
                                         <!-- Login form-->
                                         <form action="controllers/verify_login.php" method="post">
                                             <!-- Form Group (email address)-->
                                             <div class="mb-3">
-                                                <label class="small mb-1" for="inputEmailAddress">Email</label>
-                                                <input class="form-control" type="email" name="email" placeholder="Enter email address" required
-                                                    <?php 
+                                                <?php
+                                                     if(isset($_REQUEST['type'])){
+                                                        echo '
+                                                            <label class="small mb-1" for="inputEmailAddress">Email</label>
+                                                            <input class="form-control" type="email" name="email" placeholder="Enter email address" required
+                                                        ';
+                                                     }else{
+                                                        echo '
+                                                            <label class="small mb-1">Matric Number</label>
+                                                            <input class="form-control" type="text" name="matric_number" placeholder="Enter Matric Number" required
+                                                        ';
+                                                      
                                                         if(isset($_SESSION["login_error"])){
                                                             echo 'value='.$_SESSION['email'];
                                                         }
+
+                                                        echo '/>';
+                                                     }
+
+                                                ?>
+                                               
+                                                    <?php 
+                                                       
                                                     ?>
-                                                />
+                                               
                                             </div>
                                             <!-- Form Group (password)-->
                                             <div class="mb-3">
@@ -52,6 +78,15 @@
                                         </form>
                                     </div>
                                     <div class="card-footer text-center">
+                                        <?php
+                                            if(isset($_REQUEST['type'])){
+                                                echo '<div class="small"><a href="/fyp/login.php">Students click here</a></div>';
+                                               
+                                            }else{
+                                                echo '<div class="small"><a href="/fyp/login.php?type=staffs">Cluster, Fyp Coordinator, Supervisor and HOD, click here</a></div>';
+                                            }
+                                        ?>
+                                        
                                         <div class="small"><a href="/fyp/register.php">Need an account? Sign up!</a></div>
                                     </div>
                                 </div>
