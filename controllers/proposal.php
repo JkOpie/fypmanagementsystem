@@ -183,6 +183,24 @@
             
                 $result = $conn->query($query);
                 $_SESSION['success'] = 'Proposal Created, Proceeed to login.';
+
+
+                $getSupervisorSql = "select users.* from users left join staffs on staffs.user_id = users.id 
+                where staffs.roles in ('supervisor','fyp_coordinator') and users.roles = 'staff'";
+                $supervisorResult = $conn->query($getSupervisorSql);
+
+                if ($supervisorResult->num_rows > 0) {
+                    while ($row = $supervisorResult->fetch_assoc()) {
+                        $notifications = 'Student '.$_SESSION['name'].' has created fyp proposals, please review the proposals!';
+                        $notificationSql = "insert into notifications (user_id, notification,status) values ('".$row['id']."', '".$notifications."','new')";
+                        $notificationResult = $conn->query($notificationSql);
+
+                        if(!$notificationResult){
+                            echo 'Notification Query Wrong';
+                            die();
+                        }                        
+                    }
+                }
             
                 header('Location: /fyp/dashboard.php');
             }
@@ -223,10 +241,10 @@
         }
 
         $query = $query."where id = '".$proposal_id."'";
-    
         $result = $conn->query($query);
+       
         if($result){
-            $_SESSION['success'] = 'Proposal Created, Proceeed to login.';
+            $_SESSION['success'] = 'Proposal Updated!';
             header('Location: /fyp/dashboard.php');
         }else{
             echo 'Query Wrong';

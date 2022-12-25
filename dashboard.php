@@ -70,7 +70,7 @@
                                         <option value="approved">Approved</option>
                                     </select>
 
-                                    <button class="btn btn-info" onclick="window.location.replace('/fyp/dashboard.php')">Reset Search</button>
+                                    <button class="btn btn-info me-2" onclick="window.location.replace('/fyp/dashboard.php')">Reset Search</button>
                                     <?php 
                                         
                                         if($_SESSION['roles'] == 'student' && !StudentHaveProposal()){
@@ -78,7 +78,7 @@
                                         }
                                         
                                         if($_SESSION['roles'] == 'hod' || $_SESSION['roles'] == 'fyp_coordinator'){
-                                            echo "<a class='btn btn-primary' href='/fyp/controllers/report.php'>Generate Proposal Report</a>";
+                                            echo "<a class='btn btn-primary me-2' href='/fyp/controllers/report.php'>Generate Proposal Report</a>";
                                         }
                                     ?>
                                    
@@ -170,6 +170,21 @@
 
     <script>
 
+        var url = new URL(window.location.href);
+        var title = url.searchParams.get("title");
+        var status = url.searchParams.get("status");
+        
+        console.log(title,status);
+        
+        if(title != null && title != ''){
+            console.log($('input[name=search-proposal]'));
+            $('input[name=search-proposal]').val(title);
+        }
+
+        if(status != 'null' && status != ''){
+            $('select[name=filter_status]').val(status);
+        }
+
         function enterKeyPressed(event){
             if (event.keyCode == 13 && $('input[name=search-proposal]').val() != '' ) {
                 window.location.replace('/fyp/dashboard.php?type=search&title='+
@@ -199,7 +214,7 @@
                         'proposal_id' : id,
                     }, // serializes the form's elements.
                     success: function(data) { 
-                        $(element).parent().parent().remove()
+                        location.reload();
                     }
                 });
              

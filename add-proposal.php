@@ -6,14 +6,14 @@ include('controllers/validateAuthentication.php');
 <html lang="en">
 
 <head>
-    <?php include('layout_admin/header.php') ?>
+    <?php include_once('layout_admin/header.php') ?>
 </head>
 
 <body class="nav-fixed">
-    <?php include('layout_admin/navbar.php') ?>
+    <?php include_once('layout_admin/navbar.php') ?>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
-            <?php include('layout_admin/sidenav.php') ?>
+            <?php include_once('layout_admin/sidenav.php') ?>
         </div>
         <div id="layoutSidenav_content">
             <main>
@@ -29,7 +29,7 @@ include('controllers/validateAuthentication.php');
                                                 if($_REQUEST['type']  == 'edit'){
                                                     echo 'Update';
 
-                                                    include('controllers/proposal.php');
+                                                    include_once('controllers/proposal.php');
                                                     $proposals = edit($_REQUEST['proposal']);
                                                     $supervisors = getAllSupervisor();
                                                 }
@@ -112,7 +112,7 @@ include('controllers/validateAuthentication.php');
 
                                             <?php 
                                                 if(isset($proposals)){
-                                                    echo '<input type=hidden name=proposal_id value='.$_SESSION['id'].'>';
+                                                    echo '<input type=hidden name=proposal_id value='.$proposals['id'].'>';
                                                 }
                                             ?>
 
@@ -200,11 +200,11 @@ include('controllers/validateAuthentication.php');
                 </div>
 
             </main>
-            <?php include('layout_admin/footer.php') ?>
+            <?php include_once('layout_admin/footer.php') ?>
         </div>
     </div>
-    <?php include('layout_admin/btm_scripts.php') ?>
-    <?php include('controllers/include_error.php')?>
+    <?php include_once('layout_admin/btm_scripts.php') ?>
+    <?php include_once('controllers/include_error.php')?>
 </body>
 <script src="js/data.js"></script>
 <script>

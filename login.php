@@ -13,6 +13,9 @@
                 <main>
                     <div class="container-xl px-4">
                         <div class="row justify-content-center">
+                            <div class="col-12 text-center">
+                                <img src="/fyp/assets/img/download-removebg-preview.png" alt="">
+                            </div>
                             <div class="col-lg-5">
                                 <!-- Basic login form-->
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">

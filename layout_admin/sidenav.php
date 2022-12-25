@@ -20,11 +20,11 @@
 
 
                 include_once('controllers/proposal.php');
-                $proposals = index();
+                $validateProposals= index();
 
                 $haveProposalsSideNav = false;
-                if(isset($proposals)){
-                    foreach ($proposals as $key => $value) {
+                if(isset($validateProposals)){
+                    foreach ($validateProposals as $key => $value) {
                        
                         if($_SESSION['id'] == $value['student_id']){
                             $haveProposalsSideNav = true;
