@@ -22,9 +22,9 @@
                                     <div class="card-header justify-content-center">
                                         <?php 
                                             if(isset($_REQUEST['type'])){
-                                                echo ('<h3 class="fw-light my-4">Staff Login</h3>');
+                                                echo ('<h3 class="fw-light my-4">Staffs Login</h3>');
                                             }else{  
-                                                echo ('<h3 class="fw-light my-4">Student Login</h3>');
+                                                echo ('<h3 class="fw-light my-4">Students Login</h3>');
                                             }
                                         ?>
                                         
