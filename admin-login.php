@@ -1,31 +1,46 @@
+
 <?php
     session_start();
+    include('controllers/validateAuthentication.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <?php include('layouts/header.php')?>
+       <?php include('layout_admin/header.php')?>
     </head>
-    <body class="bg-primary">
-    
-        <div id="layoutAuthentication">
-            <div id="layoutAuthentication_content">
+    <body class="nav-fixed">
+        <?php include('layout_admin/navbar-login.php')?>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <?php include('layout_admin/sidenav-login.php')?>
+            </div>
+            <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-xl px-4">
-                        <div class="row justify-content-center">
-                            <div class="col-12 text-center">
-                                <img src="/fyp/assets/img/download-removebg-preview.png" alt="">
+                    <header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-5">
+                        <div class="container-xl px-4">
+                            <div class="page-header-content pt-4">
+                                <div class="row align-items-center justify-content-between">
+                                    <div class="col-auto mt-4">
+                                        <h1 class="page-header-title">
+                                            <div class="page-header-icon"><i data-feather="activity"></i></div>
+                                            Welcome to Final Year Title Management System!
+                                        </h1>
+                                    </div>
+                                    
+                                </div>
                             </div>
-                            <div class="col-lg-5">
-                                <!-- Basic login form-->
-                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                        </div>
+                    </header>
+                    <!-- Main page content-->
+                    <div class="container-xl px-4" style='margin-top:-6rem'>
+                        <div class="row">
+                            <div class="col-xxl-12 col-xl-12">
+                            <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header justify-content-center">
 
                                         <?php 
-                                            if(isset($_REQUEST['type'])){
-                                                echo ('<h3 class="fw-light my-4">Staffs Login</h3>');
-                                            }else{  
-                                                echo ('<h3 class="fw-light my-4">Students Login</h3>');
+                                            if($_REQUEST['type']){
+                                                echo ('<h3 class="fw-light my-4">'.ucwords(str_replace("_", " ", $_REQUEST['type'])).' Login</h3>');
                                             }
                                         ?>
                                         
@@ -36,8 +51,12 @@
                                             <!-- Form Group (email address)-->
                                             <div class="mb-3">
                                                 <?php
-                                                     if(isset($_REQUEST['type'])){
+                                                     if($_REQUEST['type'] == 'hod' || 
+                                                     $_REQUEST['type'] == 'fyp_coordinator' || 
+                                                     $_REQUEST['type'] == 'cluster' || 
+                                                     $_REQUEST['type'] == 'supervisor'){
                                                         echo '
+                                                        
                                                             <label class="small mb-1" for="inputEmailAddress">Email</label>
                                                             <input class="form-control" type="email" name="email" placeholder="Enter email address" required
                                                         ';
@@ -51,11 +70,13 @@
                                                             echo 'value='.$_SESSION['email'];
                                                         }
 
-                                                        echo '/>';
+                                                       
                                                      }
+                                                     echo '/>';
                                                 ?>
                                             
-                                            </div>
+                                          
+                                                    </div>
                                             <!-- Form Group (password)-->
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="inputPassword">Password</label>
@@ -74,31 +95,26 @@
                                         </form>
                                     </div>
                                     <div class="card-footer text-center">
-                                        <?php
-                                            if(isset($_REQUEST['type'])){
-                                                echo '<div class="small"><a href="/fyp/login.php">Students click here</a></div>';
-                                               
-                                            }else{
-                                                echo '<div class="small"><a href="/fyp/login.php?type=staffs">Cluster, Fyp Coordinator, Supervisor and HOD, click here</a></div>';
-                                            }
-                                        ?>
-                                        
-                                        <div class="small"><a href="/fyp/register.php">Need an account? Sign up!</a></div>
+                                        <div class="small"><a href="/fyp/register.php">Forgot Password</a></div>
+                                        <div class="small"><a href="/fyp/admin-register.php">Need an account? Sign up!</a></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </main>
+                <?php include('layout_admin/footer.php')?>
             </div>
-            <?php include('layouts/footer.php')?>      
         </div>
-        <?php include('controllers/include_error.php')?>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
+        <?php include('layout_admin/btm_scripts.php')?>
     </body>
+
+    <script>
+    </script>
 </html>
 
+
 <?php
-   session_unset();
+    unset($_SESSION['error']);
+    unset($_SESSION['success']);
 ?>

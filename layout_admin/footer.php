@@ -6,7 +6,7 @@
             </div>
             <div class="col-md-6">#
                 <div class="d-flex justify-content-center h-100">
-                    Copyright &copy; FYP Management 2022
+                    Copyright &copy; FYT Management 2022
                 </div>
             </div>
         </div>
