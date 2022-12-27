@@ -2,15 +2,15 @@
     <div class="sidenav-menu">
         <div class="nav accordion" id="accordionSidenav">
             <!-- Sidenav Accordion (Dashboard)-->
-            <div class="mt-3">
+            <!-- <div class="mt-3">
                 <a class="nav-link" href="/fyp/dashboard.php">
                     <div class="nav-link-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div>
                     Dashboards
                 </a>
-            </div>
+            </div> -->
 
-            <a class="nav-link" href="/fyp/profiles.php">
+            <a class="nav-link mt-3" href="/fyp/profiles.php">
                 <div class="nav-link-icon"><i class="fa-solid fa-user"></i></div>
                 Profile
             </a>
@@ -40,9 +40,33 @@
                         </a>
                     ';
                 }
-            ?>
 
-            <?php
+                if($_SESSION['roles'] == 'fyp_coordinator'){
+
+                    echo '
+                        <a class="nav-link" href="/fyp/register-student.php">
+                            <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                            Register Student
+                        </a>
+                    ';
+
+                    echo '
+                        <a class="nav-link" href="/fyp/finalize_supervisor.php">
+                            <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                            Finalize Supervisors
+                        </a>
+                    ';
+                }
+
+                if($_SESSION['roles'] == 'hod'){
+                    echo '
+                        <a class="nav-link" href="/fyp/register-fypcoordinator.php">
+                            <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                            Register FYP Coordinator
+                        </a>
+                    ';
+                }
+
                 if($_SESSION['roles'] == 'hod' || $_SESSION['roles'] == 'fyp_coordinator' ){
                     echo '
                         <a class="nav-link" href="/fyp/allocate_supervisor.php">
@@ -51,22 +75,15 @@
                         </a>
                     ';
                 }
-            ?>
 
-            <?php
                 if($_SESSION['roles'] == 'cluster'){
                     echo '
-                        <a class="nav-link" href="/fyp/add_supervisor.php">
+                        <a class="nav-link" href="/fyp/register-supervisor.php">
                             <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
                             Register Supervisors
                         </a>
                     ';
-                }
-            ?>
 
-            
-            <?php
-                if($_SESSION['roles'] == 'cluster'){
                     echo '
                         <a class="nav-link" href="/fyp/assign_supervisor.php">
                             <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
@@ -74,20 +91,10 @@
                         </a>
                     ';
                 }
-            ?>
 
-            <?php
-                if($_SESSION['roles'] == 'fyp_coordinator'){
-                    echo '
-                        <a class="nav-link" href="/fyp/finalize_supervisor.php">
-                            <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                            Finalize Supervisors
-                        </a>
-                    ';
-                }
+
+                
             ?>
-          
-        
         </div>
     </div>
     <!-- Sidenav Footer-->

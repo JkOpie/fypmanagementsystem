@@ -40,35 +40,29 @@
             while($row = $result2->fetch_assoc()) {
                 $query3 = "insert into students (user_id,matric_number,programmes) values ('".$row['id']."','".$matric_number."', '".$programmes."')";
                 $conn->query($query3);
-
-                $_SESSION['id'] = $row['id'] ;
             }
         }else{
             $_SESSION['error'] = 'Invalid User Information, Please Try again!';
             header('Location: /fyp/register.php');
         }
     }else{
-
         if($result){
             while($row = $result2->fetch_assoc()) {
                 $query3 = "insert into staffs (user_id,roles,staff_id,department) values ('".$row['id']."','".$roles."', '".$staff_id."', '".$department."')";
                 $conn->query($query3);
-
-                $_SESSION['id'] = $row['id'] ;
             }
         }else{
             $_SESSION['error'] = 'Invalid User Information, Please Try again!';
-            header('Location: /fyp/register.php');
+            // var_dump(str_replace("_", "", $roles));
+            // die();
+            header('Location: /fyp/register-'.str_replace("_", "", $roles).'.php');
         }
     }
 
-    $_SESSION['name'] = $name ;
-    $_SESSION['email'] = $email ;
-    $_SESSION['roles'] = $roles ;
+    // var_dump(str_replace("_", "", $roles));
+    // die();
 
-    $_SESSION['success'] = 'Student Created, Proceeed to login.';
+    $_SESSION['success'] = str_replace("_", "", $roles).' Successfully Created';
 
-    header('Location: /fyp/dashboard.php');
-
-    closeDbConnection($conn);
+    header('Location: /fyp/register-'.str_replace("_", "", $roles).'.php');
 ?>

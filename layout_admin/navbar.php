@@ -109,7 +109,7 @@
                     </div>
                 </h6>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="/fyp/login.php">
+                <a class="dropdown-item" href="/fyp/admin-login.php?type=student">
                     <div class="dropdown-item-icon"><i data-feather="log-out"></i></div>
                     Logout
                 </a>

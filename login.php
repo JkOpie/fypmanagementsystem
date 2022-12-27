@@ -78,8 +78,6 @@
                                             if(isset($_REQUEST['type'])){
                                                 echo '<div class="small"><a href="/fyp/login.php">Students click here</a></div>';
                                                
-                                            }else{
-                                                echo '<div class="small"><a href="/fyp/login.php?type=staffs">Cluster, Fyp Coordinator, Supervisor and HOD, click here</a></div>';
                                             }
                                         ?>
                                         

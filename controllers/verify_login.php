@@ -18,7 +18,6 @@
         $matric_number = $_POST['matric_number'];
         $sql = "select users.* from users left join students on students.user_id = users.id where students.matric_number = '".$matric_number."' and users.password = '".$password."'";
     }
-
     
     $result = $conn->query($sql);
 
@@ -48,7 +47,7 @@
     }else{
         $_SESSION["login_error"] = 'Invalid email or password. Please try again!';
         $_SESSION["email"] =  $_POST['email'];
-        header('Location: /fyp/login.php');
+        header('Location: /fyp/admin-login.php?type='.$_POST['type']);
     }
 
     closeDbConnection($conn);

@@ -51,28 +51,32 @@
                                             <!-- Form Group (email address)-->
                                             <div class="mb-3">
                                                 <?php
-                                                     if($_REQUEST['type'] == 'hod' || 
-                                                     $_REQUEST['type'] == 'fyp_coordinator' || 
-                                                     $_REQUEST['type'] == 'cluster' || 
-                                                     $_REQUEST['type'] == 'supervisor'){
-                                                        echo '
-                                                        
-                                                            <label class="small mb-1" for="inputEmailAddress">Email</label>
-                                                            <input class="form-control" type="email" name="email" placeholder="Enter email address" required
-                                                        ';
-                                                     }else{
-                                                        echo '
-                                                            <label class="small mb-1">Matric Number</label>
-                                                            <input class="form-control" type="text" name="matric_number" placeholder="Enter Matric Number" required
-                                                        ';
-                                                      
-                                                        if(isset($_SESSION["login_error"])){
-                                                            echo 'value='.$_SESSION['email'];
-                                                        }
 
+                                                if(isset($_REQUEST['type'])){
+                                                    if($_REQUEST['type'] == 'hod' || 
+                                                    $_REQUEST['type'] == 'fyp_coordinator' || 
+                                                    $_REQUEST['type'] == 'cluster' || 
+                                                    $_REQUEST['type'] == 'supervisor'){
+                                                       echo '
                                                        
-                                                     }
-                                                     echo '/>';
+                                                           <label class="small mb-1" for="inputEmailAddress">Email</label>
+                                                           <input class="form-control" type="email" name="email" placeholder="Enter email address" required
+                                                       ';
+                                                    }else{
+                                                       echo '
+                                                           <label class="small mb-1">Matric Number</label>
+                                                           <input class="form-control" type="text" name="matric_number" placeholder="Enter Matric Number" required
+                                                       ';
+                                                     
+                                                       if(isset($_SESSION["login_error"])){
+                                                           echo 'value='.$_SESSION['email'];
+                                                       }
+
+                                                      
+                                                    }
+                                                    echo '/>';
+                                                }
+                                                     
                                                 ?>
                                             
                                           
@@ -81,6 +85,7 @@
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="inputPassword">Password</label>
                                                 <input class="form-control" type="password" name="password" placeholder="Enter password" required/>
+                                                <input type="hidden" value="<?php echo $_REQUEST['type']?>" name="type">
                                             </div>
 
                                             <?php 
@@ -95,7 +100,7 @@
                                         </form>
                                     </div>
                                     <div class="card-footer text-center">
-                                        <div class="small"><a href="/fyp/register.php">Forgot Password</a></div>
+                                    <?php echo '<div class="small mb-2"><a href="/fyp/forgot-password.php?type='.$_REQUEST['type'].'">Forgot Password</a></div>';?>
                                         <div class="small"><a href="/fyp/admin-register.php">Need an account? Sign up!</a></div>
                                     </div>
                                 </div>
@@ -111,10 +116,12 @@
 
     <script>
     </script>
+    <?php include('controllers/include_error.php')?>
 </html>
 
 
 <?php
+    unset($_SESSION['login_error']);
     unset($_SESSION['error']);
     unset($_SESSION['success']);
 ?>
