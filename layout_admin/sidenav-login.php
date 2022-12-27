@@ -27,11 +27,5 @@
             </a>
         </div>
     </div>
-    <!-- Sidenav Footer-->
-    <div class="sidenav-footer">
-        <div class="sidenav-footer-content">
-            <div class="sidenav-footer-subtitle">Logged in as:</div>
-            <div class="sidenav-footer-title"><?php echo $_SESSION['name'] ?></div>
-        </div>
-    </div>
+    
 </nav>

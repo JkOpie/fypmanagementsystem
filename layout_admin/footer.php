@@ -4,7 +4,7 @@
             <div class="col-md-6" >
                 <img src="/fyp/assets/img/download-removebg-preview.png" alt="" style="height:50px;">
             </div>
-            <div class="col-md-6">#
+            <div class="col-md-6">
                 <div class="d-flex justify-content-center h-100">
                     Copyright &copy; FYT Management 2022
                 </div>

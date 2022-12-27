@@ -1,7 +1,7 @@
 
 <?php
     session_start();
-    include('controllers/validateAuthentication.php');
+    //include('controllers/validateAuthentication.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -108,7 +108,7 @@
                                                                 echo 'border border-danger';
                                                             }
                                                         ?>
-                                                        " type="password" placeholder="Enter password" name="password"/>
+                                                        " type="password" placeholder="Enter password" name="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\d]).+$" title="Please Include at least one digit, one uppercase letter, one lowercase letter, and one symbol"/>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -121,7 +121,7 @@
                                                                 echo 'border border-danger';
                                                             }
                                                         ?>
-                                                        " id="inputConfirmPassword" type="password" placeholder="Confirm password" name="confirm_password"/>
+                                                        " id="inputConfirmPassword" type="password" placeholder="Confirm password" name="confirm_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\d]).+$" title="Please Include at least one digit, one uppercase letter, one lowercase letter, and one symbol"/>
                                                     </div>
                                                 </div>
 
