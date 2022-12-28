@@ -53,7 +53,10 @@ require_once("controllers/db_connection.php");
                             }
                         }
 
-                        //var_dump($cluster[0]['name'])
+                        $query = "select * from cluster_supervisor where cluster_id =".$_REQUEST['cluster_id'];
+                        $result = $conn->query($query);
+
+                        var_dump($result)
                     ?>
 
                     <div class="container-xl px-4">
@@ -63,8 +66,9 @@ require_once("controllers/db_connection.php");
                                     <label class="form-label">Cluster</label>
                                     <input type="text" class="form-control" value="<?php echo $cluster[0]['name'] ?>">
                                 </div>
-                                
-
+                                <div class="mb-3">
+                                    <label class="form-label">Supervisor</label>
+                                </div>
                             </div>
                         </div>
                     </div>
