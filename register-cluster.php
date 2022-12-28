@@ -16,7 +16,9 @@
             </div>
             <div id="layoutSidenav_content">
                 <main>
-                    <header class="page-header page-header-dark bg-gradient-primary-to-secondary" style="height: 100px;"></header>
+                    <header class="page-header page-header-dark bg-gradient-primary-to-secondary" style="height: 100px;">
+                       
+                    </header>
                     <!-- Main page content-->
                     <div class="container-xl px-4" style='margin-top:-5rem'>
                         <div class="row">
@@ -32,7 +34,7 @@
                                                 <div class="col-12">
                                                     <div class="mb-3">
                                                         <label class="small mb-1" >Register As</label>
-                                                        <input type="text" value="fyp_coordinator" name="roles" class="form-control" readonly>
+                                                        <input type="text" value="cluster" name="roles" class="form-control" readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -68,11 +70,23 @@
                                             </div>
                                             <!-- Form Row    -->
                                             <div class="row gx-3 department">
-                                                <div class="col-md-12">
+
+                                                <!-- <div class="col-md-6">
                                                     <div class="mb-3 ">
                                                         <label class="small mb-1">Department</label>
                                                         <select name="department" class="form-select">
                                                             
+                                                        </select>
+                                                    </div>
+                                                </div> -->
+
+                                                <div class="col-md-12">
+                                                    <div class="mb-3 ">
+                                                        <label class="small mb-1">Department</label>
+                                                        <select name="department" class="form-select">
+                                                            <option value="multimedia">Multimedia</option>
+                                                            <option value="information_system">Information System</option>
+                                                            <option value="computer_science">Computer Science</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -130,34 +144,7 @@
         <?php include('layout_admin/btm_scripts.php')?>
     </body>
     <script src="js/data.js"></script>
-    <script>
-        
-        $departments = getDepartments();
-        
-        $.each($departments, (k,v) => {
-            $('select[name=department]').append(
-                $('<option>').val(v).text(v)
-            )
-        })
-
-        $('select[name=roles]').change((e) => {
-            var roles = $(e.currentTarget).val();
-        
-            $('.register-roles').empty().append(
-                $('<lable>').addClass('small mb-1').text('Staff ID'),
-                $('<input>').attr({'name': 'staff_id', 'type' : 'text', 'placeholder' : 'Enter Staff ID'}).prop('required', 'true').addClass('form-control')
-            );
-            
-            $('.programmes').empty().append(
-                $('<div>').addClass('col-md-12').append(
-                    $('<div>').addClass('mb-3').append(
-                        $('<lable>').addClass('small mb-1').text('Department'),
-                        $('<select>').attr('name', 'department').addClass('form-select')
-                    )
-                )
-            )
-        });
-    </script>
+    <script></script>
 </html>
 
 

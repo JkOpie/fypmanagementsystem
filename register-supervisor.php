@@ -1,7 +1,7 @@
 
 <?php
     session_start();
-    //include('controllers/validateAuthentication.php');
+    include('controllers/validateAuthentication.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">

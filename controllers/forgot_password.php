@@ -34,7 +34,6 @@
                 header('Location: /fyp/forgot-password.php?type'.$_POST['typpe']);
             }
         
-           
         }
        
     }else{

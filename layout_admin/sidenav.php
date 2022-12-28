@@ -64,17 +64,27 @@
                             <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
                             Register FYP Coordinator
                         </a>
-                    ';
-                }
 
-                if($_SESSION['roles'] == 'hod' || $_SESSION['roles'] == 'fyp_coordinator' ){
-                    echo '
-                        <a class="nav-link" href="/fyp/allocate_supervisor.php">
+                        <a class="nav-link" href="/fyp/register-cluster.php">
                             <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                            Allocate Supervisors
+                            Register Cluster
+                        </a>
+
+                        <a class="nav-link" href="/fyp/appoint-lead-cluster.php">
+                            <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                            Appoint Lead Cluster
                         </a>
                     ';
                 }
+
+                // if($_SESSION['roles'] == 'hod' || $_SESSION['roles'] == 'fyp_coordinator' ){
+                //     echo '
+                //         <a class="nav-link" href="/fyp/allocate_supervisor.php">
+                //             <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                //             Allocate Supervisors
+                //         </a>
+                //     ';
+                // }
 
                 if($_SESSION['roles'] == 'cluster'){
                     echo '
@@ -84,12 +94,16 @@
                         </a>
                     ';
 
+                  
+                }
+
+                if($_SESSION['roles'] == 'cluster' &&  $_SESSION["cluster_status"]  == 'lead_cluster'){
                     echo '
-                        <a class="nav-link" href="/fyp/assign_supervisor.php">
-                            <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                            Assign Supervisors
-                        </a>
-                    ';
+                    <a class="nav-link" href="/fyp/cluster-listing.php">
+                        <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                         Cluster
+                    </a>
+                ';
                 }
 
 

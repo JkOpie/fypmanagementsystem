@@ -111,19 +111,23 @@ include('controllers/validateAuthentication.php');
                                         <div class="row gx-3 mb-3">
                                             <div class="col-md-12 programmes">
                                                 <?php
-                                                if (isset($data)) {
-                                                    if ($data[0]['roles'] == 'student') {
-                                                        echo '
-                                                                <label class="small mb-1">Programmes</label>
-                                                                <select name=programmes class=form-select></select>
-                                                            ';
-                                                    } else {
-                                                        echo '
-                                                                <label class="small mb-1">Department</label>
-                                                                <select name=department class=form-select></select>
-                                                            ';
+                                                    if (isset($data)) {
+                                                        if ($data[0]['roles'] == 'student') { ?>
+                                                           
+                                                                    <label class="small mb-1">Programmes</label>
+                                                                    <select name=programmes class=form-select></select>
+                                                        <?php
+                                                        } else { ?>
+                                                        
+                                                        <label class="small mb-1">Department</label>
+                                                        <select name=department class=form-select>
+                                                            <option value="multimedia" <?php if($data[1]['department'] == 'multimedia'){echo 'selected';}?>>Multimedia</option>
+                                                            <option value="information_system" <?php if($data[1]['department'] == 'information_system'){echo 'selected';}?> >Information System</option>
+                                                            <option value="computer_science" <?php if($data[1]['department'] == 'selected'){echo 'selected';}?>>Computer Science</option>
+                                                        </select>
+                                                        
+                                                        <?php }
                                                     }
-                                                }
                                                 ?>
                                             </div>
                                         </div>
@@ -167,7 +171,7 @@ include('controllers/validateAuthentication.php');
 <script src="js/data.js"></script>
 <script>
     var programmes = getProgrammes();
-    var departments = getDepartments();
+    //var departments = getDepartments();
     var Userprogrammes = '<?php if (isset($data[1]['programmes'])) {
                                 echo $data[1]['programmes'];
                             } ?>';
@@ -191,17 +195,17 @@ include('controllers/validateAuthentication.php');
 
     })
 
-    $.each(departments, (k, v) => {
-        if (v == Userdepartment) {
-            $('select[name=department]').append(
-                $('<option>').val(v).text(v).attr('selected', 'selected')
-            )
-        } else {
-            $('select[name=department]').append(
-                $('<option>').val(v).text(v)
-            )
-        }
-    })
+    // $.each(departments, (k, v) => {
+    //     if (v == Userdepartment) {
+    //         $('select[name=department]').append(
+    //             $('<option>').val(v).text(v).attr('selected', 'selected')
+    //         )
+    //     } else {
+    //         $('select[name=department]').append(
+    //             $('<option>').val(v).text(v)
+    //         )
+    //     }
+    // })
 
     $('.upload').change(function() {
         var input = this;

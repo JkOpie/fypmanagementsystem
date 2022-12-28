@@ -34,6 +34,7 @@
 
                 while($row2 = $result2->fetch_assoc()) {
                     $_SESSION["roles"] =  $row2["roles"];
+                    $_SESSION["cluster_status"] =  $row2["cluster_status"];
                 }
 
             }else{

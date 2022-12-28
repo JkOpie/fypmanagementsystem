@@ -27,41 +27,24 @@
         $_SESSION["password_error"] = 'Invalid password or confirm password. Please try again!';
         header('Location: /fyp/register.php');
     }
+    $userRole = null;
 
-    $query = "insert into users (name,email,roles,password,handphone) values ('".$name."','".$email."', '".$roles."','".$password."','".$handphone."')";
-    $result = $conn->query($query);
-
-    $query2 = "select id from users where email = '".$email."'";
-    $result2 = $conn->query($query2);
-
-    if($roles == 'student'){
-        
-        if($result){
-            while($row = $result2->fetch_assoc()) {
-                $query3 = "insert into students (user_id,matric_number,programmes) values ('".$row['id']."','".$matric_number."', '".$programmes."')";
-                $conn->query($query3);
-            }
-        }else{
-            $_SESSION['error'] = 'Invalid User Information, Please Try again!';
-            header('Location: /fyp/register.php');
-        }
-    }else{
-        if($result){
-            while($row = $result2->fetch_assoc()) {
-                $query3 = "insert into staffs (user_id,roles,staff_id,department) values ('".$row['id']."','".$roles."', '".$staff_id."', '".$department."')";
-                $conn->query($query3);
-            }
-        }else{
-            $_SESSION['error'] = 'Invalid User Information, Please Try again!';
-            // var_dump(str_replace("_", "", $roles));
-            // die();
-            header('Location: /fyp/register-'.str_replace("_", "", $roles).'.php');
-        }
+    if($roles == 'supervisor' || $roles == 'hod'|| $roles == 'fyp_coordinator' || $roles == 'cluster'){
+        $userRole = 'staffs';
     }
 
-    // var_dump(str_replace("_", "", $roles));
-    // die();
+    $query = "insert into users (name,email,roles,password,handphone) values ('".$name."','".$email."', '".$userRole."','".$password."','".$handphone."')";
+    $result = $conn->query($query);
 
+    if($roles == 'student'){
+        $query3 = "insert into students (user_id,matric_number,programmes) values ('".$conn->insert_id."','".$matric_number."', '".$programmes."')";
+        $conn->query($query3);
+    }else{
+        $query3 = "insert into staffs (user_id,roles,staff_id,department,cluster_status) values ('".$conn->insert_id."','".$roles."', '".$staff_id."', '".$department."', 'cluster')";
+        $conn->query($query3);
+    }
+
+   
     $_SESSION['success'] = str_replace("_", "", $roles).' Successfully Created';
 
     header('Location: /fyp/register-'.str_replace("_", "", $roles).'.php');
