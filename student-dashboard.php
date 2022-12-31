@@ -63,14 +63,14 @@
                         <div class="row">
                             <div class="col-xxl-12 mb-5">
                                 <div class="d-flex justify-content-end align-items-center">
-                                    <select name="filter_status" class="form-select me-2" style="width: 18%;" onchange="enterKeyChange(event)">
+                                    <!-- <select name="filter_status" class="form-select me-2" style="width: 18%;" onchange="enterKeyChange(event)">
                                         <option value="">Select Status</option>
                                         <option value="pending">Pending</option>
                                         <option value="rejected">Rejected</option>
                                         <option value="approved">Approved</option>
-                                    </select>
+                                    </select> -->
 
-                                    <button class="btn btn-info me-2" onclick="window.location.replace('/fyp/dashboard.php')">Reset Search</button>
+                                    <button class="btn btn-info me-2" onclick="window.location.replace('/fyp/student-dashboard.php')">Reset Search</button>
                                     <?php 
                                         
                                         if($_SESSION['roles'] == 'student' && !StudentHaveProposal()){
@@ -106,19 +106,10 @@
                                         <?php 
                                         if( isset($proposals)){
                                             foreach ($proposals as $key => $proposal) {
-                                                $updateApproveStatus = null; 
-                                                $updateRejectStatus = null;
-                                                $updateSupervisor = null;
+                                             
                                                 $editProposal = null;
                                                 $deleteProposal = null;
-
-                                                if($proposal['status'] == 'pending'){
-                                                    if($_SESSION['roles'] == 'supervisor' ||  $_SESSION['roles'] == 'fyp_coordinator'){
-                                                        $updateApproveStatus = "<button class='btn btn-success btn-sm mb-1' data-status=approved onclick='updateProposalStatus(".$proposal['id'].",this)'>Approve</button>";
-                                                        $updateRejectStatus = '<button class="btn btn-danger btn-sm mb-1" data-status=rejected onclick="updateProposalStatus('.$proposal['id'].',this)">Reject</button>';
-                                                    }
-                                                }
-
+                                               
                                                 if($_SESSION['roles'] == 'student' && $proposal['student_id'] == $_SESSION['id']){
                                                     if($proposal['status'] != 'approved'){
                                                         $editProposal = '<button class="btn btn-primary btn-sm mb-1" onclick=editProposal('.$proposal['id'].')> Edit </button>';
@@ -126,12 +117,6 @@
                                                     }
                                                 }
 
-                                                // if($_SESSION['roles'] == 'cluster'){
-                                                //     $editProposal = '<button class="btn btn-primary btn-sm mb-1" onclick=editProposal('.$proposal['id'].')> Asign Supervisor </button>';
-                                                // }
-
-                                                // 
-                                            
                                                echo '
                                                         <tr>
                                                             <td>'.$proposal['title'].'</td>
@@ -142,8 +127,6 @@
                                                             <td>'.( $proposal['attachment_name'] ? '<a href="assets/proposals/'.$proposal['attachment'].'" target=blank>'.$proposal["attachment_name"].'</a>' : '-').'</td>
                                                             <td>
                                                                 '.$editProposal.' 
-                                                                '.$updateApproveStatus.'
-                                                                '.$updateRejectStatus.'
                                                                 '.$deleteProposal.'
                                                             </td>
                                                         </tr>
@@ -185,21 +168,25 @@
         }
 
         function enterKeyPressed(event){
-            if (event.keyCode == 13 && $('input[name=search-proposal]').val() != '' ) {
-                window.location.replace('/fyp/dashboard.php?type=search&title='+
-                $('input[name=search-proposal]').val()+
-                '&status='+$('select[name=filter_status]').val());    
-                return true;
+            if (event.keyCode == 13) {
+                $.ajax({
+                    type: "POST",
+                    url: '/fyp/controllers/search-proposal.php',
+                    data: {
+                        'title' : $('input[name=search-proposal]').val(),
+                    }, // serializes the form's elements.
+                    success: function(data) { 
+                        if(data == 'available'){
+                            alert('Title '+$('input[name=search-proposal]').val()+' is available');
+                        }else{
+                            alert('Title '+$('input[name=search-proposal]').val()+' not available');
+                        }
+                    }
+                });
             }
         }
 
-        function enterKeyChange(event){
-            window.location.replace('/fyp/dashboard.php?type=search&title='+
-            $('input[name=search-proposal]').val()+
-            '&status='+$('select[name=filter_status]').val());    
-            return true;
-        }
-
+      
         function deleteProposal(id, element){
 
             if(confirm('Are you want to delete this proposal ? ')){

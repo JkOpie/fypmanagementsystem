@@ -1,8 +1,10 @@
 
 <?php
+use FontLib\Table\Type\head;
     session_start();
-    // include('controllers/validateAuthentication.php');
+    //include('controllers/validateAuthentication.php');
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -67,12 +69,7 @@
                                                            <label class="small mb-1">Matric Number</label>
                                                            <input class="form-control" type="text" name="matric_number" placeholder="Enter Matric Number" required
                                                        ';
-                                                     
-                                                       if(isset($_SESSION["login_error"])){
-                                                           echo 'value='.$_SESSION['email'];
-                                                       }
-
-                                                      
+                                                
                                                     }
                                                     echo '/>';
                                                 }
@@ -124,4 +121,5 @@
     unset($_SESSION['login_error']);
     unset($_SESSION['error']);
     unset($_SESSION['success']);
+    session_unset();
 ?>

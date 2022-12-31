@@ -10,13 +10,36 @@
                 </a>
             </div> -->
 
-            <a class="nav-link mt-3" href="/fyp/profiles.php">
-                <div class="nav-link-icon"><i class="fa-solid fa-user"></i></div>
-                Profile
-            </a>
-            
-
             <?php
+
+                if($_SESSION['roles'] != 'student'){
+                    echo'
+                    <div class="mt-3">
+                        <a class="nav-link" href="/fyp/dashboard.php">
+                            <div class="nav-link-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div>
+                            Dashboards
+                        </a>
+                    </div>
+                    ';
+                }else{
+                    echo '
+                    <div class="mt-3">
+                        <a class="nav-link" href="/fyp/student-dashboard.php">
+                            <div class="nav-link-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div>
+                            Dashboards
+                        </a>
+                    </div>
+                    ';
+                }
+
+                echo '
+                <a class="nav-link" href="/fyp/profiles.php">
+                    <div class="nav-link-icon"><i class="fa-solid fa-user"></i></div>
+                    Profile
+                </a>
+                ';
 
 
                 include_once('controllers/proposal.php');
@@ -31,6 +54,8 @@
                         };
                     }
                 }
+
+                
 
                 if($_SESSION['roles'] == 'student' && !$haveProposalsSideNav ){
                     echo '
@@ -50,12 +75,12 @@
                         </a>
                     ';
 
-                    echo '
-                        <a class="nav-link" href="/fyp/finalize_supervisor.php">
-                            <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                            Finalize Supervisors
-                        </a>
-                    ';
+                    // echo '
+                    //     <a class="nav-link" href="/fyp/finalize_supervisor.php">
+                    //         <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                    //         Finalize Supervisors
+                    //     </a>
+                    // ';
                 }
 
                 if($_SESSION['roles'] == 'hod'){
@@ -96,17 +121,17 @@
 
                   
                 }
-
-                if($_SESSION['roles'] == 'cluster' &&  $_SESSION["cluster_status"]  == 'lead_cluster'){
-                    echo '
-                    <a class="nav-link" href="/fyp/cluster-listing.php">
-                        <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                         Cluster
-                    </a>
-                ';
+                
+                if(isset($_SESSION["cluster_status"])){
+                    if($_SESSION["cluster_status"]  == 'lead_cluster' && $_SESSION['roles'] == 'cluster'){
+                        echo '
+                        <a class="nav-link" href="/fyp/cluster-listing.php">
+                            <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                             Cluster
+                        </a>
+                    ';
+                    }
                 }
-
-
                 
             ?>
         </div>

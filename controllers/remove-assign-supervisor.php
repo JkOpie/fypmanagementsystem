@@ -4,14 +4,9 @@
     require_once("{$base_dir}controllers{$ds}db_connection.php");
 
     $conn = setDbConnection();
-    $sql = "select * from proposals where title='{$_POST['title']}'";
-    //var_dump($sql);
+
+    $sql = 'update staffs set cluster_id=null where id='.$_POST['staff_id'];
     $result = $conn->query($sql);
 
-    if($result->num_rows > 0){
-        echo 'notAvailable';
-    }
-    echo 'available';
-   
-   
+    echo $result;
 ?>

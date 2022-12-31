@@ -42,14 +42,11 @@ require_once("controllers/db_connection.php");
 
                     <?php 
                         $conn = setDbConnection();
-                        $cluster = null;
                         $supervisors = null;
-                        //var_dump($_REQUEST['cluster_id']);
-                        $query = "select staffs.*, users.name from staffs 
-                        left join users on users.id = staffs.user_id 
-                        where staffs.user_id =".$_REQUEST['cluster_id'];
+                        $cluster = null;
 
-                        $result = $conn->query($query);
+                        $sql = "select * from staffs where user_id=".$_REQUEST['cluster_id'];
+                        $result = $conn->query($sql);
 
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
@@ -57,9 +54,12 @@ require_once("controllers/db_connection.php");
                             }
                         }
 
-                        $query = "select staffs.*, users.name from staffs left join users on users.id = staffs.user_id where staffs.cluster_id ='".$cluster[0]['user_id']."'";
-                        //var_dump($query);
-                        $result = $conn->query($query);
+                        //var_dump($cluster[0]['department']);
+
+                        $sql = 'select staffs.*, users.name from staffs left join users on users.id = staffs.user_id 
+                        where staffs.roles="supervisor" and cluster_id is null and department="'.$cluster[0]['department'].'"';
+                        $result = $conn->query($sql);
+
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                                 $supervisors[] = $row;
@@ -72,33 +72,27 @@ require_once("controllers/db_connection.php");
                         <div class="card mb-4">
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <label class="form-label">Cluster</label>
-                                    <input type="text" class="form-control" value="<?php echo $cluster[0]['name'] ?>">
-                                </div>
-                                <div class="mb-3">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label class="form-label">Supervisor</label>
+                                    <form action="controllers/add_assign_supervisor.php" method="post">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label class="form-label">Supervisor</label>
+                                                <select name="staff_id" class="form-select">
+                                                    <option >Please Select Supervisor</option>
+                                                    <?php 
+                                                        if(isset($supervisors)){
+                                                            foreach ($supervisors as $key => $value) {
+                                                                //var_dump($value); ?>
+                                                            <option value="<?php echo $value['id']?>"><?php echo $value['name']?></option>
+
+                                                <?php } } ?>
+                                                </select>
+                                                <div class="mt-3">
+                                                    <input type="hidden" name="cluster_id" value="<?php echo $_REQUEST['cluster_id'] ?>">
+                                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-md-6 text-end">
-                                            <a class="btn btn-primary btn-sm mb-2" href="/fyp/add_assign_supervisor.php?cluster_id=<?php echo $_REQUEST['cluster_id'];?>">Add</a>
-                                        </div>
-                                    </div>
-                                    
-                                    <ul class="list-group">
-                                        <?php 
-                                        if(isset($supervisors)){ 
-                                            foreach ($supervisors as $key => $value) {?>
-                                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                    <?php echo $value['name']?>
-                                                <button class="btn btn-sm btn-danger delete-supervisor" onclick="deleteSupervisor(<?php echo $value['id']?>)">Delete</button>
-                                            </li>
-                                            
-                                       <?php } } ?>
-                                       
-                                    </ul>
-                                  
-                                    
+                                    </form>
                                 </div>
                             </div>
                         </div>

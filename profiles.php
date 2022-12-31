@@ -1,12 +1,14 @@
 <?php
 session_start();
 include('controllers/validateAuthentication.php');
+require_once("controllers/db_connection.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <?php include('layout_admin/header.php') ?>
+    
 </head>
 
 <body class="nav-fixed">
@@ -36,6 +38,8 @@ include('controllers/validateAuthentication.php');
                 <?php
                     include('controllers/getUserProfile.php');
                     $data = getUserProfile();
+
+                    //var_dump($data[1]);
                 ?>
 
                 <div class="container-xl px-4 mt-4">
@@ -113,9 +117,12 @@ include('controllers/validateAuthentication.php');
                                                 <?php
                                                     if (isset($data)) {
                                                         if ($data[0]['roles'] == 'student') { ?>
-                                                           
-                                                                    <label class="small mb-1">Programmes</label>
-                                                                    <select name=programmes class=form-select></select>
+                                                            <label class="small mb-1">Programmes</label>
+                                                            <select name=programmes class=form-select>
+                                                                <option value="multimedia" <?php if($data[1]['programmes'] == 'multimedia'){echo 'selected';}?>>Multimedia</option>
+                                                                <option value="information_system" <?php if($data[1]['programmes'] == 'information_system'){echo 'selected';}?> >Information System</option>
+                                                                <option value="computer_science" <?php if($data[1]['programmes'] == 'computer_science'){echo 'selected';}?>>Computer Science</option>
+                                                            </select>
                                                         <?php
                                                         } else { ?>
                                                         
@@ -123,7 +130,7 @@ include('controllers/validateAuthentication.php');
                                                         <select name=department class=form-select>
                                                             <option value="multimedia" <?php if($data[1]['department'] == 'multimedia'){echo 'selected';}?>>Multimedia</option>
                                                             <option value="information_system" <?php if($data[1]['department'] == 'information_system'){echo 'selected';}?> >Information System</option>
-                                                            <option value="computer_science" <?php if($data[1]['department'] == 'selected'){echo 'selected';}?>>Computer Science</option>
+                                                            <option value="computer_science" <?php if($data[1]['department'] == 'computer_science'){echo 'selected';}?>>Computer Science</option>
                                                         </select>
                                                         
                                                         <?php }
@@ -132,17 +139,59 @@ include('controllers/validateAuthentication.php');
                                             </div>
                                         </div>
 
-                                        <?php if(isset($data)){
-                                             if ( isset($data[1]['supervisor_name']) && $data[1]['status'] == 'approved') {
-                                                echo '
+                                        <?php
+                                        
+                                        //var_dump($_SESSION);
+                                        $conn = setDbConnection();
+                                        $supervisors = null;
+
+                                        $sql = "select staffs.*, users.name from staffs left join users on users.id = staffs.user_id where staffs.roles='supervisor'and staffs.department = '".$data[1]['programmes']."'";
+                                        $result = $conn->query($sql);
+
+                                        if ($result->num_rows > 0) {
+                                            while ($row = $result->fetch_assoc()) {
+                                                $supervisors[] = $row;
+                                            }
+                                        }
+
+
+                                        if(isset($data)){
+                                             if ( isset($data[1]['supervisor_name']) ) {?>
+
                                                 <div class="row gx-3 mb-3">
-                                                    <div class="col-md-12 programmes">
+                                                    <div class="col-md-12">
                                                         <label class="small mb-1">Supervisor</label>
-                                                        <input type=text disabled class=form-control value='.$data[1]['supervisor_name'].'>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <input type=text  class=form-control value="<?php echo $data[1]['supervisor_name'] ?>" readonly>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <input type="text" class="form-control" value='<?php echo $data[1]['status'] ?>' readonly>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>';
-                                             }
+                                                </div>
+                                            <?php  }else{ ?>
+                                              <div class="row gx-3 mb-3">
+                                                    <div class="col-md-12">
+                                                        <label class="small mb-1">Supervisor</label>
+                                                        <select name="supervisor_id" class="form-control">
+                                                            <option>Select Supervisor</option>
+                                                            <?php
+                                                                if(isset($supervisors)){
+                                                                    foreach ($supervisors as $key => $value) { ?>
+                                                                            <option value="<?php echo $value['user_id'];?>"><?php echo $value['name'] ?></option>
+                                                                <?php }
+                                                                }
+                                                            ?>
+                                                        </select>
+                                                    </div>
+                                              </div>
+                                             
+
+                                          <?php }
                                         } ?>
+                                        
 
                                         <div class="row gx-3 mb-3">
                                             <div class="col-md-12">
@@ -168,32 +217,27 @@ include('controllers/validateAuthentication.php');
     <?php include('layout_admin/btm_scripts.php') ?>
     <?php include('controllers/include_error.php')?>
 </body>
-<script src="js/data.js"></script>
+<!-- <script src="js/data.js"></script> -->
 <script>
-    var programmes = getProgrammes();
+    //var programmes = getProgrammes();
     //var departments = getDepartments();
-    var Userprogrammes = '<?php if (isset($data[1]['programmes'])) {
-                                echo $data[1]['programmes'];
-                            } ?>';
-    var Userdepartment = '<?php if (isset($data[1]['department'])) {
-                                echo $data[1]['department'];
-                            } ?>';
+    
 
-    $.each(programmes, (k, v) => {
+    // $.each(programmes, (k, v) => {
 
-        console.log(v);
+    //     console.log(v);
 
-        if (v == Userprogrammes) {
-            $('select[name=programmes]').append(
-                $('<option>').val(v).text(v).attr('selected', 'selected')
-            )
-        } else {
-            $('select[name=programmes]').append(
-                $('<option>').val(v).text(v)
-            )
-        }
+    //     if (v == Userprogrammes) {
+    //         $('select[name=programmes]').append(
+    //             $('<option>').val(v).text(v).attr('selected', 'selected')
+    //         )
+    //     } else {
+    //         $('select[name=programmes]').append(
+    //             $('<option>').val(v).text(v)
+    //         )
+    //     }
 
-    })
+    // })
 
     // $.each(departments, (k, v) => {
     //     if (v == Userdepartment) {

@@ -74,7 +74,9 @@
                                                     <div class="mb-3 ">
                                                         <label class="small mb-1">Programmes</label>
                                                         <select name="programmes" class="form-select">
-                                                            
+                                                            <option value="multimedia">Multimedia</option>
+                                                            <option value="information_system">Information System</option>
+                                                            <option value="computer_science">Computer Science</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -132,41 +134,6 @@
         <?php include('layout_admin/btm_scripts.php')?>
     </body>
     <script src="js/data.js"></script>
-    <script>
-        $programmes = getProgrammes();
-        $departments = getDepartments();
-        
-        
-        $.each($programmes, (k,v) => {
-            $('select[name=programmes]').append(
-                $('<option>').val(v).text(v)
-            )
-        })
-          
-        $('select[name=roles]').change((e) => {
-            var roles = $(e.currentTarget).val();
-        
-            $('.register-roles').empty().append(
-                $('<lable>').addClass('small mb-1').text('Staff ID'),
-                $('<input>').attr({'name': 'staff_id', 'type' : 'text', 'placeholder' : 'Enter Staff ID'}).prop('required', 'true').addClass('form-control')
-            );
-            
-            $('.programmes').empty().append(
-                $('<div>').addClass('col-md-12').append(
-                    $('<div>').addClass('mb-3').append(
-                        $('<lable>').addClass('small mb-1').text('Department'),
-                        $('<select>').attr('name', 'department').addClass('form-select')
-                    )
-                )
-            )
-
-            $.each($departments, (k,v) => {
-                $('select[name=department]').append(
-                    $('<option>').val(v).text(v)
-                )
-            })
-        });
-    </script>
 </html>
 
 

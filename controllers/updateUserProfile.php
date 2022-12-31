@@ -27,7 +27,13 @@
     if($_SESSION['roles'] == 'student'){
         
         if($result){
-            $query3 = "update students set matric_number = '".$matric_number."', programmes = '".$programmes."' where user_id = '".$_SESSION['id']."'";
+            $query3 = "update students set matric_number = '".$matric_number."', programmes = '".$programmes."'";
+            if(isset($_POST['supervisor_id'])){
+                $query3 .= ", supervisor_id='".$_POST['supervisor_id']."', status='pending'";
+            }
+            $query3 .=  " where user_id = '".$_SESSION['id']."'";
+            //var_dump($query3);
+            //die();
             $conn->query($query3);
         }else{
             $_SESSION['error'] = 'Invalid User Information, Please Try again!';

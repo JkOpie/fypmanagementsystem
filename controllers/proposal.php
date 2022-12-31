@@ -42,6 +42,10 @@
         $sql = "select proposals.*, student.id as student_id, student.name as student_name from proposals 
         left join users as student on proposals.user_id = student.id ";
 
+        if($_SESSION['roles'] == 'student'){
+            $sql .= "where student.id = ".$_SESSION['id'];
+        }
+
         if(isset($_REQUEST['title'])){
             if($_REQUEST['title'] != ''){
                 if(strpos($sql, 'where') !== false){
@@ -63,7 +67,7 @@
         }
 
         $sql = $sql." order by id desc";
-       
+
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {

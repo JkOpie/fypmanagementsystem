@@ -5,7 +5,6 @@
 
     $conn = setDbConnection();
     session_start();
-
    
     $password = $_POST['password'];
 
@@ -42,6 +41,10 @@
             }
 
             //echo $_SESSION["roles"];
+            if($_SESSION['roles'] == 'student'){
+                header('Location: /fyp/student-dashboard.php');
+                die();
+            }
             header('Location: /fyp/dashboard.php');
         }
        
