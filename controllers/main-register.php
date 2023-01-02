@@ -18,20 +18,18 @@
     if($roles == 'student'){
         $matric_number = $_POST['matric_number'];
         $programmes = $_POST['programmes'];
-    }else if($roles == 'supervisor' || $roles == 'hod'|| $roles == 'fyp_coordinator' || $roles == 'cluster'){
-        $department = $_POST['department'];
-        $staff_id = $_POST['staff_id'];
     }
 
     if($password != $confirm_password ){
         $_SESSION["password_error"] = 'Invalid password or confirm password. Please try again!';
-        header('Location: /fyp/register.php');
+        header('Location: /fyp/admin-register.php');
     }
+
     $userRole = null;
 
-    if($roles == 'supervisor' || $roles == 'hod'|| $roles == 'fyp_coordinator' || $roles == 'cluster'){
-        $userRole = 'staff';
-    }
+    // if($roles == 'supervisor' || $roles == 'hod'|| $roles == 'fyp_coordinator' || $roles == 'cluster'){
+    //     $userRole = 'staffs';
+    // }
 
     $query = "insert into users (name,email,roles,password,handphone) values ('".$name."','".$email."', '".$userRole."','".$password."','".$handphone."')";
     $result = $conn->query($query);
@@ -39,20 +37,8 @@
     if($roles == 'student'){
         $query3 = "insert into students (user_id,matric_number,programmes) values ('".$conn->insert_id."','".$matric_number."', '".$programmes."')";
         $conn->query($query3);
-    }else if($roles == 'admin'){
-
     }
-    else{
-        if($roles == 'cluster'){
-            $query3 = "insert into staffs (user_id,roles,staff_id,department,cluster_status) values ('".$conn->insert_id."','".$roles."', '".$staff_id."', '".$department."', 'cluster')";
-        }else{
-            $query3 = "insert into staffs (user_id,roles,staff_id,department) values ('".$conn->insert_id."','".$roles."', '".$staff_id."', '".$department."')";
-        }
-       
-        $conn->query($query3);
-    }
-
    
-    $_SESSION['success'] = str_replace("_", "", $roles).' Successfully Created';
-    header('Location: /fyp/register-'.str_replace("_", "", $roles).'.php');
+    $_SESSION['success'] = strtoupper($roles).' Successfully Created';
+    header('Location: /fyp/admin-login.php?type='.$roles);
 ?>

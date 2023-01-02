@@ -82,7 +82,8 @@
                     'student_id' => $row['student_id'] ?? null,
                     'student' => $row['student_name'] ?? null,
                     'attachment' => $row['attachment'] ?? null,
-                    'attachment_name' => $row['attachment_name'] ?? null
+                    'attachment_name' => $row['attachment_name'] ?? null,
+                    'fyp_coordinator_status' => $row['fyp_coordinator_status'] ?? null,
                 ];
             }
             
@@ -170,7 +171,7 @@
                     $unixTime = time();
                     if (!move_uploaded_file($attachment["tmp_name"], $target_dir.$unixTime.'.'.$imageFileType)) {
                         $_SESSION['error'] = 'Cant Move Attachment, Error!';
-                        header('Location: /fyp/dashboard.php');
+                        header('Location: /fyp/student-dashboard.php');
                     }
                 }
             
@@ -179,10 +180,10 @@
                 $formatedEndDate = new DateTime($end_date);
               
             
-                $query = "insert into proposals (title,start_date,end_date,status,user_id) values('".$title."','".$formatedStartDate->format('Y-m-d H:i:s')."','".$formatedEndDate->format('Y-m-d H:i:s')."','pending','".$_SESSION['id']."')";
+                $query = "insert into proposals (title,start_date,end_date,status, fyp_coordinator_status ,user_id) values('".$title."','".$formatedStartDate->format('Y-m-d H:i:s')."','".$formatedEndDate->format('Y-m-d H:i:s')."','pending', 'pending', '".$_SESSION['id']."')";
             
                 if($attachment['name'] != ''){
-                    $query = "insert into proposals (title,start_date,end_date,status,user_id,attachment,attachment_name) values('".$title."','".$formatedStartDate->format('Y-m-d H:i:s')."','".$formatedEndDate->format('Y-m-d H:i:s')."','pending','".$_SESSION['id']."','".($unixTime.'.'.$imageFileType)."','".($attachment['name'])."')";
+                    $query = "insert into proposals (title,start_date,end_date,status,fyp_coordinator_status,user_id,attachment,attachment_name) values('".$title."','".$formatedStartDate->format('Y-m-d H:i:s')."','".$formatedEndDate->format('Y-m-d H:i:s')."','pending','pending','".$_SESSION['id']."','".($unixTime.'.'.$imageFileType)."','".($attachment['name'])."')";
                 }
             
                 $result = $conn->query($query);
@@ -206,7 +207,7 @@
                     }
                 }
             
-                header('Location: /fyp/dashboard.php');
+                header('Location: /fyp/student-dashboard.php');
             }
         }else{
             $_SESSION['error'] = 'validate query problem';
@@ -229,7 +230,7 @@
             $unixTime = time();
             if (!move_uploaded_file($attachment["tmp_name"], $target_dir.$unixTime.'.'.$imageFileType)) {
                 $_SESSION['error'] = 'Cant Move Attachment, Error!';
-                header('Location: /fyp/dashboard.php');
+                header('Location: /fyp/student-dashboard.php');
             }
         }
     
@@ -249,7 +250,7 @@
        
         if($result){
             $_SESSION['success'] = 'Proposal Updated!';
-            header('Location: /fyp/dashboard.php');
+            header('Location: /fyp/student-dashboard.php');
         }else{
             echo 'Query Wrong';
             die();
@@ -259,12 +260,17 @@
 
     function updateStatus($status, $proposal_id){
         global $conn;
-
-        $query = "update proposals set status = '".$status."' where id = '".$proposal_id."'";
-        $result = $conn->query($query);
-
         session_start();
 
+        if($_SESSION['roles'] == 'supervisor' || $_SESSION['roles'] == 'fyp_coordinator'){
+            $query = "update proposals set fyp_coordinator_status = '".$status."' where id = '".$proposal_id."'";
+        }
+
+        if($_SESSION['roles'] == 'cluster'){
+            $query = "update proposals set status = '".$status."' where id = '".$proposal_id."'";
+        }
+
+        $result = $conn->query($query);
 
         $userQuery = "select * from proposals where id='".$proposal_id."'";
         $result2 = $conn->query($userQuery);
@@ -274,6 +280,8 @@
             $query2 = "insert into notifications (user_id,status,notification,created_at) values ('".$row['user_id']."','new' ,'".$notification."', '".date('Y-m-d H:i:s')."')";
             $result3 = $conn->query($query2);
         }
+
+        $_SESSION['success'] = 'Proposal Approved';
            
        
     }
@@ -323,7 +331,6 @@
         if($result) {
             header('Location: /fyp/add-proposal.php?type=edit&proposal='.$proposal_id);
         }
-
     }
 
     function getAllSupervisor(){

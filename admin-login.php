@@ -55,12 +55,8 @@ use FontLib\Table\Type\head;
                                                 <?php
 
                                                 if(isset($_REQUEST['type'])){
-                                                    if($_REQUEST['type'] == 'hod' || 
-                                                    $_REQUEST['type'] == 'fyp_coordinator' || 
-                                                    $_REQUEST['type'] == 'cluster' || 
-                                                    $_REQUEST['type'] == 'supervisor'){
+                                                    if($_REQUEST['type'] != 'student' ){
                                                        echo '
-                                                       
                                                            <label class="small mb-1" for="inputEmailAddress">Email</label>
                                                            <input class="form-control" type="email" name="email" placeholder="Enter email address" required
                                                        ';

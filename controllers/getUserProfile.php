@@ -19,18 +19,25 @@
                     $result2 = $conn->query($sql2);
 
                     while($row = $result2->fetch_assoc()) {
-                        $student = ['matric_number' => $row['matric_number'], 'programmes' => $row['programmes'] , 'supervisor_name' => $row['supervisor_name'] , 'status' => $row['status']];
+                        $student = ['matric_number' => $row['matric_number'], 
+                        'programmes' => $row['programmes'] , 
+                        'supervisor_name' => $row['supervisor_name'] , 
+                        'status' => $row['status']];
                     }
 
                     return [$user, $student];
 
                 }else{
                     
-                    $sql2 = "select * from staffs where user_id = '".$_SESSION['id']."'";
+                    $sql2 = "select staffs.*, users.name from staffs left join users on users.id = staffs.cluster_id where user_id = '".$_SESSION['id']."'";
                     $result2 = $conn->query($sql2);
 
                     while($row = $result2->fetch_assoc()) {
-                        $staff = ['staff_id' => $row['staff_id'], 'department' => $row['department']];
+                        //var_dump($row);
+                        $staff = ['staff_id' => $row['staff_id'], 
+                        'department' => $row['department'],
+                        'cluster_name' => $row['name']
+                    ];
                     }
 
                     return [$user, $staff];

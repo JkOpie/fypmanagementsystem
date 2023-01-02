@@ -89,16 +89,12 @@
                                             <th>Title</th>
                                             <th>Start Date</th>
                                             <th>End Date</th>
-                                            <th>Status</th>
+                                            <th>Cluster</th>
+                                            <th>Fyp Coordinator</th>
                                             <th>Student</th>
                                             <!-- <th>Supervisor</th> -->
                                             <th>Attachment</th>
-
-                                            <?php
-                                                if($_SESSION['roles'] != 'hod' && $_SESSION['roles'] != 'cluster' ){
-                                                    echo '<th>Action</th>';
-                                                }
-                                            ?>
+                                            <th>Action</th>
                                            
                                         </tr>
                                     </thead>
@@ -112,25 +108,20 @@
                                                 $editProposal = null;
                                                 $deleteProposal = null;
 
-                                                if($proposal['status'] == 'pending'){
+                                                if($proposal['fyp_coordinator_status'] == 'pending' || $proposal['fyp_coordinator_status'] == null ){
                                                     if($_SESSION['roles'] == 'supervisor' ||  $_SESSION['roles'] == 'fyp_coordinator'){
                                                         $updateApproveStatus = "<button class='btn btn-success btn-sm mb-1' data-status=approved onclick='updateProposalStatus(".$proposal['id'].",this)'>Approve</button>";
                                                         $updateRejectStatus = '<button class="btn btn-danger btn-sm mb-1" data-status=rejected onclick="updateProposalStatus('.$proposal['id'].',this)">Reject</button>';
                                                     }
                                                 }
+                                                //var_dump($proposal['fyp_coordinator_status'] );
 
-                                                if($_SESSION['roles'] == 'student' && $proposal['student_id'] == $_SESSION['id']){
-                                                    if($proposal['status'] != 'approved'){
-                                                        $editProposal = '<button class="btn btn-primary btn-sm mb-1" onclick=editProposal('.$proposal['id'].')> Edit </button>';
-                                                        $deleteProposal = '<button class="btn btn-danger btn-sm mb-1" onclick="deleteProposal('.$proposal['id'].', this)">Delete</button> <br>';
+                                                if($proposal['status'] == 'pending' || $proposal['status'] == null){
+                                                    if($_SESSION['roles'] == 'cluster'){
+                                                        $updateApproveStatus = "<button class='btn btn-success btn-sm mb-1' data-status=approved onclick='updateProposalStatus(".$proposal['id'].",this)'>Approve</button>";
+                                                        $updateRejectStatus = '<button class="btn btn-danger btn-sm mb-1" data-status=rejected onclick="updateProposalStatus('.$proposal['id'].',this)">Reject</button>';
                                                     }
                                                 }
-
-                                                // if($_SESSION['roles'] == 'cluster'){
-                                                //     $editProposal = '<button class="btn btn-primary btn-sm mb-1" onclick=editProposal('.$proposal['id'].')> Asign Supervisor </button>';
-                                                // }
-
-                                                // 
                                             
                                                echo '
                                                         <tr>
@@ -138,6 +129,7 @@
                                                             <td>'.$proposal['start_date'].'</td>
                                                             <td>'.$proposal['end_date'].'</td>
                                                             <td>'.$proposal['status'].'</td>
+                                                            <td>'.$proposal['fyp_coordinator_status'].'</td>
                                                             <td>'.( $proposal['student'] ?? '-') .'</td>
                                                             <td>'.( $proposal['attachment_name'] ? '<a href="assets/proposals/'.$proposal['attachment'].'" target=blank>'.$proposal["attachment_name"].'</a>' : '-').'</td>
                                                             <td>
@@ -165,6 +157,7 @@
             </div>
         </div>
         <?php include('layout_admin/btm_scripts.php')?>
+        <?php include('controllers/include_error.php')?>
     </body>
 
     <script>
@@ -231,6 +224,7 @@
                 }, // serializes the form's elements.
                 success: function(data) { 
                     document.location.reload(true)
+                    //console.log(data);
                 }
             });
 

@@ -43,8 +43,7 @@ require_once("controllers/db_connection.php");
                     <?php 
                         $conn = setDbConnection();
                         $clusters = null;
-                        $query = "select users.* , staffs.id as cluster_id, staffs.staff_id, staffs.department, staffs.cluster_status from users 
-                        left join staffs on staffs.user_id = users.id
+                        $query = "select * from staffs left join users on users.id = staffs.user_id 
                         where staffs.roles = 'cluster' and cluster_status = 'cluster' order by users.id desc";
                         $result = $conn->query($query);
                 
@@ -63,7 +62,7 @@ require_once("controllers/db_connection.php");
                                     <!-- <input type="text" class="form-control w-25 me-3" placeholder="Search">
                                     <button class="btn btn-primary">Search</button> -->
                                 </div>
-                                <table class="table table-bordered table-striped table-hover">
+                                <table class="table table-bordered table-striped table-hover table-responsive">
                                     <thead>
                                         <tr>
                                             <th>Image</th>
@@ -73,6 +72,7 @@ require_once("controllers/db_connection.php");
                                             <th>Phone Number</th>
                                             <th>Staff ID</th>
                                             <th>Department</th>
+                                            <th>Supervisor</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -80,6 +80,25 @@ require_once("controllers/db_connection.php");
                                         <?php 
                                             if( $clusters != NULL){
                                                 foreach ($clusters as $key => $value) {
+
+                                                    $supervisors = [];
+
+                                                    //var_dump($value['user_id']);
+                                                
+                                                    if(isset($value['user_id'])){
+                                                        $sql = "select staffs.*, users.name from staffs left join users on users.id = staffs.user_id where staffs.cluster_id='".$value['user_id']."'"; 
+                                                        $result = $conn->query($sql);
+
+                                                        //var_dump($result);
+
+                                                        if ($result->num_rows > 0) {
+                                                            while ($row = $result->fetch_assoc()) {
+                                                                $supervisors[] = $row['name'];
+                                                            }
+                                                        }
+                                                    }
+
+                                                    //var_dump($supervisors);
 
                                                     $image = null; 
                                                     $checked = null;
@@ -100,10 +119,10 @@ require_once("controllers/db_connection.php");
                                                         <td>'.$value['handphone'].'</td>
                                                         <td>'.$value['staff_id'].'</td>
                                                         <td>'.$value['department'].'</td>
-                                                        <td class="text-center">
-                                                            <div class="form-check d-flex justify-content-center">
-                                                                <a class="btn btn-primary" href=/fyp/assign_supervisor.php?cluster_id='.$value['id'].'>Assign Supervisor</a>
-                                                            </div>
+                                                        <td>'.(isset($supervisors) ? implode(',<br>', $supervisors) : '-').'</td>
+                                                        <td class="">
+                                                            <a class="btn btn-primary btn-sm me-2" href=/fyp/add_assign_supervisor.php?cluster_id='.$value['id'].'>Assign Supervisor</a>
+                                                           
                                                         </td>
                                                     </tr>';
                                                 }

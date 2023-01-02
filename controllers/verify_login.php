@@ -32,7 +32,10 @@
                 $result2 = $conn->query($sql2);
 
                 while($row2 = $result2->fetch_assoc()) {
+                    //var_dump($row2);
+                    
                     $_SESSION["roles"] =  $row2["roles"];
+                    $_SESSION["department"] =  $row2["department"];
                     $_SESSION["cluster_status"] =  $row2["cluster_status"];
                 }
 
@@ -45,6 +48,9 @@
                 header('Location: /fyp/student-dashboard.php');
                 die();
             }
+
+            //var_dump($_SESSION);
+            //die();
             header('Location: /fyp/dashboard.php');
         }
        

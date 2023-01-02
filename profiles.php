@@ -113,8 +113,10 @@ require_once("controllers/db_connection.php");
                                             </div>
                                         </div>
                                         <div class="row gx-3 mb-3">
-                                            <div class="col-md-12 programmes">
+                                        
+                                            <div class="col-md-12 ">
                                                 <?php
+
                                                     if (isset($data)) {
                                                         if ($data[0]['roles'] == 'student') { ?>
                                                             <label class="small mb-1">Programmes</label>
@@ -124,9 +126,10 @@ require_once("controllers/db_connection.php");
                                                                 <option value="computer_science" <?php if($data[1]['programmes'] == 'computer_science'){echo 'selected';}?>>Computer Science</option>
                                                             </select>
                                                         <?php
-                                                        } else { ?>
-                                                        
-                                                        <label class="small mb-1">Department</label>
+                                                        } else { 
+                                                            ?>
+
+                                                        <label class="small mb-2">Department</label>
                                                         <select name=department class=form-select>
                                                             <option value="multimedia" <?php if($data[1]['department'] == 'multimedia'){echo 'selected';}?>>Multimedia</option>
                                                             <option value="information_system" <?php if($data[1]['department'] == 'information_system'){echo 'selected';}?> >Information System</option>
@@ -137,6 +140,22 @@ require_once("controllers/db_connection.php");
                                                     }
                                                 ?>
                                             </div>
+
+                                            
+                                        <?php 
+                                            
+                                            if(isset($data[1]['cluster_name'])){
+                                                echo '
+                                                    <div class="col-md-12 ">
+                                                        <label class="small mb-1">Cluster</label>
+                                                        <input type="text" class="form-control" disabled readonly value="'.$data[1]['cluster_name'].'"> 
+                                                    </div>
+                                                    
+                                                ';
+                                            }
+                                       
+                                            ?>
+
                                         </div>
 
                                         <?php
@@ -144,16 +163,19 @@ require_once("controllers/db_connection.php");
                                         //var_dump($_SESSION);
                                         $conn = setDbConnection();
                                         $supervisors = null;
+                                        
+                                        if($_SESSION['roles'] == 'student'){
+                                            $sql = "select staffs.*, users.name from staffs left join users on users.id = staffs.user_id where staffs.roles='supervisor'and staffs.department = '".$data[1]['programmes']."'";
+                                            $result = $conn->query($sql);
 
-                                        $sql = "select staffs.*, users.name from staffs left join users on users.id = staffs.user_id where staffs.roles='supervisor'and staffs.department = '".$data[1]['programmes']."'";
-                                        $result = $conn->query($sql);
-
-                                        if ($result->num_rows > 0) {
-                                            while ($row = $result->fetch_assoc()) {
-                                                $supervisors[] = $row;
+                                            if ($result->num_rows > 0) {
+                                                while ($row = $result->fetch_assoc()) {
+                                                    $supervisors[] = $row;
+                                                }
                                             }
                                         }
-
+                                       
+                                        
 
                                         if(isset($data)){
                                              if ( isset($data[1]['supervisor_name']) ) {?>
@@ -172,7 +194,7 @@ require_once("controllers/db_connection.php");
                                                     </div>
                                                 </div>
                                             <?php  }else{ ?>
-                                              <div class="row gx-3 mb-3">
+                                              <!-- <div class="row gx-3 mb-3">
                                                     <div class="col-md-12">
                                                         <label class="small mb-1">Supervisor</label>
                                                         <select name="supervisor_id" class="form-control">
@@ -186,7 +208,7 @@ require_once("controllers/db_connection.php");
                                                             ?>
                                                         </select>
                                                     </div>
-                                              </div>
+                                              </div> -->
                                              
 
                                           <?php }

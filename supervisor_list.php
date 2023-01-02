@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('controllers/validateAuthentication.php');
+require_once("controllers/db_connection.php");
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +31,7 @@ include('controllers/validateAuthentication.php');
                                     <div class="col-auto mb-3">
                                         <h1 class="page-header-title">
                                             <div class="page-header-icon"><i data-feather="file"></i></div>
-                                            Student
+                                            Supervisor
                                         </h1>
                                     </div>
                                 </div>
@@ -40,19 +41,28 @@ include('controllers/validateAuthentication.php');
                     <!-- Main page content-->
 
                     <?php 
-                        include('controllers/users.php');
+                        $conn = setDbConnection();
 
-                        if($_SESSION['roles'] == 'fyp_coordinator'){
-                            $students = getStudentSupervisorPending();
+                        $supervisors = null;
+
+                        $query = "select users.* , staffs.id as cluster_id,  staffs.roles as staff_role ,staffs.staff_id, staffs.department, staffs.cluster_status, staffs.user_id from users 
+                        left join staffs on staffs.user_id = users.id
+                        where staffs.roles = 'supervisor' and cluster_id ='".$_SESSION['id']."'  order by users.id desc";
+
+                        $result = $conn->query($query);
+                
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                $supervisors[] = $row;
+                            }
                         }
+                        
                     ?>
 
                     <div class="container-xl px-4">
                         <div class="card mb-4">
                             <div class="card-body">
                                 <div class="d-flex justify-content-end align-items-center mb-3">
-                                    <!-- <input type="text" class="form-control w-25 me-3" placeholder="Search">
-                                    <button class="btn btn-primary">Search</button> -->
                                 </div>
                                 <table class="table table-bordered table-striped table-hover">
                                     <thead>
@@ -62,49 +72,59 @@ include('controllers/validateAuthentication.php');
                                             <th>Position</th>
                                             <th>Email</th>
                                             <th>Phone Number</th>
-                                            <th>Supervisor</th>
-                                            <th>Status</th>
+                                            <th>Staff ID</th>
+                                            <th>Department</th>
+                                            <th>Student</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php 
-                                            if( $students != NULL){
-                                                foreach ($students as $key => $value) {
+                                            if( $supervisors != NULL){
+                                                foreach ($supervisors as $key => $value) {
+                                                    $students = [];
+
+                                                    if(isset($value['user_id'])){
+                                                        $sql = "select students.*, users.name from students left join users on users.id = students.user_id where students.supervisor_id='".$value['user_id']."'"; 
+                                                        $result = $conn->query($sql);
+    
+                                                        if ($result->num_rows > 0) {
+                                                            while ($row = $result->fetch_assoc()) {
+                                                                $students[] = $row['name'];
+                                                            }
+                                                        }
+                                                    }
 
                                                     $image = null; 
-                                                    $checked = 'checked';
-                                                    $approvebtn = null;
-                                                    $rejectbtn = null;
-                                                 
+
+                                                    //var_dump($students);
+
                                                     if(isset($value['image'])){
                                                         $image = '<img class="user-img" src="/fyp/assets/profile/'.$value['image'].'">';
                                                     }else{
                                                         $image = '<img class="user-img" src="/fyp/assets/img/illustrations/profiles/profile-1.png">'; 
                                                     }
 
-                                                    if($value['status'] == 'pending'){
-                                                        $approvebtn = "<button class='btn btn-primary btn-sm me-1 mb-1' onclick='approveSupervisor(".$value['student_id'].")'>Approve Supervisor</button><br>";
-                                                        $rejectbtn = "<button class='btn btn-secondary btn-sm' onclick='rejectSupervisor(".$value['student_id'].")'>Reject Supervisor</button>";
-                                                    }
-    
+                                                    
                                                     echo '
                                                     <tr>
                                                         <td>'.$image.'</td>
                                                         <td>'.$value['name'].'</td>
-                                                        <td>'.$value['roles'].'</td>
+                                                        <td>'.$value['staff_role'].'</td>
                                                         <td>'.$value['email'].'</td>
                                                         <td>'.$value['handphone'].'</td>
-                                                        <td>'.$value['supervisor_name'].'</td>
-                                                        <td>'.$value['status'].'</td>
-                                                        <td>'.$approvebtn.$rejectbtn.' <a class="btn btn-danger btn-sm" href="controllers/fypcoordinator/deleteStudent.php?student_id='.$value['id'].'">Delete</a></td>
+                                                        <td>'.$value['staff_id'].'</td>
+                                                        <td>'.$value['department'].'</td>
+                                                        <td>'.(isset($students) ? implode(',<br>', $students) : '-').'</td>
+                                                        <td class="">
+                                                            <a class="btn btn-primary btn-sm" href="assign_supervisor_student.php?supervisor_id='.$value['user_id'].'">Assign Student</a>
+                                                            <a href="edit-supervisor.php?supervisor_id='.$value['id'].'" class="btn btn-sm btn-secondary">Edit</a>
+                                                            <a href="controllers/delete-supervisor.php?supervisor_id='.$value['id'].'" class="btn btn-sm btn-danger">Delete</a>
+                                                        </td>
                                                     </tr>';
                                                 }
                                             }else{
-                                                // /var_dump($_SESSION['roles']);
-                                                if($_SESSION['roles'] == 'cluster'){
-                                                    echo '<tr><td colspan=8>No Student Available</td></tr>';
-                                                }
+                                                echo '<tr><td colspan=8>No Supervisor Assign to this cluster</td></tr>';
                                             }
                                           
                                             
@@ -125,37 +145,7 @@ include('controllers/validateAuthentication.php');
     </body>
     
     <script>
-        function approveSupervisor(student_id){
-            
-            $.ajax({
-                type: "POST",
-                url: '/fyp/controllers/users.php',
-                data: {
-                    'type' : 'updateSupervisorStatus',
-                    'student_id' : student_id,
-                    'status' : 'approved',
-                }, // serializes the form's elements.
-                success: function(data) { 
-                    window.location.reload();
-                }
-            });
-        }
-
-        function rejectSupervisor(student_id){
-            
-            $.ajax({
-                type: "POST",
-                url: '/fyp/controllers/users.php',
-                data: {
-                    'type' : 'updateSupervisorStatus',
-                    'student_id' : student_id,
-                    'status' : null,
-                }, // serializes the form's elements.
-                success: function(data) { 
-                    window.location.reload();
-                }
-            });
-        }
+     
     </script>
     <?php include('controllers/include_error.php')?>
 </html>

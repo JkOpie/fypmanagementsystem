@@ -72,7 +72,7 @@ require_once("controllers/db_connection.php");
                         <div class="card mb-4">
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <form action="controllers/add_assign_supervisor.php" method="post">
+                                    <form action="controllers/cluster/add_assign_supervisor.php" method="post">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label class="form-label">Supervisor</label>
@@ -96,7 +96,78 @@ require_once("controllers/db_connection.php");
                                 </div>
                             </div>
                         </div>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <?php 
+                                        $sql = "select staffs.*,staffs.roles as supervisor_role , users.name,  users.email, users.handphone, users.image from staffs  left join users on users.id = staffs.user_id where cluster_id='".$_REQUEST['cluster_id']."'";
+                                        $result = $conn->query($sql);
+                                        $supervisors = null;
+
+                                        if ($result->num_rows > 0) {
+                                            while ($row = $result->fetch_assoc()) {
+                                                $supervisors[] = $row;
+                                            }
+                                        }
+                                        
+                                        if($supervisors != null){
+                                        
+                                        ?>
+
+                                    <label class="mb-1">Supervisor</label>
+                                    <table class="table table-bordered table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Image</th>
+                                                <th>Name</th>
+                                                <th>Position</th>
+                                                <th>Email</th>
+                                                <th>Phone Number</th>
+                                                <th>Staff ID</th>
+                                                <th>Department</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                    <tbody>
+                                        <?php
+                                           
+                                                foreach ($supervisors as $key => $value) {
+                                                    $image = null;
+
+                                                    if(isset($value['image'])){
+                                                        $image = '<img class="user-img" src="/fyp/assets/profile/'.$value['image'].'">';
+                                                    }else{
+                                                        $image = '<img class="user-img" src="/fyp/assets/img/illustrations/profiles/profile-1.png">'; 
+                                                    }
+
+                                                    echo 
+                                                    '
+                                                        <tr>
+                                                            <td>'.$image.'</td>
+                                                            <td>'.$value['name'].'</td>
+                                                            <td>'.$value['supervisor_role'].'</td>
+                                                            <td>'.$value['email'].'</td>
+                                                            <td>'.$value['handphone'].'</td>
+                                                            <td>'.$value['staff_id'].'</td>
+                                                            <td>'.$value['department'].'</td>
+                                                            <td><a class="btn btn-danger btn-sm" href="controllers/cluster/delete_assign_supervisor.php?cluster_id='.$_REQUEST['cluster_id'].'&supervisor_id='.$value['id'].'">Delete</a></td>
+                                                        </tr>
+                                                    ';
+                                                }
+                                              
+
+                                           
+                                        ?>
+                                    </tbody>
+                                    </table>
+                                        <?php 
+                                         }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    
                     
                 </main>
                 <?php include('layout_admin/footer.php')?>

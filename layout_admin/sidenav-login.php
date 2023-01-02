@@ -20,6 +20,9 @@
             <a class="nav-link" href="/fyp/admin-login.php?type=hod">
                 HOD Login
             </a>
+            <a class="nav-link" href="/fyp/admin-login.php?type=admin">
+                Administrator Login
+            </a>
         </div>
     </div>
     

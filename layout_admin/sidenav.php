@@ -34,12 +34,46 @@
                     ';
                 }
 
+                if($_SESSION['roles'] == 'supervisor'){
+                    echo '
+                    <div class="">
+                        <a class="nav-link" href="/fyp/student_supervisor.php">
+                        <div class="nav-link-icon"> <i class="fa-solid fa-users"></i></div>
+                                Students under Supervisor
+                        </a>
+                    </div>
+                    ';
+                }
+
                 echo '
                 <a class="nav-link" href="/fyp/profiles.php">
                     <div class="nav-link-icon"><i class="fa-solid fa-user"></i></div>
                     Profile
                 </a>
                 ';
+
+                if($_SESSION['roles'] == 'admin'){
+                    echo '
+                    <div class="">
+                        <a class="nav-link" href="/fyp/register-hod.php">
+                        <div class="nav-link-icon"> <i class="fa-solid fa-users"></i></div>
+                                Register HOD
+                        </a>
+                    </div>
+                    ';
+
+                    echo '
+                    <div class="">
+                        <a class="nav-link" href="/fyp/hod-list.php">
+                        <div class="nav-link-icon"> <i class="fa-solid fa-users"></i></div>
+                            HOD List
+                        </a>
+                    </div>
+                    ';
+                }
+
+
+
 
 
                 include_once('controllers/proposal.php');
@@ -75,12 +109,12 @@
                         </a>
                     ';
 
-                    // echo '
-                    //     <a class="nav-link" href="/fyp/finalize_supervisor.php">
-                    //         <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                    //         Finalize Supervisors
-                    //     </a>
-                    // ';
+                    echo '
+                        <a class="nav-link" href="/fyp/finalize_supervisor.php">
+                            <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                            Finalize Supervisors
+                        </a>
+                    ';
                 }
 
                 if($_SESSION['roles'] == 'hod'){
@@ -111,6 +145,7 @@
                 //     ';
                 // }
 
+
                 if($_SESSION['roles'] == 'cluster'){
                     echo '
                         <a class="nav-link" href="/fyp/register-supervisor.php">
@@ -119,6 +154,14 @@
                         </a>
                     ';
 
+                    if($_SESSION['cluster_status'] != 'lead_cluster'){
+                        echo '
+                        <a class="nav-link" href="/fyp/supervisor_list.php">
+                            <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                            Assign Student to Supervisor
+                        </a>
+                    ';
+                    }
                   
                 }
                 
@@ -127,7 +170,7 @@
                         echo '
                         <a class="nav-link" href="/fyp/cluster-listing.php">
                             <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                             Cluster
+                             Assign Supervisor to Cluster
                         </a>
                     ';
                     }

@@ -89,7 +89,8 @@
                                             <th>Title</th>
                                             <th>Start Date</th>
                                             <th>End Date</th>
-                                            <th>Status</th>
+                                            <th>FYP Coordinator</th>
+                                            <th>Cluster</th>
                                             <th>Student</th>
                                             <!-- <th>Supervisor</th> -->
                                             <th>Attachment</th>
@@ -122,6 +123,7 @@
                                                             <td>'.$proposal['title'].'</td>
                                                             <td>'.$proposal['start_date'].'</td>
                                                             <td>'.$proposal['end_date'].'</td>
+                                                            <td>'.$proposal['fyp_coordinator_status'].'</td>
                                                             <td>'.$proposal['status'].'</td>
                                                             <td>'.( $proposal['student'] ?? '-') .'</td>
                                                             <td>'.( $proposal['attachment_name'] ? '<a href="assets/proposals/'.$proposal['attachment'].'" target=blank>'.$proposal["attachment_name"].'</a>' : '-').'</td>
