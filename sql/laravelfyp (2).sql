@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 24, 2022 at 07:01 AM
+-- Generation Time: Jan 02, 2023 at 01:26 PM
 -- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.29
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,18 @@ SET time_zone = "+00:00";
 --
 -- Database: `laravelfyp`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cluster_supervisor`
+--
+
+CREATE TABLE `cluster_supervisor` (
+  `id` int(11) NOT NULL,
+  `cluster_id` varchar(255) DEFAULT NULL,
+  `supervisor_id` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -79,12 +91,56 @@ CREATE TABLE `notifications` (
 --
 
 INSERT INTO `notifications` (`id`, `user_id`, `notification`, `status`, `created_at`, `updated_at`) VALUES
-(8, '14', 'supervisor1 approved proposal asdasds', 'read', '2022-12-21 17:55:17', NULL),
-(9, '14', 'supervisor1 rejected proposal asdasd', 'read', '2022-12-21 17:55:18', NULL),
-(10, '7', 'supervisor1 approved proposal asdasd', 'read', '2022-12-21 21:03:00', NULL),
-(11, '14', 'supervisor1 approved proposal adasd', 'read', '2022-12-21 21:03:01', NULL),
-(12, '14', 'fypcoordinator approved supervisor2 as your supervisor', 'read', '2022-12-21 22:20:13', NULL),
-(13, '14', 'fypcoordinator rejected supervisor2 as your supervisor', 'read', '2022-12-21 22:20:52', NULL);
+(31, '9', 'Student aabb has created fyp proposals, please review the proposals!', 'read', NULL, NULL),
+(32, '10', 'Student aabb has created fyp proposals, please review the proposals!', 'read', NULL, NULL),
+(33, '11', 'Student aabb has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(34, '17', 'Student aabb has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(35, '18', 'Student aabb has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(36, '19', 'Student aabb has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(37, '9', 'Student aabb has created fyp proposals, please review the proposals!', 'read', NULL, NULL),
+(38, '10', 'Student aabb has created fyp proposals, please review the proposals!', 'read', NULL, NULL),
+(39, '11', 'Student aabb has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(40, '17', 'Student aabb has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(41, '18', 'Student aabb has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(42, '19', 'Student aabb has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(43, '14', 'supervisor1 approved proposal test proposal test', 'new', '2022-12-24 17:38:42', NULL),
+(44, '9', 'Student sdsd has created fyp proposals, please review the proposals!', 'read', NULL, NULL),
+(45, '10', 'Student sdsd has created fyp proposals, please review the proposals!', 'read', NULL, NULL),
+(46, '11', 'Student sdsd has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(47, '17', 'Student sdsd has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(48, '18', 'Student sdsd has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(49, '19', 'Student sdsd has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(50, '7', 'supervisor1 approved proposal fghfgh', 'read', '2022-12-24 20:02:30', NULL),
+(51, '20', 'fypcoordinator approved supervisor1 as your supervisor', 'new', '2022-12-24 20:04:50', NULL),
+(52, '20', 'fypcoordinator approved supervisor1 as your supervisor', 'new', '2022-12-24 20:18:26', NULL),
+(53, '14', 'fypcoordinator approved supervisor1 as your supervisor', 'new', '2022-12-24 20:18:27', NULL),
+(54, '7', 'fypcoordinator approved supervisor2 as your supervisor', 'read', '2022-12-24 20:18:27', NULL),
+(55, '9', 'Student sdsd has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(56, '10', 'Student sdsd has created fyp proposals, please review the proposals!', 'read', NULL, NULL),
+(57, '11', 'Student sdsd has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(58, '17', 'Student sdsd has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(59, '18', 'Student sdsd has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(60, '19', 'Student sdsd has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(61, '9', 'Student sdsd has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(62, '10', 'Student sdsd has created fyp proposals, please review the proposals!', 'read', NULL, NULL),
+(63, '11', 'Student sdsd has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(64, '17', 'Student sdsd has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(65, '9', 'Student sdsd has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(66, '10', 'Student sdsd has created fyp proposals, please review the proposals!', 'read', NULL, NULL),
+(67, '11', 'Student sdsd has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(68, '17', 'Student sdsd has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(69, '7', 'supervisor1 approved proposal asdasda', 'new', '2023-01-01 23:06:17', NULL),
+(70, '7', 'supervisor1 approved proposal asdasda', 'new', '2023-01-01 23:12:53', NULL),
+(71, '7', 'supervisor1 approved proposal asdasda', 'new', '2023-01-01 23:12:55', NULL),
+(72, '7', 'supervisor1 approved proposal asdasda', 'new', '2023-01-01 23:15:38', NULL),
+(73, '7', 'supervisor1 approved proposal asdasda', 'new', '2023-01-01 23:15:47', NULL),
+(74, '7', 'supervisor1 approved proposal asdasda', 'new', '2023-01-01 23:16:17', NULL),
+(75, '7', 'asd approved proposal asdasda', 'new', '2023-01-01 23:19:59', NULL),
+(76, '14', 'fypcoordinator approved proposal test proposal test', 'new', '2023-01-01 23:27:32', NULL),
+(77, '25', 'fypcoordinator  supervisor1 as your supervisor', 'new', '2023-01-02 04:50:11', NULL),
+(78, '26', 'fypcoordinator approved supervisor2 as your supervisor', 'new', '2023-01-02 04:50:12', NULL),
+(79, '14', 'fypcoordinator approved proposal test proposal test', 'new', '2023-01-02 04:51:21', NULL),
+(80, '14', 'asdasd approved proposal test proposal test', 'new', '2023-01-02 04:52:26', NULL);
 
 -- --------------------------------------------------------
 
@@ -130,7 +186,7 @@ CREATE TABLE `proposals` (
   `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
   `supervisor_id` bigint(20) DEFAULT NULL,
-  `supervisor_status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fyp_coordinator_status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `attachment` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `attachment_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -141,9 +197,9 @@ CREATE TABLE `proposals` (
 -- Dumping data for table `proposals`
 --
 
-INSERT INTO `proposals` (`id`, `title`, `start_date`, `end_date`, `status`, `user_id`, `supervisor_id`, `supervisor_status`, `attachment`, `attachment_name`, `created_at`, `updated_at`) VALUES
-(8, 'adasd', '2022-12-23 00:00:00', '2022-12-24 00:00:00', 'approved', 14, NULL, NULL, '1671673421.pdf', '164799-188078_20221130.pdf', NULL, NULL),
-(9, 'asdasd', '2022-12-23 00:00:00', '2022-12-31 00:00:00', 'approved', 7, NULL, NULL, '1671681741.pdf', 'mypdf (8).pdf', NULL, NULL);
+INSERT INTO `proposals` (`id`, `title`, `start_date`, `end_date`, `status`, `user_id`, `supervisor_id`, `fyp_coordinator_status`, `attachment`, `attachment_name`, `created_at`, `updated_at`) VALUES
+(20, 'test proposal test', '2022-12-25 00:00:00', '2022-12-31 00:00:00', 'approved', 14, NULL, 'approved', '1671928696.png', 'Clow Steak.png', NULL, NULL),
+(24, 'asdasda', '2023-01-05 00:00:00', '2023-01-13 00:00:00', 'approved', 7, NULL, 'approved', '1672631696.png', 'Copy of Gold Green Watercolor Thank you Card.png', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -161,23 +217,23 @@ CREATE TABLE `staffs` (
   `cluster_status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `cluster_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `staffs`
 --
 
-INSERT INTO `staffs` (`id`, `user_id`, `roles`, `staff_id`, `department`, `fypcoordinator_status`, `cluster_status`, `status`, `created_at`, `updated_at`) VALUES
-(1, 8, 'hod', '1', 'Faculty of Education & Social Sciences', NULL, NULL, NULL, NULL, NULL),
-(2, 9, 'fyp_coordinator', '1', 'Faculty of Communication, Visual Art & Computing', NULL, NULL, NULL, NULL, NULL),
-(3, 10, 'supervisor', '1', 'Faculty of Communication, Visual Art & Computing', 'allocated', 'allocated', NULL, NULL, NULL),
-(4, 11, 'supervisor', '1', 'Faculty of Communication, Visual Art & Computing', 'allocated', 'allocated', NULL, NULL, NULL),
-(5, 12, 'cluster', '1', 'Faculty of Communication, Visual Art & Computing', NULL, NULL, NULL, NULL, NULL),
-(7, 16, 'cluster', 'asda', 'Faculty of Education & Social Sciences', NULL, NULL, NULL, NULL, NULL),
-(8, 17, 'supervisor', '1', 'Faculty of Education & Social Sciences', 'allocated', NULL, NULL, NULL, NULL),
-(9, 18, 'supervisor', 'asdasd', 'Faculty of Education & Social Sciences', 'allocated', NULL, NULL, NULL, NULL),
-(10, 19, 'supervisor', 'sdsf', 'Faculty of Education & Social Sciences', 'allocated', NULL, NULL, NULL, NULL);
+INSERT INTO `staffs` (`id`, `user_id`, `roles`, `staff_id`, `department`, `fypcoordinator_status`, `cluster_status`, `status`, `created_at`, `updated_at`, `cluster_id`) VALUES
+(2, 9, 'fyp_coordinator', '1', 'multimedia', NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 10, 'supervisor', '1', 'multimedia', 'allocated', 'allocated', NULL, NULL, NULL, '50'),
+(4, 11, 'supervisor', '1', 'multimedia', 'allocated', 'allocated', NULL, NULL, NULL, '50'),
+(5, 12, 'cluster', '1', 'multimedia', NULL, 'lead_cluster', NULL, NULL, NULL, NULL),
+(8, 17, 'supervisor', '12', 'multimedia', 'allocated', NULL, NULL, NULL, NULL, '50'),
+(13, 29, 'fyp_coordinator', 'asd@gmail.com', 'multimedia', NULL, NULL, NULL, NULL, NULL, NULL),
+(32, 46, 'hod', 'hod2@gmail.com', 'multimedia', NULL, 'cluster', NULL, NULL, NULL, NULL),
+(33, 50, 'cluster', '11', 'multimedia', NULL, 'cluster', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -201,8 +257,11 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `user_id`, `matric_number`, `programmes`, `supervisor_id`, `status`, `created_at`, `updated_at`) VALUES
-(1, 7, '1', 'Bachelor of Computer Science (Software Engineering)(Hons)', 11, 'approved', NULL, NULL),
-(3, 14, '11', 'Bachelor of Computer Science (Software Engineering)(Hons)', 11, 'rejected', NULL, NULL);
+(1, 7, '1', 'multimedia', 10, 'approve', NULL, NULL),
+(3, 14, '11', 'multimedia', 10, 'approved', NULL, NULL),
+(6, 25, 'asdas', 'multimedia', 10, '', NULL, NULL),
+(7, 26, 'asdasdasdad', 'multimedia', 11, 'approved', NULL, NULL),
+(8, 25, 'fdgdgdfg', 'multimedia', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -213,7 +272,7 @@ INSERT INTO `students` (`id`, `user_id`, `matric_number`, `programmes`, `supervi
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `handphone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `roles` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -227,21 +286,35 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `handphone`, `roles`, `password`, `image`, `created_at`, `updated_at`) VALUES
-(7, 'sdsd', 'asd@gmail.coom', '1', 'student', '1', '1671175318.jpeg', NULL, NULL),
-(8, 'asdd', 'hod@gmail.com', '1', 'hod', '1', '1671279477.jpeg', NULL, NULL),
-(9, 'fypcoordinator', 'fypcoordinator@gmail.com', '1', 'staff', '1', NULL, NULL, NULL),
-(10, 'supervisor1', 'supervisor@gmail.com', '1', 'staff', '1', NULL, NULL, NULL),
-(11, 'supervisor2', 'supervisor2@gmail.com', '1', 'staff', '1', NULL, NULL, NULL),
-(12, 'cluster', 'cluster@gmail.com', '1', 'staff', '1', NULL, NULL, NULL),
-(14, 'aabb', 'asd@gmail.com', '11', 'student', '1', '1671280270.jpeg', NULL, NULL),
-(16, 'asd', 'asdjj@gmail.com', '1', 'cluster', '123', NULL, NULL, NULL),
-(17, 'asdasd', 'ahmadsyaafi96@yahoo.com', '', 'staff', 'asd', NULL, NULL, NULL),
-(18, 'asdasd', 'assyaafi96@gmail.com', '', 'staff', '1', NULL, NULL, NULL),
-(19, 'fdgdfg', 'fsdfs@gmail.com', '', 'staff', '123', NULL, NULL, NULL);
+(7, 'sdsd', 'student@gmail.com', '1', 'student', 'Abc123!', '1671175318.jpeg', NULL, NULL),
+(9, 'fypcoordinator', 'fypcoordinator@gmail.com', '1', 'staff', 'Abc123!', NULL, NULL, NULL),
+(10, 'supervisor1', 'supervisor1@gmail.com', '1', 'staff', 'Abc123!', NULL, NULL, NULL),
+(11, 'supervisor2', 'supervisor@gmail.com', '1', 'staff', 'Abc123!', NULL, NULL, NULL),
+(12, 'cluster', 'leadcluster@gmail.com', '1', 'staff', 'Abc123!', NULL, NULL, NULL),
+(14, 'aabb', 'student1@gmail.com', '11', 'student', 'Abc123!', '1671280270.jpeg', NULL, NULL),
+(17, 'asdasd', 'supervisor17@gmail.com', '', 'staff', 'Abc123!', '1672652786.png', NULL, NULL),
+(25, 'asdsad', 'asd@gmail.com', '12313', 'student', 'Abc123!', NULL, NULL, NULL),
+(26, 'asdsad', 'asd@gmail.coma', '11', 'student', 'Abc123!', NULL, NULL, NULL),
+(38, 'Ahmad Syaafi Hanafiah', 'assyaafi96@gmail.com', '11', 'staff', 'Abc123!', NULL, NULL, NULL),
+(40, 'Ahmad Syaafi Hanafiah', 'asdgfsg@asda.com', '1', '', 'Abc123!', NULL, NULL, NULL),
+(41, 'Ahmad Syaafi Hanafiah', 'asdgfsg@asda.com', '1', 'staff', 'Abc123!', NULL, NULL, NULL),
+(42, 'Ahmad Syaafi Hanafiah', 'asdgfsg@asda.com', '1', 'staff', 'Abc123!', NULL, NULL, NULL),
+(44, 'admin', 'admin@gmail.com', '1', 'admin', 'Abc123!', '1672563271.jpeg', NULL, NULL),
+(46, 'hod22', 'hod2@gmail.com', '1', 'staff', 'Abc123!', '1672563409.jpeg', NULL, NULL),
+(47, '', 'admin3@gmail.com', '1', '', 'Abc123!', NULL, NULL, NULL),
+(48, '', 'admin2@gmail.com', '1', '', 'Abc123!', NULL, NULL, NULL),
+(49, '', 'ggmail@gmail.com', '1', '', 'Abc123!', NULL, NULL, NULL),
+(50, 'asdasd', 'cluster@gmail.com', '1', 'staff', 'Abc123!', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `cluster_supervisor`
+--
+ALTER TABLE `cluster_supervisor`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -298,12 +371,17 @@ ALTER TABLE `students`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `cluster_supervisor`
+--
+ALTER TABLE `cluster_supervisor`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -321,7 +399,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -333,25 +411,25 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `proposals`
 --
 ALTER TABLE `proposals`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `staffs`
 --
 ALTER TABLE `staffs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
