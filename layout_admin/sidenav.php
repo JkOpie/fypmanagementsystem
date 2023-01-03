@@ -65,6 +65,22 @@
                         </a>
                     <hr>
                     ';
+
+                    echo '
+                    
+                    <a class="nav-link" href="/fyp/register-cluster.php">
+                        Register Cluster
+                    </a>
+
+                    <hr>
+
+                    <a class="nav-link" href="/fyp/cluster-list.php">
+                        Cluster List
+                    </a>
+
+                    <hr>
+
+                    ';
                 }
 
 
@@ -117,12 +133,6 @@
 
                         <hr>
 
-                        <a class="nav-link" href="/fyp/register-cluster.php">
-                            Register Cluster
-                        </a>
-
-                        <hr>
-
                         <a class="nav-link" href="/fyp/fyp-coordinator-list.php">
                            FYP Cooordinator list
                         </a>
@@ -132,6 +142,10 @@
                         <a class="nav-link" href="/fyp/appoint-lead-cluster.php">
                             Appoint Lead Cluster
                         </a>
+
+                        <hr>
+
+                      
                     ';
                 }
 

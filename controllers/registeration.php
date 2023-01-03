@@ -63,6 +63,9 @@
     }elseif($roles == 'supervisor'){
         header('Location: /fyp/supervisor_list.php');
         die();
+    }elseif($roles == 'hod'){
+        header('Location: /fyp/hod-list.php');
+        die();
     }
     header('Location: /fyp/register-'.str_replace("_", "", $roles).'.php');
 ?>

@@ -31,7 +31,7 @@ require_once("controllers/db_connection.php");
                                     <div class="col-auto mb-3">
                                         <h1 class="page-header-title">
                                             <div class="page-header-icon"><i data-feather="file"></i></div>
-                                            Approve Student
+                                                Students
                                         </h1>
                                     </div>
                                 </div>

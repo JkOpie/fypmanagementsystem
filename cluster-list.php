@@ -31,7 +31,7 @@ require_once("controllers/db_connection.php");
                                     <div class="col-auto mb-3">
                                         <h1 class="page-header-title">
                                             <div class="page-header-icon"><i data-feather="file"></i></div>
-                                            HOD
+                                            Cluster
                                         </h1>
                                     </div>
                                 </div>
@@ -45,7 +45,7 @@ require_once("controllers/db_connection.php");
                         $clusters = null;
                         $query = "select users.* , staffs.id as cluster_id, staffs.staff_id, staffs.department, staffs.cluster_status from users 
                         left join staffs on staffs.user_id = users.id
-                        where staffs.roles = 'hod' order by users.id desc";
+                        where staffs.roles = 'cluster' order by users.id desc";
                         $result = $conn->query($query);
                 
                         if ($result->num_rows > 0) {
@@ -98,7 +98,7 @@ require_once("controllers/db_connection.php");
                                                         <td>'.$value['handphone'].'</td>
                                                         <td>'.$value['staff_id'].'</td>
                                                         <td>'.$value['department'].'</td>
-                                                        <td class="text-center">
+                                                        <td class="">
                                                             <a href="edit-hod.php?hod_id='.$value['id'].'" class="btn btn-sm btn-primary">Edit</a>
                                                             <a href="controllers/delete-hod.php?hod_id='.$value['id'].'" class="btn btn-sm btn-danger">Delete</a>
                                                         </td>

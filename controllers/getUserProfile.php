@@ -28,6 +28,7 @@
                     return [$user, $student];
 
                 }else{
+                    $staff = null;
                     
                     $sql2 = "select staffs.*, users.name from staffs left join users on users.id = staffs.cluster_id where user_id = '".$_SESSION['id']."'";
                     $result2 = $conn->query($sql2);

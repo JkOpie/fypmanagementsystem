@@ -79,11 +79,19 @@ require_once("controllers/db_connection.php");
 
                                     <form action="controllers/updateUserProfile.php" method="post" >
                                         <div class="row gx-3 mb-3">
-                                            <div class="col-md-6">
+                                        <?php 
+                                                //var_dump($_SESSION['roles'] );
+                                                if($_SESSION['roles'] != 'admin'){
+                                                    echo '<div class="col-md-6">';
+                                                }else{ echo '<div class="col-md-12">'; }?>
+
                                                 <label class="small mb-1" for="inputUsername">Name</label>
                                                 <input class="form-control" type="text" placeholder="Enter your username" value="<?php echo $data[0]['name'] ?>" name="name" />
                                             </div>
-                                            <div class="col-md-6">
+                                           
+                                                    <div class="col-md-6">
+                                               
+                                            
                                                 <?php
                                                 if (isset($data)) {
                                                     if ($data[0]['roles'] == 'student') {
@@ -92,10 +100,13 @@ require_once("controllers/db_connection.php");
                                                                     <input class="form-control" type="text" placeholder="Enter Matic Number" value="' . $data[1]['matric_number'] . '" name=matric_number required />
                                                                 ';
                                                     } else {
-                                                        echo '
-                                                                    <label class="small mb-1">Staff ID</label>
-                                                                    <input class="form-control" type="text" placeholder="Enter Staff ID" value="' . $data[1]['staff_id'] . '" name=staff_id required/>
-                                                                ';
+                                                        if(isset($data[1]['staff_id'])){
+                                                            echo '
+                                                                <label class="small mb-1">Staff ID</label>
+                                                                <input class="form-control" type="text" placeholder="Enter Staff ID" value="' . $data[1]['staff_id'] . '" name=staff_id required/>
+                                                            ';
+                                                        }
+                                                       
                                                     }
                                                 } else {
                                                 }
@@ -112,51 +123,59 @@ require_once("controllers/db_connection.php");
                                                 <input class="form-control" type="text" placeholder="Enter phone number" value="<?php if (isset($data)) {echo $data[0]['handphone'];} ?>" name="phone_number" />
                                             </div>
                                         </div>
-                                        <div class="row gx-3 mb-3">
-                                        
-                                            <div class="col-md-12 ">
+                                     
                                                 <?php
 
                                                     if (isset($data)) {
                                                         if ($data[0]['roles'] == 'student') { ?>
+                                                           <div class="row gx-3 mb-3">
+                                                            <div class="col-md-12 ">
                                                             <label class="small mb-1">Programmes</label>
                                                             <select name=programmes class=form-select>
                                                                 <option value="multimedia" <?php if($data[1]['programmes'] == 'multimedia'){echo 'selected';}?>>Multimedia</option>
                                                                 <option value="information_system" <?php if($data[1]['programmes'] == 'information_system'){echo 'selected';}?> >Information System</option>
                                                                 <option value="computer_science" <?php if($data[1]['programmes'] == 'computer_science'){echo 'selected';}?>>Computer Science</option>
                                                             </select>
+                                                            </div>
+                                                           </div>
                                                         <?php
                                                         } else { 
-                                                            ?>
 
-                                                        <label class="small mb-2">Department</label>
-                                                        <select name=department class=form-select>
-                                                            <option value="multimedia" <?php if($data[1]['department'] == 'multimedia'){echo 'selected';}?>>Multimedia</option>
-                                                            <option value="information_system" <?php if($data[1]['department'] == 'information_system'){echo 'selected';}?> >Information System</option>
-                                                            <option value="computer_science" <?php if($data[1]['department'] == 'computer_science'){echo 'selected';}?>>Computer Science</option>
-                                                        </select>
+                                                            if($_SESSION['roles'] != 'admin'){
+                                                            ?>
+                                                            <div class="row gx-3 mb-3">
+                                                            <div class="col-md-12 ">
+                                                            <label class="small mb-2">Department</label>
+                                                            <select name=department class=form-select>
+                                                                <option value="multimedia" <?php if($data[1]['department'] == 'multimedia'){echo 'selected';}?>>Multimedia</option>
+                                                                <option value="information_system" <?php if($data[1]['department'] == 'information_system'){echo 'selected';}?> >Information System</option>
+                                                                <option value="computer_science" <?php if($data[1]['department'] == 'computer_science'){echo 'selected';}?>>Computer Science</option>
+                                                            </select>
+                                                            </div>
+                                                            </div>
                                                         
-                                                        <?php }
+                                                        <?php }}
                                                     }
                                                 ?>
-                                            </div>
+                                            
 
                                             
                                         <?php 
                                             
                                             if(isset($data[1]['cluster_name'])){
                                                 echo '
+                                                <div class="row gx-3 mb-3">
                                                     <div class="col-md-12 ">
                                                         <label class="small mb-1">Cluster</label>
                                                         <input type="text" class="form-control" disabled readonly value="'.$data[1]['cluster_name'].'"> 
                                                     </div>
-                                                    
+                                                 </div>
                                                 ';
                                             }
                                        
                                             ?>
 
-                                        </div>
+                                        
 
                                         <?php
                                         
@@ -215,7 +234,14 @@ require_once("controllers/db_connection.php");
                                         } ?>
                                         
 
-                                        <div class="row gx-3 mb-3">
+                                        <?php 
+                                        
+                                        if($_SESSION['roles'] != 'admin'){
+                                            echo ' <div class="row gx-3 mb-3">';
+                                        }else{
+                                            echo ' <div class="row gx-3 mb-3">';
+                                        }?>
+                                       
                                             <div class="col-md-12">
                                                 <label class="small mb-1" for="inputLastName">Roles</label>
                                                 <input class="form-control" type="text" name="roles" value="<?php echo strtoupper($_SESSION['roles']) ?>" disabled />
@@ -229,8 +255,7 @@ require_once("controllers/db_connection.php");
                                 </form>
                             </div>
                         </div>
-                    </div>
-                </div>
+                  
 
             </main>
             <?php include('layout_admin/footer.php') ?>
