@@ -97,6 +97,83 @@ require_once("controllers/db_connection.php");
                             </div>
                         </div>
                     </div>
+
+                    <?php 
+                        $students = null;
+                        $sql = "select students.*, users.name, users.image, users.handphone, users.email, users.roles from students left join users on users.id = students.user_id where students.supervisor_id='{$_REQUEST['supervisor_id']}'";
+                        $result = $conn->query($sql);
+
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                $students[] = $row;
+                            }
+                        }
+                        //var_dump($students);
+
+                        if($students != null){ ?>
+                            <div class="container-xl px-4">
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <label class="mb-1">Students</label>
+
+                                            <table class="table table-bordered table-striped table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Image</th>
+                                                        <th>Name</th>
+                                                        <th>Position</th>
+                                                        <th>Email</th>
+                                                        <th>Phone Number</th>
+                                                        <th>Matric Number</th>
+                                                        <th>Programmes</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php 
+                                                    
+                                                        foreach ($students as $key => $value) {
+                                                            $image = null;
+
+                                                            if(isset($value['image'])){
+                                                                $image = '<img class="user-img" src="/fyp/assets/profile/'.$value['image'].'">';
+                                                            }else{
+                                                                $image = '<img class="user-img" src="/fyp/assets/img/illustrations/profiles/profile-1.png">'; 
+                                                            }
+
+
+                                                            echo '
+                                                                <tr>
+                                                                    <td>'.$image.'</td>
+                                                                    <td>'.$value['name'].'</td>
+                                                                    <td>'.$value['roles'].'</td>
+                                                                    <td>'.$value['email'].'</td>
+                                                                    <td>'.$value['handphone'].'</td>
+                                                                    <td>'.$value['matric_number'].'</td>
+                                                                    <td>'.$value['programmes'].'</td>
+                                                                    <td class="">
+                                                                        <a class="btn btn-sm btn-danger" href="controllers/cluster/deleteStudent.php?student_id='.$value['id'].'&supervisor_id='.$_REQUEST['supervisor_id'].'">Delete</a>
+                                                                    </td>
+                                                                </tr>
+                                                            ';
+                                                            
+                                                        }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+
+                      
+
+
+                
                     
                 </main>
                 <?php include('layout_admin/footer.php')?>
@@ -107,22 +184,7 @@ require_once("controllers/db_connection.php");
 
     
     <script>
-        function deleteSupervisor(staff_id){
-            if(confirm('Are you sure to delete this supervisor ?')){
-                $.ajax({
-                    type: "POST",
-                    url: '/fyp/controllers/remove-assign-supervisor.php',
-                    data: {
-                        'staff_id' : staff_id,
-                        'cluster_id' : <?php echo $_REQUEST['cluster_id'] ?>,
-                    }, // serializes the form's elements.
-                    success: function(data) { 
-                        location.reload();
-                    }
-                });
-             
-            }
-        }
+       
        
     </script>
     <?php include('controllers/include_error.php')?>

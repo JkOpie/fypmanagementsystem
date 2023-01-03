@@ -14,66 +14,58 @@
 
                 if($_SESSION['roles'] != 'student'){
                     echo'
-                    <div class="mt-3">
+                    <div class="mt-4">
                         <a class="nav-link" href="/fyp/dashboard.php">
-                            <div class="nav-link-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div>
                             Dashboards
                         </a>
                     </div>
+                    <hr>
                     ';
                 }else{
                     echo '
-                    <div class="mt-3">
+                    <div class="mt-4">
                         <a class="nav-link" href="/fyp/student-dashboard.php">
-                            <div class="nav-link-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div>
                             Dashboards
                         </a>
                     </div>
+                    <hr>
                     ';
                 }
 
                 if($_SESSION['roles'] == 'supervisor'){
                     echo '
-                    <div class="">
+                    
                         <a class="nav-link" href="/fyp/student_supervisor.php">
-                        <div class="nav-link-icon"> <i class="fa-solid fa-users"></i></div>
-                                Students under Supervisor
+                            Students under Supervisor
                         </a>
-                    </div>
+                        <hr>
+                    
                     ';
                 }
 
                 echo '
                 <a class="nav-link" href="/fyp/profiles.php">
-                    <div class="nav-link-icon"><i class="fa-solid fa-user"></i></div>
                     Profile
                 </a>
+                <hr>
                 ';
 
                 if($_SESSION['roles'] == 'admin'){
                     echo '
-                    <div class="">
-                        <a class="nav-link" href="/fyp/register-hod.php">
-                        <div class="nav-link-icon"> <i class="fa-solid fa-users"></i></div>
-                                Register HOD
-                        </a>
-                    </div>
+
+                    <a class="nav-link" href="/fyp/register-hod.php">
+                        Register HOD
+                    </a>
+                    <hr>
                     ';
 
                     echo '
-                    <div class="">
                         <a class="nav-link" href="/fyp/hod-list.php">
-                        <div class="nav-link-icon"> <i class="fa-solid fa-users"></i></div>
                             HOD List
                         </a>
-                    </div>
+                    <hr>
                     ';
                 }
-
-
-
 
 
                 include_once('controllers/proposal.php');
@@ -94,9 +86,9 @@
                 if($_SESSION['roles'] == 'student' && !$haveProposalsSideNav ){
                     echo '
                         <a class="nav-link" href="/fyp/add-proposal.php">
-                            <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
                             Proposal Submissions
                         </a>
+                        <hr>
                     ';
                 }
 
@@ -104,33 +96,40 @@
 
                     echo '
                         <a class="nav-link" href="/fyp/register-student.php">
-                            <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
                             Register Student
                         </a>
+                        <hr>
                     ';
 
                     echo '
                         <a class="nav-link" href="/fyp/finalize_supervisor.php">
-                            <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
                             Finalize Supervisors
                         </a>
+                        <hr>
                     ';
                 }
 
                 if($_SESSION['roles'] == 'hod'){
                     echo '
                         <a class="nav-link" href="/fyp/register-fypcoordinator.php">
-                            <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
                             Register FYP Coordinator
                         </a>
 
+                        <hr>
+
                         <a class="nav-link" href="/fyp/register-cluster.php">
-                            <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
                             Register Cluster
                         </a>
 
+                        <hr>
+
+                        <a class="nav-link" href="/fyp/fyp-coordinator-list.php">
+                           FYP Cooordinator list
+                        </a>
+
+                        <hr>
+
                         <a class="nav-link" href="/fyp/appoint-lead-cluster.php">
-                            <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
                             Appoint Lead Cluster
                         </a>
                     ';
@@ -149,17 +148,25 @@
                 if($_SESSION['roles'] == 'cluster'){
                     echo '
                         <a class="nav-link" href="/fyp/register-supervisor.php">
-                            <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
                             Register Supervisors
                         </a>
+                        <hr>
+
                     ';
 
                     if($_SESSION['cluster_status'] != 'lead_cluster'){
                         echo '
                         <a class="nav-link" href="/fyp/supervisor_list.php">
-                            <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
                             Assign Student to Supervisor
                         </a>
+                        <hr>
+                    ';
+                    }else{
+                        echo '
+                        <a class="nav-link" href="/fyp/supervisor_list.php">
+                            Supervisor List
+                        </a>
+                        <hr>
                     ';
                     }
                   
@@ -169,7 +176,6 @@
                     if($_SESSION["cluster_status"]  == 'lead_cluster' && $_SESSION['roles'] == 'cluster'){
                         echo '
                         <a class="nav-link" href="/fyp/cluster-listing.php">
-                            <div class="nav-link-icon"><i class="fa-solid fa-graduation-cap"></i></div>
                              Assign Supervisor to Cluster
                         </a>
                     ';

@@ -54,5 +54,15 @@
 
    
     $_SESSION['success'] = str_replace("_", "", $roles).' Successfully Created';
+    if($roles == 'fyp_coordinator'){
+        header('Location: /fyp/fyp-coordinator-list.php');
+        die();
+    }elseif($roles == 'cluster'){
+        header('Location: /fyp/appoint-lead-cluster.php');
+        die();
+    }elseif($roles == 'supervisor'){
+        header('Location: /fyp/supervisor_list.php');
+        die();
+    }
     header('Location: /fyp/register-'.str_replace("_", "", $roles).'.php');
 ?>

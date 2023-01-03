@@ -96,23 +96,24 @@ require_once("controllers/db_connection.php");
                                 </div>
                             </div>
                         </div>
+                        <?php 
+                        $sql = "select staffs.*,staffs.roles as supervisor_role , users.name,  users.email, users.handphone, users.image from staffs  left join users on users.id = staffs.user_id where cluster_id='".$_REQUEST['cluster_id']."'";
+                        $result = $conn->query($sql);
+                        $supervisors = null;
+
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                $supervisors[] = $row;
+                            }
+                        }
+                        
+                        if($supervisors != null){
+                        
+                        ?>
                         <div class="card mb-4">
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <?php 
-                                        $sql = "select staffs.*,staffs.roles as supervisor_role , users.name,  users.email, users.handphone, users.image from staffs  left join users on users.id = staffs.user_id where cluster_id='".$_REQUEST['cluster_id']."'";
-                                        $result = $conn->query($sql);
-                                        $supervisors = null;
-
-                                        if ($result->num_rows > 0) {
-                                            while ($row = $result->fetch_assoc()) {
-                                                $supervisors[] = $row;
-                                            }
-                                        }
-                                        
-                                        if($supervisors != null){
-                                        
-                                        ?>
+                                    
 
                                     <label class="mb-1">Supervisor</label>
                                     <table class="table table-bordered table-striped table-hover">
@@ -160,12 +161,14 @@ require_once("controllers/db_connection.php");
                                         ?>
                                     </tbody>
                                     </table>
-                                        <?php 
-                                         }
-                                    ?>
+                                       
                                 </div>
                             </div>
+                           
                         </div>
+                        <?php 
+                                         }
+                                    ?>
                     </div>
                     
                     

@@ -60,8 +60,7 @@ require_once("controllers/db_connection.php");
                         <div class="card mb-4">
                             <div class="card-body">
                                 <div class="d-flex justify-content-end align-items-center mb-3">
-                                    <!-- <input type="text" class="form-control w-25 me-3" placeholder="Search">
-                                    <button class="btn btn-primary">Search</button> -->
+                                    <a href="/fyp/register-cluster.php" class="btn btn-primary">Add Cluster</a>
                                 </div>
                                 <table class="table table-bordered table-striped table-hover">
                                     <thead>
@@ -92,7 +91,7 @@ require_once("controllers/db_connection.php");
                                                     }
 
                                                     if($value['cluster_status'] != 'lead_cluster'){
-                                                        $appointLeadBtn  = '<button class="btn btn-primary" type=submit name=apoint-lead-cluster>Appoint Lead CLuster</button>';
+                                                        $appointLeadBtn  = '<button class="btn btn-primary btn-sm" type=submit name=apoint-lead-cluster>Appoint Lead CLuster</button>';
                                                     }
                                                     
                                                     echo '
@@ -104,11 +103,12 @@ require_once("controllers/db_connection.php");
                                                         <td>'.$value['handphone'].'</td>
                                                         <td>'.$value['staff_id'].'</td>
                                                         <td>'.$value['department'].'</td>
-                                                        <td class="text-center">
+                                                        <td class="">
                                                             <form action="/fyp/controllers/appoint-lead-cluster.php" method="post">
                                                                 <input type=hidden value='.$value['cluster_id'].' name=cluster_id>
-                                                                <div class="form-check d-flex justify-content-center">
+                                                                <div class="">
                                                                     '.$appointLeadBtn.'
+                                                                    <a class="btn btn-danger btn-sm" href="controllers/hod/delete-cluster.php?cluster_id='.$value['id'].'">Delete</a>
                                                                 </div>
                                                             </form
                                                         </td>

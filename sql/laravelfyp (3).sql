@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 02, 2023 at 01:26 PM
+-- Generation Time: Jan 03, 2023 at 01:43 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -226,14 +226,16 @@ CREATE TABLE `staffs` (
 --
 
 INSERT INTO `staffs` (`id`, `user_id`, `roles`, `staff_id`, `department`, `fypcoordinator_status`, `cluster_status`, `status`, `created_at`, `updated_at`, `cluster_id`) VALUES
-(2, 9, 'fyp_coordinator', '1', 'multimedia', NULL, NULL, NULL, NULL, NULL, NULL),
 (3, 10, 'supervisor', '1', 'multimedia', 'allocated', 'allocated', NULL, NULL, NULL, '50'),
 (4, 11, 'supervisor', '1', 'multimedia', 'allocated', 'allocated', NULL, NULL, NULL, '50'),
 (5, 12, 'cluster', '1', 'multimedia', NULL, 'lead_cluster', NULL, NULL, NULL, NULL),
 (8, 17, 'supervisor', '12', 'multimedia', 'allocated', NULL, NULL, NULL, NULL, '50'),
 (13, 29, 'fyp_coordinator', 'asd@gmail.com', 'multimedia', NULL, NULL, NULL, NULL, NULL, NULL),
 (32, 46, 'hod', 'hod2@gmail.com', 'multimedia', NULL, 'cluster', NULL, NULL, NULL, NULL),
-(33, 50, 'cluster', '11', 'multimedia', NULL, 'cluster', NULL, NULL, NULL, NULL);
+(34, 51, 'fyp_coordinator', '11', 'multimedia', NULL, NULL, NULL, NULL, NULL, NULL),
+(35, 52, 'fyp_coordinator', 'asd@gmail.com', 'multimedia', NULL, NULL, NULL, NULL, NULL, NULL),
+(37, 54, 'cluster', 'asd@gmail.com', 'multimedia', NULL, 'cluster', NULL, NULL, NULL, NULL),
+(38, 55, 'supervisor', 'asd@gmail.com', 'multimedia', NULL, NULL, NULL, NULL, NULL, '54');
 
 -- --------------------------------------------------------
 
@@ -261,7 +263,7 @@ INSERT INTO `students` (`id`, `user_id`, `matric_number`, `programmes`, `supervi
 (3, 14, '11', 'multimedia', 10, 'approved', NULL, NULL),
 (6, 25, 'asdas', 'multimedia', 10, '', NULL, NULL),
 (7, 26, 'asdasdasdad', 'multimedia', 11, 'approved', NULL, NULL),
-(8, 25, 'fdgdgdfg', 'multimedia', NULL, NULL, NULL, NULL);
+(8, 25, 'fdgdgdfg', 'multimedia', 55, 'pending', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -287,7 +289,6 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `handphone`, `roles`, `password`, `image`, `created_at`, `updated_at`) VALUES
 (7, 'sdsd', 'student@gmail.com', '1', 'student', 'Abc123!', '1671175318.jpeg', NULL, NULL),
-(9, 'fypcoordinator', 'fypcoordinator@gmail.com', '1', 'staff', 'Abc123!', NULL, NULL, NULL),
 (10, 'supervisor1', 'supervisor1@gmail.com', '1', 'staff', 'Abc123!', NULL, NULL, NULL),
 (11, 'supervisor2', 'supervisor@gmail.com', '1', 'staff', 'Abc123!', NULL, NULL, NULL),
 (12, 'cluster', 'leadcluster@gmail.com', '1', 'staff', 'Abc123!', NULL, NULL, NULL),
@@ -304,7 +305,10 @@ INSERT INTO `users` (`id`, `name`, `email`, `handphone`, `roles`, `password`, `i
 (47, '', 'admin3@gmail.com', '1', '', 'Abc123!', NULL, NULL, NULL),
 (48, '', 'admin2@gmail.com', '1', '', 'Abc123!', NULL, NULL, NULL),
 (49, '', 'ggmail@gmail.com', '1', '', 'Abc123!', NULL, NULL, NULL),
-(50, 'asdasd', 'cluster@gmail.com', '1', 'staff', 'Abc123!', NULL, NULL, NULL);
+(51, 'fypcoordinator', 'fypcoordinator@gmail.com', '11', 'staff', 'Abc123!', NULL, NULL, NULL),
+(52, 'asdad', 'fypcoordinator2@gmail.com', '11', 'staff', 'Abc123!', NULL, NULL, NULL),
+(54, 'cluster2@gmail.com', 'cluster2@gmail.com', '11', 'staff', 'Abc123!', NULL, NULL, NULL),
+(55, 'asdasd', 'asda@gmail.com', '11112', 'staff', 'Abc123!', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -417,7 +421,7 @@ ALTER TABLE `proposals`
 -- AUTO_INCREMENT for table `staffs`
 --
 ALTER TABLE `staffs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `students`
@@ -429,7 +433,7 @@ ALTER TABLE `students`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

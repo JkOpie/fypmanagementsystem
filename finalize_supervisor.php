@@ -51,8 +51,7 @@ include('controllers/validateAuthentication.php');
                         <div class="card mb-4">
                             <div class="card-body">
                                 <div class="d-flex justify-content-end align-items-center mb-3">
-                                    <!-- <input type="text" class="form-control w-25 me-3" placeholder="Search">
-                                    <button class="btn btn-primary">Search</button> -->
+                                    <a href="/fyp/register-student.php" class="btn btn-primary">Add Student</a>
                                 </div>
                                 <table class="table table-bordered table-striped table-hover">
                                     <thead>
