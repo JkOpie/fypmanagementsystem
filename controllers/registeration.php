@@ -33,6 +33,15 @@
         $userRole = 'staff';
     }
 
+    if($roles == 'admin'){
+        $userRole = 'admin';
+    }
+
+    if($roles == 'student'){
+        $userRole = 'student';
+    }
+
+
     $query = "insert into users (name,email,roles,password,handphone) values ('".$name."','".$email."', '".$userRole."','".$password."','".$handphone."')";
     $result = $conn->query($query);
 
