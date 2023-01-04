@@ -60,7 +60,7 @@ require_once("controllers/db_connection.php");
                         <div class="card mb-4">
                             <div class="card-body">
                                 <div class="d-flex justify-content-end align-items-center mb-3">
-                                    <a href="/fyp/register-hod.php" class="btn btn-primary">Add HOD</a>
+                                    <a href="/fyp/register-cluster.php" class="btn btn-primary">Add Cluster</a>
                                 </div>
                                 <table class="table table-bordered table-striped table-hover">
                                     <thead>

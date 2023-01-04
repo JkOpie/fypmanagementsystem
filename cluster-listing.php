@@ -127,7 +127,7 @@ require_once("controllers/db_connection.php");
                                                     </tr>';
                                                 }
                                             }else{
-                                                echo '<tr><td colspan=8>No Cluster Created</td></tr>';
+                                                echo '<tr><td colspan=9>No Cluster Created</td></tr>';
                                             }
                                         ?>
                                         

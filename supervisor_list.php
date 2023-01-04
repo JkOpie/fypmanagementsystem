@@ -125,7 +125,7 @@ require_once("controllers/db_connection.php");
                                                         <td>'.$value['department'].'</td>
                                                         <td>'.(isset($students) ? implode(',<br>', $students) : '-').'</td>
                                                         <td class="">
-                                                            <a class="btn btn-primary btn-sm" href="assign_supervisor_student.php?supervisor_id='.$value['user_id'].'">Assign Student</a>
+                                                            <a class="btn btn-primary btn-sm mb-1" href="assign_supervisor_student.php?supervisor_id='.$value['user_id'].'">Assign Student</a>
                                                             <a href="edit-supervisor.php?supervisor_id='.$value['id'].'" class="btn btn-sm btn-secondary">Edit</a>
                                                             <a href="controllers/delete-supervisor.php?supervisor_id='.$value['id'].'" class="btn btn-sm btn-danger">Delete</a>
                                                         </td>
