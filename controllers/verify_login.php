@@ -51,7 +51,7 @@
 
             //var_dump($_SESSION);
             //die();
-            header('Location: /fyp/dashboard.php');
+            header('Location: /fyp/check-redundancy-title.php');
         }
        
     }else{

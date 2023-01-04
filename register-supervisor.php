@@ -50,6 +50,7 @@
                                                     <div class="mb-3 register-roles">
                                                         <label class="small mb-1" for="inputLastName">Staff ID</label>
                                                         <input class="form-control" type="text" placeholder="Enter staff id" name="staff_id" required/>
+                                                        <input class="form-control" type="hidden"  name="cluster_id" value="<?php echo $_SESSION['id']?>"/>
                                                     </div>
                                                 </div>
                                             </div>

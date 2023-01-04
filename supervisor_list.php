@@ -44,17 +44,10 @@ require_once("controllers/db_connection.php");
                         $conn = setDbConnection();
 
                         $supervisors = null;
-
-                        if($_SESSION['cluster_status'] != 'lead_cluster'){
-                            $query = "select users.* , staffs.id as cluster_id,  staffs.roles as staff_role ,staffs.staff_id, staffs.department, staffs.cluster_status, staffs.user_id from users 
-                            left join staffs on staffs.user_id = users.id
-                            where staffs.roles = 'supervisor' and cluster_id ='".$_SESSION['id']."'  order by users.id desc";
-                        }else{
-                            $query = "select users.* , staffs.id as cluster_id,  staffs.roles as staff_role ,staffs.staff_id, staffs.department, staffs.cluster_status, staffs.user_id from users 
-                            left join staffs on staffs.user_id = users.id
-                            where staffs.roles = 'supervisor' order by users.id desc";
-                        }
-                       
+                        
+                        $query = "select users.* , staffs.id as cluster_id,  staffs.roles as staff_role ,staffs.staff_id, staffs.department, staffs.cluster_status, staffs.user_id from users 
+                        left join staffs on staffs.user_id = users.id
+                        where staffs.roles = 'supervisor' and cluster_id ='".$_SESSION['id']."'  order by users.id desc";
 
                         $result = $conn->query($query);
                 
@@ -126,8 +119,8 @@ require_once("controllers/db_connection.php");
                                                         <td>'.(isset($students) ? implode(',<br>', $students) : '-').'</td>
                                                         <td class="">
                                                             <a class="btn btn-primary btn-sm mb-1" href="assign_supervisor_student.php?supervisor_id='.$value['user_id'].'">Assign Student</a>
-                                                            <a href="edit-supervisor.php?supervisor_id='.$value['id'].'" class="btn btn-sm btn-secondary">Edit</a>
-                                                            <a href="controllers/delete-supervisor.php?supervisor_id='.$value['id'].'" class="btn btn-sm btn-danger">Delete</a>
+                                                            <a href="edit-supervisor.php?supervisor_id='.$value['id'].'" class="btn btn-sm btn-secondary mb-1">Edit</a>
+                                                            <a href="controllers/delete-supervisor.php?supervisor_id='.$value['id'].'" class="btn btn-sm btn-danger mb-1">Delete</a>
                                                         </td>
                                                     </tr>';
                                                 }

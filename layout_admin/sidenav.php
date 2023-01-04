@@ -16,7 +16,13 @@
                     echo'
                     <div class="mt-4">
                         <a class="nav-link" href="/fyp/dashboard.php">
-                            Dashboards
+                        Dashboard
+                        </a>
+                    </div>
+                    <hr>
+                    <div class="">
+                        <a class="nav-link" href="/fyp/proposals.php">
+                            View Proposal/Titles
                         </a>
                     </div>
                     <hr>
@@ -25,7 +31,7 @@
                     echo '
                     <div class="mt-4">
                         <a class="nav-link" href="/fyp/student-dashboard.php">
-                            Dashboards
+                            Check Tittle Redundancy
                         </a>
                     </div>
                     <hr>
@@ -34,12 +40,10 @@
 
                 if($_SESSION['roles'] == 'supervisor'){
                     echo '
-                    
                         <a class="nav-link" href="/fyp/student_supervisor.php">
                             Students under Supervisor
                         </a>
                         <hr>
-                    
                     ';
                 }
 
@@ -86,6 +90,7 @@
 
                 include_once('controllers/proposal.php');
                 $validateProposals= index();
+                $proposalID = null;
 
                 $haveProposalsSideNav = false;
                 if(isset($validateProposals)){
@@ -93,19 +98,29 @@
                        
                         if($_SESSION['id'] == $value['student_id']){
                             $haveProposalsSideNav = true;
+                            $proposalID=$value['id'];
                         };
                     }
                 }
 
-                
+                if($_SESSION['roles'] == 'student'){
 
-                if($_SESSION['roles'] == 'student' && !$haveProposalsSideNav ){
-                    echo '
+                    if($haveProposalsSideNav){
+                        echo '
+                            <a class="nav-link" href="/fyp/add-proposal.php?type=edit&proposal='.$proposalID.'">
+                                Proposal Submissions
+                            </a>
+                            <hr>
+                        ';
+                    }else{
+                        echo '
                         <a class="nav-link" href="/fyp/add-proposal.php">
                             Proposal Submissions
                         </a>
                         <hr>
                     ';
+                    }
+                  
                 }
 
                 if($_SESSION['roles'] == 'fyp_coordinator'){
@@ -186,15 +201,15 @@
                   
                 }
                 
-                if(isset($_SESSION["cluster_status"])){
-                    if($_SESSION["cluster_status"]  == 'lead_cluster' && $_SESSION['roles'] == 'cluster'){
-                        echo '
-                        <a class="nav-link" href="/fyp/cluster-listing.php">
-                             Assign Supervisor to Cluster
-                        </a>
-                    ';
-                    }
-                }
+                // if(isset($_SESSION["cluster_status"])){
+                //     if($_SESSION["cluster_status"]  == 'lead_cluster' && $_SESSION['roles'] == 'cluster'){
+                //         echo '
+                //         <a class="nav-link" href="/fyp/cluster-listing.php">
+                //              Assign Supervisor to Cluster
+                //         </a>
+                //     ';
+                //     }
+                // }
                 
             ?>
         </div>
