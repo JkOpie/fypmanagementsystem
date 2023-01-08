@@ -2,6 +2,7 @@
 <?php
     session_start();
     include('controllers/validateAuthentication.php');
+    require_once("controllers/db_connection.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,11 +55,96 @@
                         </div>
                     </div>
 
+                    <?php
+                      $conn = setDbConnection();
+                      $sql = "select * from proposals where user_id = '".$_SESSION['id']."'";
+                      $result = $conn->query($sql);
+                      $proposals = null;
+
+                      if ($result->num_rows > 0) {
+                          while ($row = $result->fetch_assoc()) {
+                              $proposals[] = $row;
+                          }
+                      }
+                    ?>
+
+                    <div class="container-xl px-4">
+                        <div class="row">
+                            <div class="col-xxl-12 mb-5">
+                                <div class="d-flex justify-content-end align-items-center">
+                                  
+
+                                    <button class="btn btn-info me-2" onclick="window.location.replace('/fyp/student-dashboard.php')">Reset Search</button>
+                                    <?php 
+                                        
+                                        if($_SESSION['roles'] == 'student' && !StudentHaveProposal()){
+                                            echo "<button class='btn btn-primary me-2' onclick=window.location.replace('/fyp/add-proposal.php')>Add Proposal</button>";
+                                        }
+                                    ?>
+                                    
+                                </div>
+                                <table class="table table-hover table-stripped" id="proposal">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Cluster</th>
+                                            <th>Fyp Coordinator / Supervisor</th>
+                                            <th>Attachment</th>
+                                            <th>Action</th>
+                                           
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php 
+                                        if( isset($proposals)){
+                                            foreach ($proposals as $key => $proposal) {
+                                                //var_dump();
+                                                $updateApproveStatus = null; 
+                                                $updateRejectStatus = null;
+                                                $updateSupervisor = null;
+                                                $editProposal = null;
+                                                $deleteProposal = null;
+
+                                                if($proposal['fyp_coordinator_status'] == 'pending' || $proposal['status'] == 'pending' ){
+                                                    $editProposal = "<a class='btn btn-primary btn-sm mb-1' data-status=approved ' href='/fyp/add-proposal.php?type=edit&proposal=".$proposal['id']."'>Edit</a>";
+                                                    $deleteProposal = "<a class='btn btn-danger btn-sm mb-1' data-status=approved ' href='/fyp/controllers/student/deleteProposal.php?proposal_id=".$proposal['id']."'>Delete</a>";
+                                                }
+                                                //var_dump($proposal['fyp_coordinator_status'] );
+                                            
+                                               echo '
+                                                        <tr>
+                                                            <td>'.$proposal['title'].'</td>
+                                                            <td>'.$proposal['start_date'].'</td>
+                                                            <td>'.$proposal['end_date'].'</td>
+                                                            <td>'.$proposal['status'].'</td>
+                                                            <td>'.$proposal['fyp_coordinator_status'].'</td>
+                                                            <td>'.( $proposal['attachment_name'] ? '<a href="assets/proposals/'.$proposal['attachment'].'" target=blank>'.$proposal["attachment_name"].'</a>' : '-').'</td>
+                                                            <td>
+                                                                '.$editProposal.' 
+                                                                '.$deleteProposal.'
+                                                            </td>
+                                                        </tr>
+                                                ';
+                                            }
+                                        }else{
+                                            echo '<tr><td colspan=7>No Proposals!</td></tr>';
+                                        }
+                                            
+                                        ?>
+                                    </tbody>
+                                </table>    
+                            </div>
+                        </div>
+                    </div>
+
                 </main>
                 <?php include('layout_admin/footer.php')?>
             </div>
         </div>
-        <?php include('layout_admin/btm_scripts.php')?>
+        <?php include('layout_admin/btm_scripts.php');  include('controllers/include_error.php');?>
+        
     </body>
 
     <script>

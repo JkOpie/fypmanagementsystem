@@ -24,7 +24,14 @@
                                 <div class="col-auto mt-4">
                                     <h1 class="page-header-title">
                                         <div class="page-header-icon"><i data-feather="activity"></i></div>
-                                        Dashboard
+                                        <?php 
+                                        if($_SESSION['roles'] != 'hod' &&  $_SESSION['roles'] != 'admin'){?>
+                                            Dashboard
+                                        <?php }else{?>
+                                            Check Title Redundancy 
+                                            <?php }
+                                        ?>
+                                        
                                     </h1>
                                 </div>
                             </div>
@@ -53,7 +60,9 @@
                 </div>
          <!-- Example Colored Cards for Dashboard Demo-->
         <div class="row">
-            <div class="col-lg-6 mb-4 mt-4">
+            <?php 
+                if($_SESSION['roles'] != 'hod' &&  $_SESSION['roles'] != 'admin'){?>
+<div class="col-lg-6 mb-4 mt-4">
                 <div class="card bg-success text-white h-100">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
@@ -85,7 +94,6 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="me-3">
                                 <?php 
-                                
                                     $total_proposals= null;
                                     $sql = 'select count(*) as total_proposals from proposals';
                                     $result = $conn->query($sql);
@@ -104,6 +112,9 @@
                     </div>
                 </div>
             </div>
+        <?php   }
+            ?> 
+            
         </div>
     </div>
                     

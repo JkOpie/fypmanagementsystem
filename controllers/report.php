@@ -59,7 +59,7 @@
         background-color: #04AA6D;
         color: white;
       }
-      .user-img {
+      .user-img { 
         width: 50px;
         height: 50px;
     }

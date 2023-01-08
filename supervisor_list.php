@@ -42,6 +42,7 @@ require_once("controllers/db_connection.php");
 
                     <?php 
                         $conn = setDbConnection();
+                        //var_dump($_SESSION['id']);
 
                         $supervisors = null;
                         

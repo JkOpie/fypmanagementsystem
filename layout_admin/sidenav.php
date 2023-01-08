@@ -11,13 +11,23 @@
             </div> -->
 
             <?php
+            $dahboard = 'Dahboard';
+
+                echo '
+                    <a class="nav-link mt-4" href="/fyp/profiles.php">
+                        Profile
+                    </a>
+                    <hr>
+                ';
 
                 if($_SESSION['roles'] != 'student'){
+                    if($_SESSION['roles'] == 'hod' || $_SESSION['roles'] == 'admin'){
+                        $dahboard = 'Check Title Redundancy';
+                    }
+
                     echo'
-                    <div class="mt-4">
-                        <a class="nav-link" href="/fyp/dashboard.php">
-                        Dashboard
-                        </a>
+                    <div class="">
+                        <a class="nav-link" href="/fyp/dashboard.php">'.$dahboard.'</a>
                     </div>
                     <hr>
                     <div class="">
@@ -29,7 +39,7 @@
                     ';
                 }else{
                     echo '
-                    <div class="mt-4">
+                    <div class="">
                         <a class="nav-link" href="/fyp/student-dashboard.php">
                             Check Tittle Redundancy
                         </a>
@@ -47,12 +57,7 @@
                     ';
                 }
 
-                echo '
-                <a class="nav-link" href="/fyp/profiles.php">
-                    Profile
-                </a>
-                <hr>
-                ';
+              
 
                 if($_SESSION['roles'] == 'admin'){
                     echo '
@@ -193,7 +198,7 @@
                     }else{
                         echo '
                         <a class="nav-link" href="/fyp/supervisor_list.php">
-                            Supervisor List
+                            Assign Student to Supervisor
                         </a>
                         <hr>
                     ';

@@ -90,9 +90,8 @@
                                             <th>Start Date</th>
                                             <th>End Date</th>
                                             <th>Cluster</th>
-                                            <th>Fyp Coordinator</th>
+                                            <th>Fyp Coordinator/Supervisor</th>
                                             <th>Student</th>
-                                            <!-- <th>Supervisor</th> -->
                                             <th>Attachment</th>
                                             <th>Action</th>
                                            
