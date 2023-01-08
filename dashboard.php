@@ -88,7 +88,9 @@
                     </div>
                 </div>
             </div>
+           
             <div class="col-lg-6 mb-4 mt-4">
+                <a href="/fyp/proposals.php" style=" text-decoration:none;">
                 <div class="card bg-warning text-white h-100">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
@@ -111,6 +113,7 @@
                         </div>
                     </div>
                 </div>
+                </a>
             </div>
         <?php   }
             ?> 
