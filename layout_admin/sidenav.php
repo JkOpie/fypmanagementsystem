@@ -191,14 +191,14 @@
                     if($_SESSION['cluster_status'] != 'lead_cluster'){
                         echo '
                         <a class="nav-link" href="/fyp/supervisor_list.php">
-                            Assign Student to Supervisor
+                            Assign Supervisor to Student
                         </a>
                         <hr>
                     ';
                     }else{
                         echo '
                         <a class="nav-link" href="/fyp/supervisor_list.php">
-                            Assign Student to Supervisor
+                        Assign Supervisor to Student
                         </a>
                         <hr>
                     ';
