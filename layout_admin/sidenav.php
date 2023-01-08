@@ -30,12 +30,7 @@
                         <a class="nav-link" href="/fyp/dashboard.php">'.$dahboard.'</a>
                     </div>
                     <hr>
-                    <div class="">
-                        <a class="nav-link" href="/fyp/proposals.php">
-                            View Proposal/Titles
-                        </a>
-                    </div>
-                    <hr>
+                  
                     ';
                 }else{
                     echo '
@@ -198,7 +193,7 @@
                     }else{
                         echo '
                         <a class="nav-link" href="/fyp/supervisor_list.php">
-                        Assign Supervisor to Student
+                            Assign Supervisor to Student
                         </a>
                         <hr>
                     ';
