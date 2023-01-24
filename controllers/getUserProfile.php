@@ -19,10 +19,13 @@
                     $result2 = $conn->query($sql2);
 
                     while($row = $result2->fetch_assoc()) {
-                        $student = ['matric_number' => $row['matric_number'], 
-                        'programmes' => $row['programmes'] , 
-                        'supervisor_name' => $row['supervisor_name'] , 
-                        'status' => $row['status']];
+                        $student = [
+                            'matric_number' => $row['matric_number'], 
+                            'programmes' => $row['programmes'] , 
+                            'supervisor_name' => $row['supervisor_name'] , 
+                            'status' => $row['status'],
+                            'semester' => $row['semester'],   
+                        ];
                     }
 
                     return [$user, $student];

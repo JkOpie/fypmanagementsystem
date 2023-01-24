@@ -13,6 +13,7 @@
     $roles = $_POST['roles'];
     $handphone = $_POST['phone_number'];
     $password = $_POST['password'];
+    $semester = $_POST['semester'];
     $confirm_password = $_POST['confirm_password'];
 
     if($roles == 'student'){
@@ -35,7 +36,7 @@
     $result = $conn->query($query);
 
     if($roles == 'student'){
-        $query3 = "insert into students (user_id,matric_number,programmes) values ('".$conn->insert_id."','".$matric_number."', '".$programmes."')";
+        $query3 = "insert into students (user_id,matric_number,programmes,semester) values ('".$conn->insert_id."','".$matric_number."', '".$programmes."','".$semester."')";
         $conn->query($query3);
     }
    

@@ -70,13 +70,28 @@
                                             </div>
                                             <!-- Form Row    -->
                                             <div class="row gx-3 programmes">
-                                                <div class="col-md-12">
+                                                <div class="col-md-6">
                                                     <div class="mb-3 ">
                                                         <label class="small mb-1">Programmes</label>
                                                         <select name="programmes" class="form-select">
                                                             <option value="multimedia">Multimedia</option>
                                                             <option value="information_system">Information System</option>
                                                             <option value="computer_science">Computer Science</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="" class="form-label">Semester</label>
+                                                        <select name="semester" class="form-select">
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                            <option value="6">6</option>
+                                                            <option value="7">7</option>
+                                                            <option value="8">8</option>
                                                         </select>
                                                     </div>
                                                 </div>

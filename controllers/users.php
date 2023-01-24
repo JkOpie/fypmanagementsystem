@@ -217,7 +217,7 @@
 
     function getStudentSupervisorPending(){
         global $conn;
-        $query = "select users.* , students.id as student_id, students.matric_number, students.programmes, students.supervisor_id, students.status, supervisor.name as supervisor_name from users 
+        $query = "select users.* , students.id as student_id, students.matric_number, students.semester, students.programmes, students.supervisor_id, students.status, supervisor.name as supervisor_name from users 
         left join students on students.user_id = users.id
         left join users as supervisor on supervisor.id = students.supervisor_id
         where users.roles = 'student' order by users.id desc";

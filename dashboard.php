@@ -59,64 +59,59 @@
                     </div>
                 </div>
          <!-- Example Colored Cards for Dashboard Demo-->
+
+         <?php
+            $conn = setDbConnection();
+            $total_students= null;
+            $sql = 'select count(*) as total_students from students';
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $total_students = $row['total_students'];
+                }
+            }
+            
+        ?>
+
+        <?php 
+            $total_proposals= null;
+            $sql = 'select count(*) as total_proposals from proposals';
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $total_proposals = $row['total_proposals'];
+                }
+            }
+        ?>
+
         <div class="row">
             <?php 
                 if($_SESSION['roles'] != 'hod' &&  $_SESSION['roles'] != 'admin'){?>
-<div class="col-lg-6 mb-4 mt-4">
-                <div class="card bg-success text-white h-100">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="me-3">
-                                <?php
-                                    $conn = setDbConnection();
-                                    $total_students= null;
-                                    $sql = 'select count(*) as total_students from students';
-                                    $result = $conn->query($sql);
 
-                                    if ($result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) {
-                                            $total_students = $row['total_students'];
-                                        }
-                                    }
-                                    
-                                ?>
-                                <div class="text-white-75 small">Students</div>
-                                <div class="text-lg fw-bold"><?php echo $total_students ? $total_students : 0; ?></div>
-                            </div>
-                            <i class="feather-xl text-white-50" data-feather="calendar"></i>
-                        </div>
+                    <div class="col-md-12 mt-5">
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th style="width: 40%;">Total Student</th>
+                                <th style="width: 40%;">Total Proposal</th>
+                                <th style="width: 20%;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><?php echo $total_students ?></td>
+                                <td><?php echo $total_proposals ?></td>
+                                <td><a class="btn btn-primary" href="/fyp/proposals.php">View Proposals</a</td>
+                            </tr>
+                        </tbody>
+                    </table>
                     </div>
-                </div>
-            </div>
+                 
            
-            <div class="col-lg-6 mb-4 mt-4">
-                <a href="/fyp/proposals.php" style=" text-decoration:none;">
-                <div class="card bg-warning text-white h-100">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="me-3">
-                                <?php 
-                                    $total_proposals= null;
-                                    $sql = 'select count(*) as total_proposals from proposals';
-                                    $result = $conn->query($sql);
-
-                                    if ($result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) {
-                                            $total_proposals = $row['total_proposals'];
-                                        }
-                                    }
-                                ?>
-                                <div class="text-white-75 small">Proposals</div>
-                                <div class="text-lg fw-bold"><?php echo $total_proposals ? $total_proposals : 0; ?></div>
-                            </div>
-                            <i class="feather-xl text-white-50" data-feather="dollar-sign"></i>
-                        </div>
-                    </div>
-                </div>
-                </a>
-            </div>
-        <?php   }
-            ?> 
+           
+            <?php   } ?> 
             
         </div>
     </div>

@@ -51,6 +51,8 @@ require_once("controllers/db_connection.php");
                         where staffs.roles = 'supervisor' and cluster_id ='".$_SESSION['id']."'  order by users.id desc";
 
                         $result = $conn->query($query);
+
+                        //var_dump($_SESSION);
                 
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
@@ -64,12 +66,13 @@ require_once("controllers/db_connection.php");
                         <div class="card mb-4">
                             <div class="card-body">
                                 <div class="d-flex justify-content-end align-items-center mb-3">
-                                    <a href="/fyp/register-supervisor.php" class="btn btn-primary">Add Supervisor</a>
+                                    <a href="/fyp/register-supervisor.php" class="btn btn-primary me-2">Add Supervisor</a>
+                                    <a href="controllers/cluster/assignSupervisorToStudentReport.php" class="btn btn-success">Assign Supervisor to Student Report</a>
                                 </div>
                                 <table class="table table-bordered table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Image</th>
+                                            <th></th>
                                             <th>Name</th>
                                             <th>Position</th>
                                             <th>Email</th>
@@ -110,7 +113,7 @@ require_once("controllers/db_connection.php");
                                                     
                                                     echo '
                                                     <tr>
-                                                        <td>'.$image.'</td>
+                                                        <td>'.($key + 1).'</td>
                                                         <td>'.$value['name'].'</td>
                                                         <td>'.$value['staff_role'].'</td>
                                                         <td>'.$value['email'].'</td>

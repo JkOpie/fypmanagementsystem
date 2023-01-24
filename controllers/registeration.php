@@ -18,6 +18,7 @@
     if($roles == 'student'){
         $matric_number = $_POST['matric_number'];
         $programmes = $_POST['programmes'];
+        $semester = $_POST['semester'];
     }else if($roles == 'supervisor' || $roles == 'hod'|| $roles == 'fyp_coordinator' || $roles == 'cluster'){
         $department = $_POST['department'];
         $staff_id = $_POST['staff_id'];
@@ -46,7 +47,7 @@
     $result = $conn->query($query);
 
     if($roles == 'student'){
-        $query3 = "insert into students (user_id,matric_number,programmes) values ('".$conn->insert_id."','".$matric_number."', '".$programmes."')";
+        $query3 = "insert into students (user_id,matric_number,programmes,semester) values ('".$conn->insert_id."','".$matric_number."', '".$programmes."', '".$semester."')";
         $conn->query($query3);
     }else if($roles == 'admin'){
 

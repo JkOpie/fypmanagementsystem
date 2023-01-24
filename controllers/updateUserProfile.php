@@ -11,11 +11,15 @@
     $name = $_POST['name'];
     $email = $_POST['email'];
     $handphone = $_POST['phone_number'];
+
+    //var_dump($_POST);
+    //die();
  
 
     if($_SESSION['roles'] == 'student'){
         $matric_number = $_POST['matric_number'];
         $programmes = $_POST['programmes'];
+        $semester = $_POST['semester'];
     }else{
         $department = $_POST['department'];
         $staff_id = $_POST['staff_id'];
@@ -27,7 +31,7 @@
     if($_SESSION['roles'] == 'student'){
         
         if($result){
-            $query3 = "update students set matric_number = '".$matric_number."', programmes = '".$programmes."'";
+            $query3 = "update students set matric_number = '".$matric_number."', programmes = '".$programmes."', semester = '".$semester."'";
             if(isset($_POST['supervisor_id'])){
                 $query3 .= ", supervisor_id='".$_POST['supervisor_id']."', status='pending'";
             }
@@ -54,6 +58,7 @@
     $_SESSION['name'] = $name ;
     $_SESSION['email'] = $email ;
 
+    $_SESSION['success'] = 'Account details updated!';
     header('Location: /fyp/profiles.php');
 
     closeDbConnection($conn);

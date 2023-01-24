@@ -51,16 +51,18 @@ include('controllers/validateAuthentication.php');
                         <div class="card mb-4">
                             <div class="card-body">
                                 <div class="d-flex justify-content-end align-items-center mb-3">
-                                    <a href="/fyp/register-student.php" class="btn btn-primary">Add Student</a>
+                                    <a href="/fyp/register-student.php" class="btn btn-primary me-2">Add Student</a>
+                                    <a href="controllers/fypcoordinator/finalizeStudentReport.php" class="btn btn-success">Finalize Student Report</a>
                                 </div>
                                 <table class="table table-bordered table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Image</th>
+                                            <th></th>
                                             <th>Name</th>
                                             <th>Position</th>
                                             <th>Email</th>
                                             <th>Phone Number</th>
+                                            <th>Semester</th>
                                             <th>Supervisor</th>
                                             <th>Status</th>
                                             <th>Action</th>
@@ -76,27 +78,23 @@ include('controllers/validateAuthentication.php');
                                                     $approvebtn = null;
                                                     $rejectbtn = null;
                                                  
-                                                    if(isset($value['image'])){
-                                                        $image = '<img class="user-img" src="/fyp/assets/profile/'.$value['image'].'">';
-                                                    }else{
-                                                        $image = '<img class="user-img" src="/fyp/assets/img/illustrations/profiles/profile-1.png">'; 
-                                                    }
 
                                                     if($value['status'] == 'pending'){
                                                         $approvebtn = "<button class='btn btn-primary btn-sm me-1 mb-1' onclick='approveSupervisor(".$value['student_id'].")'>Approve Supervisor</button><br>";
-                                                        $rejectbtn = "<button class='btn btn-secondary btn-sm' onclick='rejectSupervisor(".$value['student_id'].")'>Reject Supervisor</button>";
+                                                        $rejectbtn = "<button class='btn btn-secondary btn-sm me-1 mb-1' onclick='rejectSupervisor(".$value['student_id'].")'>Reject Supervisor</button>";
                                                     }
     
                                                     echo '
                                                     <tr>
-                                                        <td>'.$image.'</td>
+                                                        <td>'.($key + 1).'</td>
                                                         <td>'.$value['name'].'</td>
                                                         <td>'.$value['roles'].'</td>
                                                         <td>'.$value['email'].'</td>
                                                         <td>'.$value['handphone'].'</td>
-                                                        <td>'.$value['supervisor_name'].'</td>
-                                                        <td>'.$value['status'].'</td>
-                                                        <td>'.$approvebtn.$rejectbtn.' <a class="btn btn-danger btn-sm" href="controllers/fypcoordinator/deleteStudent.php?student_id='.$value['id'].'">Delete</a></td>
+                                                        <td>'.(isset($value['semester']) ? $value['semester'] : '-' ).'</td>
+                                                        <td>'.(isset($value['supervisor_name']) ? $value['supervisor_name'] : '-').'</td>
+                                                        <td>'.(isset($value['status']) ? $value['status'] : '-').'</td>
+                                                        <td>'.$approvebtn.$rejectbtn.' <br><a class="btn btn-danger btn-sm" href="controllers/fypcoordinator/deleteStudent.php?student_id='.$value['id'].'">Delete</a></td>
                                                     </tr>';
                                                 }
                                             }else{

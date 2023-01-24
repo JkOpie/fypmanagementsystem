@@ -125,6 +125,7 @@ require_once("controllers/db_connection.php");
                                                         <th>Position</th>
                                                         <th>Email</th>
                                                         <th>Phone Number</th>
+                                                        <th>Semester</th>
                                                         <th>Matric Number</th>
                                                         <th>Programmes</th>
                                                         <th>Action</th>
@@ -145,11 +146,12 @@ require_once("controllers/db_connection.php");
 
                                                             echo '
                                                                 <tr>
-                                                                    <td>'.$image.'</td>
+                                                                    <td>'.($key + 1).'</td>
                                                                     <td>'.$value['name'].'</td>
                                                                     <td>'.$value['roles'].'</td>
                                                                     <td>'.$value['email'].'</td>
                                                                     <td>'.$value['handphone'].'</td>
+                                                                    <td>'.($value['semester'] ?: '-').'</td>
                                                                     <td>'.$value['matric_number'].'</td>
                                                                     <td>'.$value['programmes'].'</td>
                                                                     <td class="">

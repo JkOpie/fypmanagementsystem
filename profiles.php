@@ -42,12 +42,29 @@ require_once("controllers/db_connection.php");
                     //var_dump($data[1]);
                 ?>
 
+                
+                <?php
+                    //var_dump($_SESSION);
+                    $conn = setDbConnection();
+                    $supervisors = null;
+                    
+                    if($_SESSION['roles'] == 'student'){
+                        $sql = "select staffs.*, users.name from staffs left join users on users.id = staffs.user_id where staffs.roles='supervisor'and staffs.department = '".$data[1]['programmes']."'";
+                        $result = $conn->query($sql);
+
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                $supervisors[] = $row;
+                            }
+                        }
+                    } ?>
+
                 <div class="container-xl px-4 mt-4">
                     <div class="row">
                         <div class="col-xl-4">
                             <!-- Profile picture card-->
                             <form action="controllers/updateUserPhoto.php" method="post" enctype="multipart/form-data">
-                                <div class="card mb-4 mb-xl-0">
+                                <div class="card mb-4">
                                     <div class="card-header">Profile Picture</div>
                                     <div class="card-body">
                                         <!-- Profile picture image-->
@@ -70,6 +87,8 @@ require_once("controllers/db_connection.php");
                                     </div>
                                 </div>
                             </form>
+
+                           
                         </div>
                         <div class="col-xl-8">
                             <!-- Account details card-->
@@ -129,12 +148,25 @@ require_once("controllers/db_connection.php");
                                                     if (isset($data)) {
                                                         if ($data[0]['roles'] == 'student') { ?>
                                                            <div class="row gx-3 mb-3">
-                                                            <div class="col-md-12 ">
+                                                            <div class="col-md-6 ">
                                                             <label class="small mb-1">Programmes</label>
                                                             <select name=programmes class=form-select>
                                                                 <option value="multimedia" <?php if($data[1]['programmes'] == 'multimedia'){echo 'selected';}?>>Multimedia</option>
                                                                 <option value="information_system" <?php if($data[1]['programmes'] == 'information_system'){echo 'selected';}?> >Information System</option>
                                                                 <option value="computer_science" <?php if($data[1]['programmes'] == 'computer_science'){echo 'selected';}?>>Computer Science</option>
+                                                            </select>
+                                                            </div>
+                                                            <div class="col-md-6 ">
+                                                            <label class="small mb-1">Semester</label>
+                                                            <select name="semester" class=form-select>
+                                                                <option value="1" <?php if($data[1]['semester'] == '1'){echo 'selected';}?>>1</option>
+                                                                <option value="2" <?php if($data[1]['semester'] == '2'){echo 'selected';}?> >2</option>
+                                                                <option value="3" <?php if($data[1]['semester'] == '3'){echo 'selected';}?>>3</option>
+                                                                <option value="4" <?php if($data[1]['semester'] == '4'){echo 'selected';}?>>4</option>
+                                                                <option value="5" <?php if($data[1]['semester'] == '5'){echo 'selected';}?> >5</option>
+                                                                <option value="6" <?php if($data[1]['semester'] == '6'){echo 'selected';}?>>6</option>
+                                                                <option value="7" <?php if($data[1]['semester'] == '7'){echo 'selected';}?>>7</option>
+                                                                <option value="8" <?php if($data[1]['semester'] == '8'){echo 'selected';}?> >8</option>
                                                             </select>
                                                             </div>
                                                            </div>
@@ -177,61 +209,9 @@ require_once("controllers/db_connection.php");
 
                                         
 
-                                        <?php
-                                        
-                                        //var_dump($_SESSION);
-                                        $conn = setDbConnection();
-                                        $supervisors = null;
-                                        
-                                        if($_SESSION['roles'] == 'student'){
-                                            $sql = "select staffs.*, users.name from staffs left join users on users.id = staffs.user_id where staffs.roles='supervisor'and staffs.department = '".$data[1]['programmes']."'";
-                                            $result = $conn->query($sql);
-
-                                            if ($result->num_rows > 0) {
-                                                while ($row = $result->fetch_assoc()) {
-                                                    $supervisors[] = $row;
-                                                }
-                                            }
-                                        }
                                        
-                                        
 
-                                        if(isset($data)){
-                                             if ( isset($data[1]['supervisor_name']) ) {?>
-
-                                                <div class="row gx-3 mb-3">
-                                                    <div class="col-md-12">
-                                                        <label class="small mb-1">Supervisor</label>
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <input type=text  class=form-control value="<?php echo $data[1]['supervisor_name'] ?>" readonly>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <input type="text" class="form-control" value='<?php echo $data[1]['status'] ?>' readonly>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            <?php  }else{ ?>
-                                              <!-- <div class="row gx-3 mb-3">
-                                                    <div class="col-md-12">
-                                                        <label class="small mb-1">Supervisor</label>
-                                                        <select name="supervisor_id" class="form-control">
-                                                            <option>Select Supervisor</option>
-                                                            <?php
-                                                                if(isset($supervisors)){
-                                                                    foreach ($supervisors as $key => $value) { ?>
-                                                                            <option value="<?php echo $value['user_id'];?>"><?php echo $value['name'] ?></option>
-                                                                <?php }
-                                                                }
-                                                            ?>
-                                                        </select>
-                                                    </div>
-                                              </div> -->
-                                             
-
-                                          <?php }
-                                        } ?>
+                                     
                                         
 
                                         <?php 
@@ -254,6 +234,62 @@ require_once("controllers/db_connection.php");
                                 </div>
                                 </form>
                             </div>
+                            <?php 
+                                if($_SESSION['roles'] == 'student'){?>
+                                <form action="controllers/student/updateStudentSupervisor.php" method="post">
+                                <div class="card mb-4 mb-xl-0">
+                                        <div class="card-header">Supervisor</div>
+                                        <div class="card-body">
+                                        <?php   if(isset($data)){ 
+                                            ?>
+                                           
+                                              <div class="row gx-3 mb-3">
+                                                    <div class="col-md-12 mb-2">
+                                                        <label class="small mb-1">Supervisor</label>
+                                                        <select name="supervisor_id" class="form-control">
+                                                            <option>Select Supervisor</option>
+                                                            <?php
+                                                                if(isset($supervisors)){
+                                                                    foreach ($supervisors as $key => $value) { ?>
+                                                                        <?php
+                                                                            if(isset($data[1]['supervisor_name'])){?>
+                                                                            <option value="<?php echo $value['user_id'];?>"  <?php if($data[1]['supervisor_name'] == $value['name']){ echo 'selected' ; } ?> > <?php echo $value['name'] ?></option>
+                                                                        <?php }else{?>
+                                                                            <option value="<?php echo $value['user_id'];?>" ><?php echo $value['name'] ?></option>
+                                                                        <?php  }
+                                                                        ?>
+                                                                <?php }
+                                                                }
+                                                            ?>
+                                                        </select>
+                                                    </div>
+
+                                                    <?php if(isset($data[1]['supervisor_name'])){?>
+                                                        <div class="col-md-12 mb-3">
+                                                            <label for="" class="small">Status</label>
+                                                            <input type="text" value="<?php echo $data[1]['status']?>"  class="form-control" disabled>
+                                                        </div>  
+
+                                                    <?php } ?>
+
+                                                    <div>
+                                                        <input type="hidden" name="user_id" value="<?php echo $_SESSION['id'];?>">
+                                                    </div>
+
+                                                    <div class="col-md-12 text-end">
+                                                        <button class="btn btn-primary" type="submit">Update Supervisor</button>
+                                                    </div>
+                                            
+                                              </div>
+                                             
+                                          <?php 
+                                        } ?>
+                                        </div>
+                                </div>
+                            </form>
+                            <?php }?>
+
+                        
                         </div>
                   
 

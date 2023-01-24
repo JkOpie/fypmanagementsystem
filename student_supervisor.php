@@ -69,25 +69,26 @@ require_once("controllers/db_connection.php");
                             <div class="card-body">
                                 <div class="mb-3">
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <label class="form-label">Students</label>
+                                        <div class="col-md-12 text-end">
+                                            <a class="btn btn-success mb-3" href="controllers/supervisor/studentUnderSupervisorReport.php">Student under Supervisor Report</a>
                                         </div>
                                     </div>
                                     
                                     <table class="table table-bordered table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Image</th>
+                                            <th></th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Phone Number</th>
+                                            <th>Semester</th>
                                             <th>Programmes</th>
                                             <!-- <th>Action</th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php 
-
+                                        $index = 0;
                                         if(isset($students)){
                                             foreach ($students as $key => $value) { 
 
@@ -103,10 +104,11 @@ require_once("controllers/db_connection.php");
                                             ?>
 
                                             <tr>
-                                                <td>  <?php echo $image ?></td>
+                                                <td>  <?php echo ($index + 1) ?></td>
                                                 <td>  <?php echo $value['name']?> </td>
                                                 <td>  <?php echo $value['email']?> </td>
                                                 <td>  <?php echo $value['handphone']?> </td>
+                                                <td>  <?php echo $value['semester']?> </td>
                                                 <td>  <?php echo $value['programmes']?> </td>
                                                 <!-- <td>
                                                     <div class="d-flex">
@@ -126,7 +128,7 @@ require_once("controllers/db_connection.php");
                                                     <a href="controllers/supervisor/deleteStudent.php?student_id=<?php echo $value['id'] ?>" class="btn btn-sm btn-danger">Delete</a>
                                                 </td> -->
                                             </tr>
-                                        <?php }
+                                        <?php  $index++; }
                                         }?>
 
                                     

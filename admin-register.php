@@ -54,6 +54,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
+                                               
                                             </div>
 
                                             <div class="row gx-3 student">
@@ -87,13 +88,28 @@
                                             </div>
                                             <!-- Form Row    -->
                                             <div class="row gx-3 programmes">
-                                                <div class="col-md-12">
+                                                <div class="col-md-6">
                                                     <div class="mb-3 ">
                                                         <label class="small mb-1">Programmes</label>
                                                         <select name="programmes" class="form-select">
                                                             <option value="multimedia">Multimedia</option>
                                                             <option value="information_system">Information System</option>
                                                             <option value="computer_science">Computer Science</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="" class="form-label">Semester</label>
+                                                        <select name="semester" class="form-select">
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                            <option value="6">6</option>
+                                                            <option value="7">7</option>
+                                                            <option value="8">8</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -162,12 +178,14 @@
             $('.student').empty();
             $('.programmes').empty();
         }else{
-            $('student').append(
+            $('.student').append(
                 $('<div>').addClass('col-md-6').append(
                     $('<div>').addClass('mb-3').append(
                         $('<label>').addClass('small mb-1').text('Student Name'),
                         $('<input>').attr({'class': 'form-control', 'type':'text','placeholder':'Enter Name','name':'name'}).prop('required', true)
                     ),
+                ),
+                $('<div>').addClass('col-md-6').append(
                     $('<div>').addClass('mb-3').append(
                         $('<label>').addClass('small mb-1').text('Matric Number'),
                         $('<input>').attr({'class': 'form-control', 'type':'text','placeholder':'Enter matric number','name':'matric_number'}).prop('required', true)
@@ -179,10 +197,26 @@
                 $('<div>').addClass('col-md-6').append(
                     $('<div>').addClass('mb-3').append( 
                         $('<label>').addClass('small mb-1').text('Programmes'),
-                        $('<select>').addClass('form-select').append(
+                        $('<select>').addClass('form-select').attr('name','programmes').append(
                             $('<option>').val('multimedia').text('Multimedia'),
-                            $('<option>').val('information_system').text('Information System<'),
+                            $('<option>').val('information_system').text('Information System'),
                             $('<option>').val('computer_science').text('Computer Science')
+                        ),
+                    )
+                ),
+
+                $('<div>').addClass('col-md-6').append(
+                    $('<div>').addClass('mb-3').append( 
+                        $('<label>').addClass('small mb-1').text('Semester'),
+                        $('<select>').addClass('form-select').attr('name', 'semester').append(
+                            $('<option>').val('1').text('1'),
+                            $('<option>').val('2').text('2'),
+                            $('<option>').val('3').text('3'),
+                            $('<option>').val('4').text('4'),
+                            $('<option>').val('5').text('5'),
+                            $('<option>').val('6').text('6'),
+                            $('<option>').val('7').text('7'),
+                            $('<option>').val('8').text('8')
                         ),
                     )
                 )
