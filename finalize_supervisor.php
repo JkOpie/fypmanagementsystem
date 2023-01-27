@@ -80,8 +80,8 @@ include('controllers/validateAuthentication.php');
                                                  
 
                                                     if($value['status'] == 'pending'){
-                                                        $approvebtn = "<button class='btn btn-primary btn-sm me-1 mb-1' onclick='approveSupervisor(".$value['student_id'].")'>Approve Supervisor</button><br>";
-                                                        $rejectbtn = "<button class='btn btn-secondary btn-sm me-1 mb-1' onclick='rejectSupervisor(".$value['student_id'].")'>Reject Supervisor</button>";
+                                                        $approvebtn = "<button class='btn btn-success btn-sm me-1 mb-1' onclick='approveSupervisor(".$value['student_id'].")'>Approve Supervisor</button><br>";
+                                                        $rejectbtn = "<button class='btn btn-secondary btn-sm me-1 mb-1' onclick='rejectSupervisor(".$value['student_id'].")'>Reject Supervisor</button> <br>";
                                                     }
     
                                                     echo '
@@ -94,7 +94,7 @@ include('controllers/validateAuthentication.php');
                                                         <td>'.(isset($value['semester']) ? $value['semester'] : '-' ).'</td>
                                                         <td>'.(isset($value['supervisor_name']) ? $value['supervisor_name'] : '-').'</td>
                                                         <td>'.(isset($value['status']) ? $value['status'] : '-').'</td>
-                                                        <td>'.$approvebtn.$rejectbtn.' <br><a class="btn btn-danger btn-sm" href="controllers/fypcoordinator/deleteStudent.php?student_id='.$value['id'].'">Delete</a></td>
+                                                        <td> <button class="btn btn-primary btn-sm mb-1"  data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="updateSemester('.$value['student_id'].')">Update Semester</button> <br>'.$approvebtn.$rejectbtn.'<a class="btn btn-danger btn-sm" href="controllers/fypcoordinator/deleteStudent.php?student_id='.$value['id'].'">Delete</a></td>
                                                     </tr>';
                                                 }
                                             }else{
@@ -120,8 +120,42 @@ include('controllers/validateAuthentication.php');
         <?php include('layout_admin/btm_scripts.php')?>
        
     </body>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Update Semester</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+           <form action="controllers/fypcoordinator/updateStudentSemester.php" method="post" id="updateSemester">
+            <div class="from-group">
+                <label for="" class="form-label">Semester</label>
+                <input type="hidden" name="student_id" >
+                <select name="semester" class="form-control">
+                    <option value="12234">12234</option>
+                    <option value="22234">22234</option>
+                    <option value="32234">32234</option>
+                </select>
+            </div>
+            <div class="mt-3 text-end">
+                <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+           </form>
+        </div>
+       
+        </div>
+    </div>
+</div>
     
     <script>
+
+        function updateSemester(student_id){
+            $('#updateSemester input[name=student_id]').val(student_id);
+        }
+
         function approveSupervisor(student_id){
             
             $.ajax({

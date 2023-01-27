@@ -84,14 +84,9 @@
                                                     <div class="mb-3">
                                                         <label for="" class="form-label">Semester</label>
                                                         <select name="semester" class="form-select">
-                                                            <option value="1">1</option>
-                                                            <option value="2">2</option>
-                                                            <option value="3">3</option>
-                                                            <option value="4">4</option>
-                                                            <option value="5">5</option>
-                                                            <option value="6">6</option>
-                                                            <option value="7">7</option>
-                                                            <option value="8">8</option>
+                                                            <option value="12234">12234</option>
+                                                            <option value="22234">22234</option>
+                                                            <option value="32234">32234</option>
                                                         </select>
                                                     </div>
                                                 </div>

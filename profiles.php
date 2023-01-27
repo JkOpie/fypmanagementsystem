@@ -49,7 +49,9 @@ require_once("controllers/db_connection.php");
                     $supervisors = null;
                     
                     if($_SESSION['roles'] == 'student'){
-                        $sql = "select staffs.*, users.name from staffs left join users on users.id = staffs.user_id where staffs.roles='supervisor'and staffs.department = '".$data[1]['programmes']."'";
+                        $sql = "select staffs.*, users.name from staffs left join users on users.id = staffs.user_id where 
+                        staffs.roles='supervisor'and 
+                        staffs.department = '".$data[1]['programmes']."'";
                         $result = $conn->query($sql);
 
                         if ($result->num_rows > 0) {
@@ -159,14 +161,9 @@ require_once("controllers/db_connection.php");
                                                             <div class="col-md-6 ">
                                                             <label class="small mb-1">Semester</label>
                                                             <select name="semester" class=form-select>
-                                                                <option value="1" <?php if($data[1]['semester'] == '1'){echo 'selected';}?>>1</option>
-                                                                <option value="2" <?php if($data[1]['semester'] == '2'){echo 'selected';}?> >2</option>
-                                                                <option value="3" <?php if($data[1]['semester'] == '3'){echo 'selected';}?>>3</option>
-                                                                <option value="4" <?php if($data[1]['semester'] == '4'){echo 'selected';}?>>4</option>
-                                                                <option value="5" <?php if($data[1]['semester'] == '5'){echo 'selected';}?> >5</option>
-                                                                <option value="6" <?php if($data[1]['semester'] == '6'){echo 'selected';}?>>6</option>
-                                                                <option value="7" <?php if($data[1]['semester'] == '7'){echo 'selected';}?>>7</option>
-                                                                <option value="8" <?php if($data[1]['semester'] == '8'){echo 'selected';}?> >8</option>
+                                                                <option value="12234" <?php if($data[1]['semester'] == '12234'){echo 'selected';}?>>12234</option>
+                                                                <option value="22234" <?php if($data[1]['semester'] == '22234 '){echo 'selected';}?> >22234</option>
+                                                                <option value="32234" <?php if($data[1]['semester'] == '32234'){echo 'selected';}?>>32234</option>
                                                             </select>
                                                             </div>
                                                            </div>
