@@ -2,6 +2,7 @@
 <?php
     session_start();
     include('controllers/validateAuthentication.php');
+    require_once("controllers/db_connection.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -81,12 +82,30 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
+                                                    <?php 
+                                                        $conn = setDbConnection();
+                                                        $sql = "select * from semesters";
+                                                        $result = $conn->query($sql);
+                                                        $semesters = [];
+
+                                                        if ($result->num_rows > 0) {
+                                                            while ($row = $result->fetch_assoc()) {
+                                                                $semesters[] = $row;
+                                                            }
+                                                        }
+                                                    ?>
                                                     <div class="mb-3">
                                                         <label for="" class="form-label">Semester</label>
-                                                        <select name="semester" class="form-select">
-                                                            <option value="12234">12234</option>
-                                                            <option value="22234">22234</option>
-                                                            <option value="32234">32234</option>
+                                                        <select name="semester" class="form-select" required>
+                                                            <option>Select Semester</option>
+                                                            <?php 
+                                                                if(isset($semesters)){
+                                                                    foreach ($semesters as $key => $value) { ?>
+                                                                    <option value="<?php echo $value['name'] ?>"> <?php echo $value['name']?></option>
+                                                         <?php      }
+                                                                }
+                                                            ?>
+                                                           
                                                         </select>
                                                     </div>
                                                 </div>

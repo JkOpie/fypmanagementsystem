@@ -3,19 +3,17 @@
     require_once("C:/xampp/htdocs/fyp/controllers/db_connection.php");
 
     $conn = setDbConnection();
+    session_start();
 
     $tr = null;
     $path = 'C:/xampp/htdocs';
     $index = 0;
 
-    $query = "select students.*, users.name, users.email, users.roles, users.handphone, supervisor.name as supervisor_name from students
-    left join users on users.id = students.user_id 
-    left join users as supervisor on students.supervisor_id = users.id
-    where students.supervisor_id = '".$_SESSION['id']."'
-    order by id desc";
+    $query = "select students.*, users.name, users.email, users.handphone from students left 
+    join users on users.id = students.user_id where supervisor_id = '".$_SESSION['id']."' ";
 
     $result = $conn->query($query);
-
+    
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             $image = null;

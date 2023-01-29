@@ -59,7 +59,22 @@ require_once("controllers/db_connection.php");
                                 $supervisors[] = $row;
                             }
                         }
-                    } ?>
+
+                        $sql = "select * from semesters";
+                        $result = $conn->query($sql);
+                        $semesters = [];
+    
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                $semesters[] = $row;
+                            }
+                        }
+                    } 
+                    
+                   
+                    ?>
+
+
 
                 <div class="container-xl px-4 mt-4">
                     <div class="row">
@@ -161,9 +176,13 @@ require_once("controllers/db_connection.php");
                                                             <div class="col-md-6 ">
                                                             <label class="small mb-1">Semester</label>
                                                             <select name="semester" class=form-select>
-                                                                <option value="12234" <?php if($data[1]['semester'] == '12234'){echo 'selected';}?>>12234</option>
-                                                                <option value="22234" <?php if($data[1]['semester'] == '22234 '){echo 'selected';}?> >22234</option>
-                                                                <option value="32234" <?php if($data[1]['semester'] == '32234'){echo 'selected';}?>>32234</option>
+                                                                <?php 
+                                                                    if(isset($semesters)){
+                                                                        foreach ($semesters as $key => $value) { ?>
+                                                                        <option value="<?php echo $value['name'] ?>" <?php echo $data[1]['semester'] == $value['name'] ? 'selected' : null ?>> <?php echo $value['name']?></option>
+                                                            <?php      }
+                                                                    }
+                                                            ?>
                                                             </select>
                                                             </div>
                                                            </div>

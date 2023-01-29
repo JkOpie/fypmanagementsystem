@@ -124,6 +124,12 @@
                 }
 
                 if($_SESSION['roles'] == 'fyp_coordinator'){
+                    echo '
+                    <a class="nav-link" href="/fyp/semester.php">
+                        Semester
+                    </a>
+                    <hr>
+                ';
 
                     echo '
                         <a class="nav-link" href="/fyp/register-student.php">
@@ -138,6 +144,8 @@
                         </a>
                         <hr>
                     ';
+
+                   
                 }
 
                 if($_SESSION['roles'] == 'hod'){
