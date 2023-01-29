@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('controllers/validateAuthentication.php');
+require_once("controllers/db_connection.php");
 ?>
 
 <!DOCTYPE html>
@@ -131,12 +132,28 @@ include('controllers/validateAuthentication.php');
         <div class="modal-body">
            <form action="controllers/fypcoordinator/updateStudentSemester.php" method="post" id="updateSemester">
             <div class="from-group">
+                <?php 
+                $conn = setDbConnection();
+                $sql = "select * from semesters";
+                $result = $conn->query($sql);
+                $semesters = [];
+
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        $semesters[] = $row;
+                    }
+                }
+                        ?>
                 <label for="" class="form-label">Semester</label>
                 <input type="hidden" name="student_id" >
                 <select name="semester" class="form-control">
-                    <option value="12234">12234</option>
-                    <option value="22234">22234</option>
-                    <option value="32234">32234</option>
+                <?php 
+                    if(isset($semesters)){
+                        foreach ($semesters as $key => $value) { ?>
+                        <option value="<?php echo $value['name'] ?>"> <?php echo $value['name']?></option>
+                <?php      }
+                    }
+                ?>
                 </select>
             </div>
             <div class="mt-3 text-end">
