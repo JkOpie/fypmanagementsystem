@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 08, 2023 at 02:59 PM
+-- Generation Time: Feb 15, 2023 at 12:18 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -69,7 +69,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '2014_10_12_000000_create_users_table', 1),
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2019_12_14_000001_create_personal_access_tokens_table', 1);
+(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(5, '2023_01_29_025416_create_semesters_table', 2);
 
 -- --------------------------------------------------------
 
@@ -158,7 +159,115 @@ INSERT INTO `notifications` (`id`, `user_id`, `notification`, `status`, `created
 (65, '36', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
 (66, '37', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
 (67, '38', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
-(68, '39', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL);
+(68, '39', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(69, '64', 'fypcoordinator approved FAUDZI AHMAD as your supervisor', 'new', '2023-01-23 04:44:57', NULL),
+(70, '40', 'TS. MARLIZA ABDUL MALIK approved proposal asdasd', 'new', '2023-02-11 05:36:33', NULL),
+(71, '40', 'TS. MARLIZA ABDUL MALIK approved proposal asdasd', 'new', '2023-02-11 06:28:39', NULL),
+(72, '6', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(73, '7', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(74, '8', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(75, '9', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(76, '10', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(77, '11', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(78, '12', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(79, '13', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(80, '14', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(81, '15', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(82, '16', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(83, '17', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(84, '18', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(85, '19', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(86, '20', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(87, '21', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(88, '22', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(89, '23', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(90, '24', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(91, '25', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(92, '26', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(93, '27', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(94, '28', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(95, '29', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(96, '30', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(97, '31', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(98, '32', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(99, '33', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(100, '34', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(101, '35', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(102, '36', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(103, '37', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(104, '38', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(105, '39', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(106, '6', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(107, '7', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(108, '8', 'Student student1 has created fyp proposals, please review the proposals!', 'read', NULL, NULL),
+(109, '9', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(110, '10', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(111, '11', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(112, '12', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(113, '13', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(114, '14', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(115, '15', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(116, '16', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(117, '17', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(118, '18', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(119, '19', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(120, '20', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(121, '21', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(122, '22', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(123, '23', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(124, '24', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(125, '25', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(126, '26', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(127, '27', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(128, '28', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(129, '29', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(130, '30', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(131, '31', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(132, '32', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(133, '33', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(134, '34', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(135, '35', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(136, '36', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(137, '37', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(138, '38', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(139, '39', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(140, '6', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(141, '7', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(142, '8', 'Student student1 has created fyp proposals, please review the proposals!', 'read', NULL, NULL),
+(143, '9', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(144, '10', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(145, '11', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(146, '12', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(147, '13', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(148, '14', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(149, '15', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(150, '16', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(151, '17', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(152, '18', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(153, '19', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(154, '20', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(155, '21', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(156, '22', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(157, '23', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(158, '24', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(159, '25', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(160, '26', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(161, '27', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(162, '28', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(163, '29', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(164, '30', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(165, '31', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(166, '32', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(167, '33', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(168, '34', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(169, '35', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(170, '36', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(171, '37', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(172, '38', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(173, '39', 'Student student1 has created fyp proposals, please review the proposals!', 'new', NULL, NULL),
+(174, '40', 'TS. MARLIZA ABDUL MALIK approved proposal sadasds', 'new', '2023-02-11 20:40:10', NULL),
+(175, '40', 'TS. MARLIZA ABDUL MALIK approved proposal sdfdf', 'new', '2023-02-11 20:40:55', NULL),
+(176, '40', 'TS. MARLIZA ABDUL MALIK rejected proposal sdsd', 'new', '2023-02-11 20:41:01', NULL);
 
 -- --------------------------------------------------------
 
@@ -199,24 +308,47 @@ CREATE TABLE `personal_access_tokens` (
 CREATE TABLE `proposals` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `title` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `start_date` datetime DEFAULT NULL,
-  `end_date` datetime DEFAULT NULL,
+  `submission_date` datetime DEFAULT NULL,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
   `supervisor_id` bigint(20) DEFAULT NULL,
+  `supervisor_status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `fyp_coordinator_status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `attachment` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `attachment_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `reason` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `proposals`
 --
 
-INSERT INTO `proposals` (`id`, `title`, `start_date`, `end_date`, `status`, `user_id`, `supervisor_id`, `fyp_coordinator_status`, `attachment`, `attachment_name`, `created_at`, `updated_at`) VALUES
-(2, 'asdasd', '2023-01-21 00:00:00', '2023-01-22 00:00:00', 'pending', 40, NULL, 'pending', '1673181757.jpg', 'ping pong.jpg', NULL, NULL);
+INSERT INTO `proposals` (`id`, `title`, `submission_date`, `status`, `user_id`, `supervisor_id`, `supervisor_status`, `fyp_coordinator_status`, `attachment`, `attachment_name`, `reason`) VALUES
+(3, 'sdsd', '2023-02-11 00:00:00', 'pending', 40, 7, 'pending', 'rejected', NULL, NULL, 'asdasd'),
+(4, 'sdfdf', '2023-02-14 00:00:00', 'pending', 40, 8, 'pending', 'approved', NULL, NULL, 'fgfg'),
+(5, 'sadasds', '2023-02-17 00:00:00', 'pending', 40, 7, 'pending', 'approved', NULL, NULL, 'sdsd');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `semesters`
+--
+
+CREATE TABLE `semesters` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `semesters`
+--
+
+INSERT INTO `semesters` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, '12234', NULL, NULL),
+(2, '22234', NULL, NULL),
+(3, '32234', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -295,6 +427,7 @@ CREATE TABLE `students` (
   `programmes` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `supervisor_id` bigint(20) DEFAULT NULL,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `semester` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -303,37 +436,37 @@ CREATE TABLE `students` (
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`id`, `user_id`, `matric_number`, `programmes`, `supervisor_id`, `status`, `created_at`, `updated_at`) VALUES
-(1, 40, '1', 'multimedia', 7, 'pending', NULL, NULL),
-(2, 41, '2', 'multimedia', 7, 'pending', NULL, NULL),
-(3, 42, '3', 'multimedia', NULL, NULL, NULL, NULL),
-(4, 43, '4', 'multimedia', NULL, NULL, NULL, NULL),
-(5, 45, '6', 'information_system', NULL, NULL, NULL, NULL),
-(6, 46, '7', 'information_system', NULL, NULL, NULL, NULL),
-(7, 47, '8', 'information_system', NULL, NULL, NULL, NULL),
-(8, 48, '9', 'information_system', NULL, NULL, NULL, NULL),
-(9, 49, '10', 'information_system', NULL, NULL, NULL, NULL),
-(10, 50, '11', 'information_system', NULL, NULL, NULL, NULL),
-(11, 51, '12', 'information_system', NULL, NULL, NULL, NULL),
-(12, 52, '13', 'information_system', NULL, NULL, NULL, NULL),
-(13, 53, '14', 'information_system', NULL, NULL, NULL, NULL),
-(14, 54, '15', 'information_system', NULL, NULL, NULL, NULL),
-(15, 55, '16', 'information_system', NULL, NULL, NULL, NULL),
-(16, 56, '17', 'information_system', NULL, NULL, NULL, NULL),
-(17, 57, '18', 'information_system', NULL, NULL, NULL, NULL),
-(18, 58, '19', 'information_system', NULL, NULL, NULL, NULL),
-(19, 60, '21', 'computer_science', NULL, NULL, NULL, NULL),
-(20, 61, '22', 'computer_science', NULL, NULL, NULL, NULL),
-(21, 62, '23', 'computer_science', NULL, NULL, NULL, NULL),
-(22, 63, '24', 'computer_science', NULL, NULL, NULL, NULL),
-(23, 64, '25', 'computer_science', NULL, NULL, NULL, NULL),
-(24, 65, '26', 'computer_science', NULL, NULL, NULL, NULL),
-(25, 66, '27', 'computer_science', NULL, NULL, NULL, NULL),
-(26, 67, '28', 'computer_science', NULL, NULL, NULL, NULL),
-(27, 68, '29', 'computer_science', NULL, NULL, NULL, NULL),
-(28, 69, '30', 'computer_science', NULL, NULL, NULL, NULL),
-(29, 70, '31', 'computer_science', NULL, NULL, NULL, NULL),
-(30, 71, '32', 'computer_science', NULL, NULL, NULL, NULL);
+INSERT INTO `students` (`id`, `user_id`, `matric_number`, `programmes`, `supervisor_id`, `status`, `semester`, `created_at`, `updated_at`) VALUES
+(1, 40, '1', 'multimedia', 8, 'pending', '32234', NULL, NULL),
+(2, 41, '2', 'multimedia', 7, 'pending', NULL, NULL, NULL),
+(3, 42, '3', 'multimedia', NULL, NULL, NULL, NULL, NULL),
+(4, 43, '4', 'multimedia', NULL, NULL, NULL, NULL, NULL),
+(5, 45, '6', 'information_system', NULL, NULL, NULL, NULL, NULL),
+(6, 46, '7', 'information_system', NULL, NULL, NULL, NULL, NULL),
+(7, 47, '8', 'information_system', NULL, NULL, NULL, NULL, NULL),
+(8, 48, '9', 'information_system', NULL, NULL, NULL, NULL, NULL),
+(9, 49, '10', 'information_system', NULL, NULL, NULL, NULL, NULL),
+(10, 50, '11', 'information_system', NULL, NULL, NULL, NULL, NULL),
+(11, 51, '12', 'information_system', NULL, NULL, NULL, NULL, NULL),
+(12, 52, '13', 'information_system', NULL, NULL, NULL, NULL, NULL),
+(13, 53, '14', 'information_system', NULL, NULL, NULL, NULL, NULL),
+(14, 54, '15', 'information_system', NULL, NULL, NULL, NULL, NULL),
+(15, 55, '16', 'information_system', NULL, NULL, NULL, NULL, NULL),
+(16, 56, '17', 'information_system', NULL, NULL, NULL, NULL, NULL),
+(17, 57, '18', 'information_system', NULL, NULL, NULL, NULL, NULL),
+(18, 58, '19', 'information_system', NULL, NULL, NULL, NULL, NULL),
+(19, 60, '21', 'computer_science', NULL, NULL, NULL, NULL, NULL),
+(20, 61, '22', 'computer_science', NULL, NULL, NULL, NULL, NULL),
+(21, 62, '23', 'computer_science', 26, 'pending', NULL, NULL, NULL),
+(22, 63, '24', 'computer_science', NULL, NULL, NULL, NULL, NULL),
+(23, 64, '25', 'computer_science', 26, 'approved', NULL, NULL, NULL),
+(24, 65, '26', 'computer_science', NULL, NULL, NULL, NULL, NULL),
+(25, 66, '27', 'computer_science', NULL, NULL, NULL, NULL, NULL),
+(26, 67, '28', 'computer_science', NULL, NULL, NULL, NULL, NULL),
+(27, 68, '29', 'computer_science', NULL, NULL, NULL, NULL, NULL),
+(28, 69, '30', 'computer_science', NULL, NULL, NULL, NULL, NULL),
+(29, 70, '31', 'computer_science', NULL, NULL, NULL, NULL, NULL),
+(30, 71, '32', 'computer_science', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -480,6 +613,12 @@ ALTER TABLE `proposals`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `semesters`
+--
+ALTER TABLE `semesters`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `staffs`
 --
 ALTER TABLE `staffs`
@@ -517,13 +656,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=177;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -535,7 +674,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `proposals`
 --
 ALTER TABLE `proposals`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `semesters`
+--
+ALTER TABLE `semesters`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `staffs`
