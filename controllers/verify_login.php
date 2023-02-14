@@ -45,6 +45,13 @@
 
             //echo $_SESSION["roles"];
             if($_SESSION['roles'] == 'student'){
+
+                $sql = "select * from students where user_id = '".$row['id']."'";
+                $result = $conn->query($sql);
+                while($row = $result->fetch_assoc()) {
+                    //var_dump($row2);
+                    $_SESSION["programmes"] =  $row["programmes"];
+                }
                 header('Location: /fyp/student-dashboard.php');
                 die();
             }

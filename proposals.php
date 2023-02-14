@@ -73,10 +73,6 @@
                                     <button class="btn btn-info me-2" onclick="window.location.replace('/fyp/dashboard.php')">Reset Search</button>
                                     <?php 
                                         
-                                        if($_SESSION['roles'] == 'student' && !StudentHaveProposal()){
-                                            echo "<button class='btn btn-primary me-2' onclick=window.location.replace('/fyp/add-proposal.php')>Add Proposal</button>";
-                                        }
-                                        
                                         if($_SESSION['roles'] == 'hod' || $_SESSION['roles'] == 'fyp_coordinator'){
                                             echo "<a class='btn btn-primary me-2' href='/fyp/controllers/report.php'>Generate Proposal Report</a>";
                                         }
@@ -87,12 +83,12 @@
                                     <thead>
                                         <tr>
                                             <th>Title</th>
-                                            <th>Start Date</th>
-                                            <th>End Date</th>
-                                            <th>Cluster</th>
-                                            <th>Fyp Coordinator/Supervisor</th>
+                                            <th>Submission Date</th>
                                             <th>Student</th>
+                                            <th>Supervisor</th>
                                             <th>Attachment</th>
+                                            <th>Status</th>
+                                            <th>Reason</th>
                                             <th>Action</th>
                                            
                                         </tr>
@@ -108,9 +104,9 @@
                                                 $deleteProposal = null;
 
                                                 if($proposal['fyp_coordinator_status'] == 'pending' || $proposal['fyp_coordinator_status'] == null ){
-                                                    if($_SESSION['roles'] == 'supervisor' ||  $_SESSION['roles'] == 'fyp_coordinator'){
-                                                        $updateApproveStatus = "<button class='btn btn-success btn-sm mb-1' data-status=approved onclick='updateProposalStatus(".$proposal['id'].",this)'>Approve</button>";
-                                                        $updateRejectStatus = '<button class="btn btn-danger btn-sm mb-1" data-status=rejected onclick="updateProposalStatus('.$proposal['id'].',this)">Reject</button>';
+                                                    if($_SESSION['roles'] == 'supervisor'){
+                                                        $updateApproveStatus = "<button class='btn btn-success btn-sm mb-1' data-status=approved data-bs-toggle='modal'  data-bs-target='#approveProposal' onclick='updateProposalStatus(".$proposal['id'].",this)'>Approve</button>";
+                                                        $updateRejectStatus = '<button class="btn btn-danger btn-sm mb-1" data-status=rejected data-bs-toggle="modal"  data-bs-target="#approveProposal" onclick="updateProposalStatus('.$proposal['id'].',this)">Reject</button>';
                                                     }
                                                 }
                                                 //var_dump($proposal['fyp_coordinator_status'] );
@@ -125,12 +121,12 @@
                                                echo '
                                                         <tr>
                                                             <td>'.$proposal['title'].'</td>
-                                                            <td>'.$proposal['start_date'].'</td>
-                                                            <td>'.$proposal['end_date'].'</td>
-                                                            <td>'.$proposal['status'].'</td>
-                                                            <td>'.$proposal['fyp_coordinator_status'].'</td>
+                                                            <td>'.$proposal['submission_date'].'</td>
                                                             <td>'.( $proposal['student'] ?? '-') .'</td>
+                                                            <td>'.( $proposal['supervisor'] ?? '-') .'</td>
                                                             <td>'.( $proposal['attachment_name'] ? '<a href="assets/proposals/'.$proposal['attachment'].'" target=blank>'.$proposal["attachment_name"].'</a>' : '-').'</td>
+                                                            <td>'.$proposal['fyp_coordinator_status'].'</td>
+                                                            <td>'.($proposal['reason'] ?? '-') .'</td>
                                                             <td>
                                                                 '.$editProposal.' 
                                                                 '.$updateApproveStatus.'
@@ -158,6 +154,38 @@
         <?php include('layout_admin/btm_scripts.php')?>
         <?php include('controllers/include_error.php')?>
     </body>
+
+    <!-- Modal -->
+    <div class="modal fade" id="approveProposal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" id="updateProposals">
+
+                    <div class="form-group mb-3">
+                        <lable class="small mb-1">Reasons</lable>
+                        <input type="hidden" value="" name="proposal_id">
+                        <input type="hidden" value="" name="type">
+                        <input type="hidden" value="" name="status">
+                        <textarea name="reason" cols="30" rows="10" class="form-control"></textarea>
+                    </div>
+                    
+
+                    <div class="text-end">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+               
+            </div>
+          
+            </div>
+        </div>
+    </div>
 
     <script>
 
@@ -213,19 +241,16 @@
 
         function updateProposalStatus(id, element){
 
-            $.ajax({
-                type: "POST",
-                url: '/fyp/controllers/proposal.php',
-                data: {
-                    'type' : 'update_status',
-                    'proposal_id' : id,
-                    'status': $(element).attr('data-status'),
-                }, // serializes the form's elements.
-                success: function(data) { 
-                    location.reload();
-                    //console.log(data);
-                }
-            });
+            if($(element).attr('data-status') == 'approved'){
+                $('#exampleModalLabel').text('Approve Proposal');
+            }else{
+                $('#exampleModalLabel').text('Reject Proposal');
+            }
+           
+            $('form#updateProposals').attr('action', '/fyp/controllers/proposal.php');
+            $('form#updateProposals input[name=proposal_id]').val(id);
+            $('form#updateProposals input[name=type]').val('update_status');
+            $('form#updateProposals input[name=status]').val($(element).attr('data-status'));
 
         }
 

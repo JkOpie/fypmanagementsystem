@@ -60,7 +60,7 @@
                     echo '<a class="dropdown-item dropdown-notifications-item position-relative" onclick="updateNotificationStatus('.$value['id'].')" >';
                     
                     if($value['status'] != 'read'){
-                        echo '<div class="position-absolute" style="right:0;top:0">
+                        echo '<div class="position-absolute" style="right:16px;top:0">
                             <button class="btn btn-sm btn-danger" style="padding:3px;font-size:10px">New</button>
                         </div>';
                     }

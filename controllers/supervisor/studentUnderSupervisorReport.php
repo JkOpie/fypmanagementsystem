@@ -26,10 +26,10 @@
             <tr>
                 <td>'.($index + 1).'</td>
                 <td>'.$row['name'].'</td>
-                <td>'.$row['email'].'</td>
+                <td>'.$row['matric_number'].'</td>
                 <td>'.$row['handphone'].'</td>
-                <td>'.($row['semester'] ?: '-').'</td>
                 <td>'.($row['programmes'] ?: '-') .'</td>
+               
             </tr>
             ';
 
@@ -75,10 +75,9 @@
         <tr>
             <th></th>
             <th>Name</th>
+            <th>Matric Number</th>
             <th>Email</th>
             <th>Phone Number</th>
-            <th>Semester</th>
-            <th>Status</th>
         </tr>
     </thead>  
     <tbody>

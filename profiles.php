@@ -8,6 +8,13 @@ require_once("controllers/db_connection.php");
 
 <head>
     <?php include('layout_admin/header.php') ?>
+
+    <style>
+        .list-group-item-dark{
+           background-color:#e0e5ec;
+           color: #69707a;
+        }
+    </style>
     
 </head>
 
@@ -49,16 +56,19 @@ require_once("controllers/db_connection.php");
                     $supervisors = null;
                     
                     if($_SESSION['roles'] == 'student'){
-                        $sql = "select staffs.*, users.name from staffs left join users on users.id = staffs.user_id where 
-                        staffs.roles='supervisor'and 
-                        staffs.department = '".$data[1]['programmes']."'";
+                        
+                        $sql = "select users.name as supervisor_name from proposals
+                        left join users on users.id = proposals.supervisor_id
+                        where proposals.user_id = '".$_SESSION['id']."' and supervisor_status = 'approved'";
                         $result = $conn->query($sql);
 
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                $supervisors[] = $row;
+                                $supervisors[] = $row['supervisor_name'];
                             }
                         }
+
+                        //var_dump(array_unique($supervisors));
 
                         $sql = "select * from semesters";
                         $result = $conn->query($sql);
@@ -223,13 +233,6 @@ require_once("controllers/db_connection.php");
                                        
                                             ?>
 
-                                        
-
-                                       
-
-                                     
-                                        
-
                                         <?php 
                                         
                                         if($_SESSION['roles'] != 'admin'){
@@ -251,59 +254,28 @@ require_once("controllers/db_connection.php");
                                 </form>
                             </div>
                             <?php 
-                                if($_SESSION['roles'] == 'student'){?>
-                                <form action="controllers/student/updateStudentSupervisor.php" method="post">
+                                if($_SESSION['roles'] == 'student'){
+                                     if(isset($supervisors)){  ?>
+                               
                                 <div class="card mb-4 mb-xl-0">
                                         <div class="card-header">Supervisor</div>
                                         <div class="card-body">
-                                        <?php   if(isset($data)){ 
-                                            ?>
+                                     
                                            
                                               <div class="row gx-3 mb-3">
-                                                    <div class="col-md-12 mb-2">
-                                                        <label class="small mb-1">Supervisor</label>
-                                                        <select name="supervisor_id" class="form-control">
-                                                            <option>Select Supervisor</option>
-                                                            <?php
-                                                                if(isset($supervisors)){
-                                                                    foreach ($supervisors as $key => $value) { ?>
-                                                                        <?php
-                                                                            if(isset($data[1]['supervisor_name'])){?>
-                                                                            <option value="<?php echo $value['user_id'];?>"  <?php if($data[1]['supervisor_name'] == $value['name']){ echo 'selected' ; } ?> > <?php echo $value['name'] ?></option>
-                                                                        <?php }else{?>
-                                                                            <option value="<?php echo $value['user_id'];?>" ><?php echo $value['name'] ?></option>
-                                                                        <?php  }
-                                                                        ?>
-                                                                <?php }
-                                                                }
-                                                            ?>
-                                                        </select>
-                                                    </div>
-
-                                                    <?php if(isset($data[1]['supervisor_name'])){?>
-                                                        <div class="col-md-12 mb-3">
-                                                            <label for="" class="small">Status</label>
-                                                            <input type="text" value="<?php echo $data[1]['status']?>"  class="form-control" disabled>
-                                                        </div>  
-
-                                                    <?php } ?>
-
-                                                    <div>
-                                                        <input type="hidden" name="user_id" value="<?php echo $_SESSION['id'];?>">
-                                                    </div>
-
-                                                    <div class="col-md-12 text-end">
-                                                        <button class="btn btn-primary" type="submit">Update Supervisor</button>
-                                                    </div>
-                                            
+                                                   <ul class="list-group">
+                                                    <?php  foreach (array_unique($supervisors) as $key => $value) { ?>
+                                                            <li class="list-group-item list-group-item-dark"><?php echo $value;?></li>
+                                                <?php  }
+                                                    ?>
+                                                        
+                                                   </ul>
                                               </div>
                                              
-                                          <?php 
-                                        } ?>
+                                          
                                         </div>
                                 </div>
-                            </form>
-                            <?php }?>
+                            <?php } }?>
 
                         
                         </div>

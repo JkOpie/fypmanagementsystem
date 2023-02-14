@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('controllers/validateAuthentication.php');
+require_once("controllers/db_connection.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +32,6 @@ include('controllers/validateAuthentication.php');
 
                                                     include_once('controllers/proposal.php');
                                                     $proposals = edit($_REQUEST['proposal']);
-                                                    $supervisors = getAllSupervisor();
                                                 }
                                             }else{
                                                 echo 'Add';
@@ -90,24 +90,7 @@ include('controllers/validateAuthentication.php');
                                             </div>
 
                                             <?php
-                                                if($_SESSION['roles'] == 'cluster'){
-                                                    if(isset($supervisors)){
-                                                        $supervisorOption = null;
-
-                                                        foreach ($supervisors as $key => $supervisor) {
-                                                            $supervisorOption =  $supervisorOption.'<option value='.$supervisor['supervisor_id'].' '.($supervisor['supervisor_name'] == $proposals['supervisor'] ? 'selected' : null).' >'.$supervisor['supervisor_name'].'</option>';
-                                                        }
-
-                                                        echo
-                                                        '<div class="col-md-12 mb-3">
-                                                            <label class="small mb-1">Supervisor</label>
-                                                            <select name=supervisor_id class=form-select required>
-                                                                <option value="">Select Supervisor</option>
-                                                                '.$supervisorOption.'
-                                                            </select>
-                                                        </div>';
-                                                    }
-                                                }
+                                                
                                             ?>
 
                                             <?php 
@@ -115,37 +98,60 @@ include('controllers/validateAuthentication.php');
                                                     echo '<input type=hidden name=proposal_id value='.$proposals['id'].'>';
                                                 }
                                             ?>
-
-                                            <div class="col-md-6 mb-3">
-                                                <label class="small mb-1">Start Date</label>
-                                                <input type="date" class="form-control" name="start_date" required 
+                                            
+                                            <div class="col-md-12 mb-3">
+                                           <label class="small mb-1">Submission Date</label>
+                                                <input type="date" class="form-control" name="submission_date" required 
                                                 <?php
-                                                    if(isset($proposals['start_date'])){
-                                                        echo "value=".$proposals['start_date']."";
+                                                    if(isset($proposals['submission_date'])){
+                                                        echo "value=".$proposals['submission_date']."";
                                                     }
 
-                                                    if($_SESSION['roles'] == 'cluster'){
-                                                        echo 'disabled=true';
-                                                    }
                                                 ?>
                                                 >
                                             </div>
 
-                                            <div class="col-md-6 mb-3">
-                                                <label class="small mb-1">End Date</label>
-                                                <input type="date" class="form-control" name="end_date" required
-                                                <?php
-                                                    if(isset($proposals['end_date'])){
-                                                        echo "value=".$proposals['end_date']."";
-                                                    }
+                                            <?php 
+                                               
+                                                $conn = setDbConnection();
+                                                $supervisors = [];
 
-                                                    if($_SESSION['roles'] == 'cluster'){
-                                                        echo 'disabled=true';
+                                                $sql = "select staffs.user_id, users.name from staffs left join users on users.id = staffs.user_id where 
+                                                staffs.roles='supervisor' and 
+                                                staffs.department = '".$_SESSION['programmes']."'";
+
+                                                $result = $conn->query($sql);
+                        
+                                                if ($result->num_rows > 0) {
+                                                    while ($row = $result->fetch_assoc()) {
+                                                        $supervisors[] = $row;
                                                     }
-                                                ?>
-                                                >
+                                                }
+
+                                                //var_dump($supervisors);
+                        
+                                            ?>
+
+                                            <div class="col-md-12 mb-3">
+                                                <label class="small mb-1">Supervisor</label>
+                                                <select name="supervisor_id" class="form-control">
+                                                    <option>Select Supervisor</option>
+                                                    <?php
+                                                        if(isset($supervisors)){
+                                                            foreach ($supervisors as $key => $value) { ?>
+                                                                <?php
+                                                                var_dump($proposals);
+                                                                    if(isset($proposals['supervisor_id'])){?>
+                                                                    <option value="<?php echo $value['user_id'];?>"  <?php if($proposals['supervisor_id'] == $value['user_id']){ echo 'selected' ; } ?> > <?php echo $value['name'] ?></option>
+                                                                <?php }else{?>
+                                                                    <option value="<?php echo $value['user_id'];?>" ><?php echo $value['name'] ?></option>
+                                                                <?php  }
+                                                                ?>
+                                                        <?php }
+                                                        }
+                                                    ?>
+                                                </select>
                                             </div>
-                                        </div>
                                         <hr>
 
                                         <?php 
@@ -183,7 +189,7 @@ include('controllers/validateAuthentication.php');
                                                         echo '<ul class="list-group">
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                                '.$proposals['attachment_name'].'
-                                                            <span class="badge bg-danger" data-id='.$proposals['id'].' onclick=deleteAttachment(this)>Delete</span>
+                                                            </li>
                                                         </ul>';
                                                     }
                                                 ?>

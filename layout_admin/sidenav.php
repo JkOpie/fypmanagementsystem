@@ -88,40 +88,41 @@
                 }
 
 
-                include_once('controllers/proposal.php');
-                $validateProposals= index();
-                $proposalID = null;
+                // include_once('controllers/proposal.php');
+                // $validateProposals= index();
+                // $proposalID = null;
 
-                $haveProposalsSideNav = false;
-                if(isset($validateProposals)){
-                    foreach ($validateProposals as $key => $value) {
+                // $haveProposalsSideNav = false;
+                // if(isset($validateProposals)){
+                //     foreach ($validateProposals as $key => $value) {
                        
-                        if($_SESSION['id'] == $value['student_id']){
-                            $haveProposalsSideNav = true;
-                            $proposalID=$value['id'];
-                        };
-                    }
-                }
+                //         if($_SESSION['id'] == $value['student_id']){
+                //             $haveProposalsSideNav = true;
+                //             $proposalID=$value['id'];
+                //         };
+                //     }
+                // }
 
-                if($_SESSION['roles'] == 'student'){
+                // if($_SESSION['roles'] == 'student'){
 
-                    if($haveProposalsSideNav){
-                        echo '
-                            <a class="nav-link" href="/fyp/add-proposal.php?type=edit&proposal='.$proposalID.'">
-                                Proposal Submissions
-                            </a>
-                            <hr>
-                        ';
-                    }else{
-                        echo '
-                        <a class="nav-link" href="/fyp/add-proposal.php">
-                            Proposal Submissions
-                        </a>
-                        <hr>
-                    ';
-                    }
+                //     if($haveProposalsSideNav){
+                //         echo '
+                //             <a class="nav-link" href="/fyp/add-proposal.php?type=edit&proposal='.$proposalID.'">
+                //                 Proposal Submissions
+                //             </a>
+                //             <hr>
+                //         ';
+                //     }
+                //     else{
+                //         echo '
+                //         <a class="nav-link" href="/fyp/add-proposal.php">
+                //             Proposal Submissions
+                //         </a>
+                //         <hr>
+                //     ';
+                //     }
                   
-                }
+                // }
 
                 if($_SESSION['roles'] == 'fyp_coordinator'){
                     echo '

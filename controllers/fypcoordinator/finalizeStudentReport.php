@@ -10,8 +10,8 @@
 
     $query = 'select students.*, users.name, users.email, users.roles, users.handphone, supervisor.name as supervisor_name from students
     left join users on users.id = students.user_id 
-    left join users as supervisor on students.supervisor_id = users.id
-    order by id desc';
+    left join users as supervisor on proposals.supervisor_id = users.id
+    order by supervisor.name desc';
 
     $result = $conn->query($query);
 
@@ -82,7 +82,7 @@
             <th>Email</th>
             <th>Phone Number</th>
             <th>Semester</th>
-            <th>Supervisor Name</th>
+            <th>Supervisor</th>
             <th>Status</th>
         </tr>
     </thead>  

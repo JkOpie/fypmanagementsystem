@@ -95,7 +95,7 @@ require_once("controllers/db_connection.php");
                                                         <td>'.(isset($value['semester']) ? $value['semester'] : '-' ).'</td>
                                                         <td>'.(isset($value['supervisor_name']) ? $value['supervisor_name'] : '-').'</td>
                                                         <td>'.(isset($value['status']) ? $value['status'] : '-').'</td>
-                                                        <td> <button class="btn btn-primary btn-sm mb-1"  data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="updateSemester('.$value['student_id'].')">Update Semester</button> <br>'.$approvebtn.$rejectbtn.'<a class="btn btn-danger btn-sm" href="controllers/fypcoordinator/deleteStudent.php?student_id='.$value['id'].'">Delete</a></td>
+                                                        <td> '.$approvebtn.$rejectbtn.'<a class="btn btn-danger btn-sm" href="controllers/fypcoordinator/deleteStudent.php?student_id='.$value['id'].'">Delete</a></td>
                                                     </tr>';
                                                 }
                                             }else{

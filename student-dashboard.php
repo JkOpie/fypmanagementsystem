@@ -57,7 +57,9 @@
 
                     <?php
                       $conn = setDbConnection();
-                      $sql = "select * from proposals where user_id = '".$_SESSION['id']."'";
+                      $sql = "select proposals.*, users.name as supervisor_name from proposals 
+                      left join users on users.id = proposals.supervisor_id
+                      where user_id = '".$_SESSION['id']."'";
                       $result = $conn->query($sql);
                       $proposals = null;
 
@@ -76,8 +78,22 @@
 
                                     <button class="btn btn-info me-2" onclick="window.location.replace('/fyp/student-dashboard.php')">Reset Search</button>
                                     <?php 
+
+                                        //var_dump(TotalProposalsStudent());
+
+                                        $query = "select count(id) as total_student_proposal from proposals where user_id = '".$_SESSION['id']."'";
+                                        $result = $conn->query($query);
+                                        $totalProposals = 0;
+
+                                        if ($result->num_rows > 0) {
+                                            while ($row = $result->fetch_assoc()) {
+                                                $totalProposals = $row['total_student_proposal'];
+                                            }
+                                        }
+
+                                        //var_dump($totalProposals);
                                         
-                                        if($_SESSION['roles'] == 'student' && !StudentHaveProposal()){
+                                        if($_SESSION['roles'] == 'student' && $totalProposals < 3){
                                             echo "<button class='btn btn-primary me-2' onclick=window.location.replace('/fyp/add-proposal.php')>Add Proposal</button>";
                                         }
                                     ?>
@@ -87,10 +103,10 @@
                                     <thead>
                                         <tr>
                                             <th>Title</th>
-                                            <th>Start Date</th>
-                                            <th>End Date</th>
-                                            <th>Cluster</th>
-                                            <th>Fyp Coordinator / Supervisor</th>
+                                            <th>Submission Date</th>
+                                            <!-- <th>Cluster</th> -->
+                                            <th>Status</th>
+                                            <th>Supervisor</th>
                                             <th>Attachment</th>
                                             <th>Action</th>
                                            
@@ -116,10 +132,9 @@
                                                echo '
                                                         <tr>
                                                             <td>'.$proposal['title'].'</td>
-                                                            <td>'.$proposal['start_date'].'</td>
-                                                            <td>'.$proposal['end_date'].'</td>
-                                                            <td>'.$proposal['status'].'</td>
+                                                            <td>'.$proposal['submission_date'].'</td>
                                                             <td>'.$proposal['fyp_coordinator_status'].'</td>
+                                                            <td>'.$proposal['supervisor_name'].'</td>
                                                             <td>'.( $proposal['attachment_name'] ? '<a href="assets/proposals/'.$proposal['attachment'].'" target=blank>'.$proposal["attachment_name"].'</a>' : '-').'</td>
                                                             <td>
                                                                 '.$editProposal.' 

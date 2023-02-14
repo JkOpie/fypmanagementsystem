@@ -16,11 +16,11 @@
         }
 
         if($type == 'update'){
-            return update($_POST['title'], $_POST['start_date'], $_POST['end_date'], $_FILES['attachment'], $_POST['proposal_id']);
+            return update($_POST['title'], $_POST['submission_date'], $_POST['supervisor_id'], $_FILES['attachment'], $_POST['proposal_id']);
         }
 
         if($type == 'create'){
-            return create($_POST['title'], $_POST['start_date'], $_POST['end_date'], $_FILES['attachment']);
+            return create($_POST['title'], $_POST['submission_date'], $_POST['supervisor_id'], $_FILES['attachment']);
         }
 
         if($type == 'assignSupervisor'){
@@ -28,7 +28,7 @@
         }
 
         if($type == 'update_status'){
-            return updateStatus($_POST['status'], $_POST['proposal_id']);
+            return updateStatus($_POST['status'], $_POST['reason'],$_POST['proposal_id']);
         }
 
         if($type == 'deleteAttachment'){
@@ -39,12 +39,17 @@
     
     function index(){
         global $conn;
-        $sql = "select proposals.*, student.id as student_id, student.name as student_name from proposals 
-        left join users as student on proposals.user_id = student.id ";
+        $sql = "select proposals.*, student.id as student_id, student.name as student_name, supervisor.name as supervisor_name from proposals
+        left join users as student on proposals.user_id = student.id 
+        left join users as supervisor on supervisor.id = proposals.supervisor_id";
 
         if($_SESSION['roles'] == 'student'){
             $sql .= "where student.id = ".$_SESSION['id'];
         }
+
+        // if($_SESSION['roles'] == 'supervisor'){
+        //     $sql .= "where supervisor_id = ".$_SESSION['id'];
+        // }
 
         if(isset($_REQUEST['title'])){
             if($_REQUEST['title'] != ''){
@@ -75,15 +80,15 @@
                 $proposals[] = [
                     'id' => $row['id'],
                     "title" => $row['title'] ?? null, 
-                    'start_date' => $row['start_date'] ?? null, 
-                    'end_date' => $row['end_date'], 
-                    'finish_date' => $row['finish_date'] ?? null, 
+                    'submission_date' => $row['submission_date'] ?? null, 
                     'status' => $row['status'] ?? null, 
                     'student_id' => $row['student_id'] ?? null,
                     'student' => $row['student_name'] ?? null,
                     'attachment' => $row['attachment'] ?? null,
                     'attachment_name' => $row['attachment_name'] ?? null,
                     'fyp_coordinator_status' => $row['fyp_coordinator_status'] ?? null,
+                    'reason' => $row['reason'] ?? null,
+                    'supervisor' => $row['supervisor_name'] ?? null,
                 ];
             }
             
@@ -92,14 +97,14 @@
         }
     }
 
-    function StudentHaveProposal(){
+    function TotalProposalsStudent(){
         global $conn;
         if($_SESSION['roles'] == 'student'){
-            $query = "select * from proposals where user_id = '".$_SESSION['id']."'";
+            $query = "select count(id) as total_student_proposal from proposals where user_id = '".$_SESSION['id']."'";
             $result = $conn->query($query);
 
             if($result->num_rows > 0){
-                return true;
+                return $result->fetch_assoc();
             }
         }
         return false;
@@ -134,9 +139,7 @@
                 $proposals[] = [
                     'id' => $row['id'],
                     "title" => $row['title'] ?? null, 
-                    'start_date' => $row['start_date'] ?? null, 
-                    'end_date' => $row['end_date'], 
-                    'finish_date' => $row['finish_date'] ?? null, 
+                    'submission_date' => $row['submission_date'] ?? null, 
                     'status' => $row['status'] ?? null, 
                     'supervisor' => $row['supervisor_name'] ?? null,
                     'student' => $row['student_name'] ?? null,
@@ -149,7 +152,7 @@
         }
     }
 
-    function create($title, $start_date, $end_date, $attachment ){
+    function create($title, $submission_date, $supervisor_id ,$attachment ){
         global $conn;
         $target_dir = "C:/xampp/htdocs/fyp/assets/proposals/";
 
@@ -176,18 +179,17 @@
                 }
             
                 //var_dump($title, $start_date, $end_date);
-                $formatedStartDate = new DateTime($start_date);
-                $formatedEndDate = new DateTime($end_date);
+                $formatedSubmissionDate = new DateTime($submission_date);
               
             
-                $query = "insert into proposals (title,start_date,end_date,status, fyp_coordinator_status ,user_id) values('".$title."','".$formatedStartDate->format('Y-m-d H:i:s')."','".$formatedEndDate->format('Y-m-d H:i:s')."','pending', 'pending', '".$_SESSION['id']."')";
+                $query = "insert into proposals (title,submission_date,status,supervisor_id, supervisor_status ,fyp_coordinator_status ,user_id) values('".$title."','".$formatedSubmissionDate->format('Y-m-d H:i:s')."','pending', '".$supervisor_id."' , 'pending' ,'pending', '".$_SESSION['id']."')";
             
                 if($attachment['name'] != ''){
-                    $query = "insert into proposals (title,start_date,end_date,status,fyp_coordinator_status,user_id,attachment,attachment_name) values('".$title."','".$formatedStartDate->format('Y-m-d H:i:s')."','".$formatedEndDate->format('Y-m-d H:i:s')."','pending','pending','".$_SESSION['id']."','".($unixTime.'.'.$imageFileType)."','".($attachment['name'])."')";
+                    $query = "insert into proposals (title,submission_date,status,supervisor_id, supervisor_status, fyp_coordinator_status,user_id,attachment,attachment_name) values('".$title."','".$formatedSubmissionDate->format('Y-m-d H:i:s')."','pending','".$supervisor_id."','pending' ,'pending','".$_SESSION['id']."','".($unixTime.'.'.$imageFileType)."','".($attachment['name'])."')";
                 }
             
                 $result = $conn->query($query);
-                $_SESSION['success'] = 'Proposal Created, Proceeed to login.';
+                $_SESSION['success'] = 'Proposal Created!.';
 
 
                 $getSupervisorSql = "select users.* from users left join staffs on staffs.user_id = users.id 
@@ -217,7 +219,7 @@
         
     }
 
-    function update($title, $start_date, $end_date, $attachment, $proposal_id){
+    function update($title, $submission_date, $supervisor_id,  $attachment, $proposal_id){
         global $conn;
         $target_dir = "C:/xampp/htdocs/fyp/assets/proposals/";
 
@@ -235,11 +237,9 @@
         }
     
         //var_dump($title, $start_date, $end_date);
-        $formatedStartDate = new DateTime($start_date);
-        $formatedEndDate = new DateTime($end_date);
-      
+        $formatedSubmissionDate = new DateTime($submission_date);
     
-        $query = "update proposals set title='".$title."',start_date='".$formatedStartDate->format('Y-m-d H:i:s')."',end_date='".$formatedEndDate->format('Y-m-d H:i:s')."',status='pending',user_id='".$_SESSION['id']."'";
+        $query = "update proposals set title='".$title."',submission_date='".$formatedSubmissionDate->format('Y-m-d H:i:s')."',status='pending', user_id='".$_SESSION['id']."', supervisor_id = '".$supervisor_id."', supervisor_status = 'pending' ";
     
         if($attachment['name'] != ''){
             $query = $query.",attachment='".($unixTime.'.'.$imageFileType)."',attachment_name='".($attachment['name'])."'";
@@ -258,16 +258,16 @@
        
     }
 
-    function updateStatus($status, $proposal_id){
+    function updateStatus($status, $reason, $proposal_id){
         global $conn;
         session_start();
 
         if($_SESSION['roles'] == 'supervisor' || $_SESSION['roles'] == 'fyp_coordinator'){
-            $query = "update proposals set fyp_coordinator_status = '".$status."' where id = '".$proposal_id."'";
+            $query = "update proposals set fyp_coordinator_status = '".$status."', reason = '".$reason."' where id = '".$proposal_id."'";
         }
 
         if($_SESSION['roles'] == 'cluster'){
-            $query = "update proposals set status = '".$status."' where id = '".$proposal_id."'";
+            $query = "update proposals set status = '".$status."' , reason = '".$reason."' where id = '".$proposal_id."'";
         }
 
         $result = $conn->query($query);
@@ -282,6 +282,8 @@
         }
 
         $_SESSION['success'] = 'Proposal Approved';
+        $_SESSION['success'] = 'Proposal '.$status.'!';
+        header('Location: /fyp/proposals.php');
            
        
     }
@@ -296,10 +298,9 @@
                 $proposals = [
                     'id' => $row['id'],
                     "title" => $row['title'] ?? null, 
-                    'start_date' => $row['start_date'] ?? null, 
-                    'end_date' => $row['end_date'], 
-                    'finish_date' => $row['finish_date'] ?? null, 
+                    'submission_date' => $row['submission_date'], 
                     'status' => $row['status'] ?? null, 
+                    'supervisor_id' => $row['supervisor_id'] ?? null ,
                     'supervisor' => $row['supervisor_name'] ?? null,
                     'student' => $row['student_name'] ?? null,
                     'attachment' => $row['attachment'] ?? null,

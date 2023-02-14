@@ -79,9 +79,9 @@ require_once("controllers/db_connection.php");
                                         <tr>
                                             <th></th>
                                             <th>Name</th>
+                                            <th>Matric Number</th>
                                             <th>Email</th>
                                             <th>Phone Number</th>
-                                            <th>Semester</th>
                                             <th>Programmes</th>
                                             <!-- <th>Action</th> -->
                                         </tr>
@@ -106,10 +106,11 @@ require_once("controllers/db_connection.php");
                                             <tr>
                                                 <td>  <?php echo ($index + 1) ?></td>
                                                 <td>  <?php echo $value['name']?> </td>
+                                                <td>  <?php echo $value['matric_number']?> </td>
                                                 <td>  <?php echo $value['email']?> </td>
                                                 <td>  <?php echo $value['handphone']?> </td>
                                                 <td>  <?php echo $value['semester']?> </td>
-                                                <td>  <?php echo $value['programmes']?> </td>
+                                              
                                                 <!-- <td>
                                                     <div class="d-flex">
                                                         <?php 
