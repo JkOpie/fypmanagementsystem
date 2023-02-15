@@ -60,7 +60,6 @@ require_once("controllers/db_connection.php");
                                         <tr>
                                             <th></th>
                                             <th>Name</th>
-                                            <th>Position</th>
                                             <th>Email</th>
                                             <th>Phone Number</th>
                                             <th>Semester</th>
@@ -80,22 +79,21 @@ require_once("controllers/db_connection.php");
                                                     $rejectbtn = null;
                                                  
 
-                                                    if($value['status'] == 'pending'){
-                                                        $approvebtn = "<button class='btn btn-success btn-sm me-1 mb-1' onclick='approveSupervisor(".$value['student_id'].")'>Approve Supervisor</button><br>";
-                                                        $rejectbtn = "<button class='btn btn-secondary btn-sm me-1 mb-1' onclick='rejectSupervisor(".$value['student_id'].")'>Reject Supervisor</button> <br>";
+                                                    if($value['supervisor_status'] == 'pending'){
+                                                        $approvebtn = "<button class='btn btn-success btn-sm me-1 mb-1' onclick='approveSupervisor(".$value['id'].")'>Approve Supervisor</button><br>";
+                                                        $rejectbtn = "<button class='btn btn-secondary btn-sm me-1 mb-1' onclick='rejectSupervisor(".$value['id'].")'>Reject Supervisor</button> <br>";
                                                     }
     
                                                     echo '
                                                     <tr>
                                                         <td>'.($key + 1).'</td>
                                                         <td>'.$value['name'].'</td>
-                                                        <td>'.$value['roles'].'</td>
                                                         <td>'.$value['email'].'</td>
                                                         <td>'.$value['handphone'].'</td>
                                                         <td>'.(isset($value['semester']) ? $value['semester'] : '-' ).'</td>
                                                         <td>'.(isset($value['supervisor_name']) ? $value['supervisor_name'] : '-').'</td>
-                                                        <td>'.(isset($value['status']) ? $value['status'] : '-').'</td>
-                                                        <td> '.$approvebtn.$rejectbtn.'<a class="btn btn-danger btn-sm" href="controllers/fypcoordinator/deleteStudent.php?student_id='.$value['id'].'">Delete</a></td>
+                                                        <td>'.(isset($value['supervisor_status']) ? $value['supervisor_status'] : '-').'</td>
+                                                        <td> '.$approvebtn.$rejectbtn.'</td>
                                                     </tr>';
                                                 }
                                             }else{
@@ -173,34 +171,34 @@ require_once("controllers/db_connection.php");
             $('#updateSemester input[name=student_id]').val(student_id);
         }
 
-        function approveSupervisor(student_id){
+        function approveSupervisor(proposal_id){
             
             $.ajax({
                 type: "POST",
                 url: '/fyp/controllers/users.php',
                 data: {
                     'type' : 'updateSupervisorStatus',
-                    'student_id' : student_id,
+                    'proposal_id' : proposal_id,
                     'status' : 'approved',
                 }, // serializes the form's elements.
                 success: function(data) { 
-                    window.location.reload();
+                    location.reload();
                 }
             });
         }
 
-        function rejectSupervisor(student_id){
+        function rejectSupervisor(proposal_id){
             
             $.ajax({
                 type: "POST",
                 url: '/fyp/controllers/users.php',
                 data: {
                     'type' : 'updateSupervisorStatus',
-                    'student_id' : student_id,
-                    'status' : null,
+                    'proposal_id' : proposal_id,
+                    'status' : 'rejected',
                 }, // serializes the form's elements.
                 success: function(data) { 
-                    window.location.reload();
+                    location.reload();
                 }
             });
         }

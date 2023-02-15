@@ -9,8 +9,11 @@
     $path = 'C:/xampp/htdocs';
     $index = 0;
 
-    $query = "select students.*, users.name, users.email, users.handphone from students left 
-    join users on users.id = students.user_id where supervisor_id = '".$_SESSION['id']."' ";
+    $query = "select students.*, users.name, users.email, users.handphone 
+    from proposals 
+    left join users on users.id = proposals.user_id 
+    left join students on students.user_id = proposals.user_id
+    where proposals.supervisor_id = '".$_SESSION['id']."'";
 
     $result = $conn->query($query);
     
@@ -27,6 +30,7 @@
                 <td>'.($index + 1).'</td>
                 <td>'.$row['name'].'</td>
                 <td>'.$row['matric_number'].'</td>
+                <td>'.$row['email'].'</td>
                 <td>'.$row['handphone'].'</td>
                 <td>'.($row['programmes'] ?: '-') .'</td>
                
@@ -78,6 +82,7 @@
             <th>Matric Number</th>
             <th>Email</th>
             <th>Phone Number</th>
+            <th>Programmes</th>
         </tr>
     </thead>  
     <tbody>

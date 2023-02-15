@@ -46,7 +46,11 @@ require_once("controllers/db_connection.php");
                         $supervisor = null;
                         
                         //var_dump($_SESSION['id']);
-                        $query = "select students.*, users.name, users.email, users.handphone from students left join users on users.id = students.user_id where supervisor_id = '".$_SESSION['id']."' ";
+                        $query = "select students.*, users.name, users.email, users.handphone 
+                        from proposals 
+                        left join users on users.id = proposals.user_id 
+                        left join students on students.user_id = proposals.user_id
+                        where proposals.supervisor_id = '".$_SESSION['id']."' ";
                         $result = $conn->query($query);
 
                         if ($result->num_rows > 0) {
@@ -58,10 +62,6 @@ require_once("controllers/db_connection.php");
 
                         //var_dump($students);
 
-                        //$query = "select * from students where supervisor_id='".$supervisor['user_id'] ."'";
-                        //$result = $conn->query($query);
-
-                        //ar_dump($result);
                     ?>
 
                     <div class="container-xl px-4">
@@ -109,7 +109,7 @@ require_once("controllers/db_connection.php");
                                                 <td>  <?php echo $value['matric_number']?> </td>
                                                 <td>  <?php echo $value['email']?> </td>
                                                 <td>  <?php echo $value['handphone']?> </td>
-                                                <td>  <?php echo $value['semester']?> </td>
+                                                <td>  <?php echo $value['programmes']?> </td>
                                               
                                                 <!-- <td>
                                                     <div class="d-flex">

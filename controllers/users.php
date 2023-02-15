@@ -39,29 +39,31 @@
         }
 
         if($type == 'updateSupervisorStatus'){
-            updateSupervisorStatus($_POST['student_id'], $_POST['status']);
+            updateSupervisorStatus($_POST['proposal_id'], $_POST['status']);
         }
     }
 
-    function updateSupervisorStatus($student_id, $status){
+    function updateSupervisorStatus($proposal_id, $status){
         global $conn;
         session_start();
-        $query = "update students set status='".$status."' where id = '".$student_id."'";
+        $query = "update proposals set supervisor_status='".$status."' where id = '".$proposal_id."'";
         $result = $conn->query($query);
 
         if($result){
 
-            $query = "select users.id, users.name as student_name, supervisor.name as supervisor_name from students
+            $query = "select users.id, users.name as student_name, supervisor.name as supervisor_name 
+            from proposals
             left join users on students.user_id = users.id
-            left join users as supervisor on supervisor.id = students.supervisor_id
-            where students.id = '".$student_id."'";
+            left join users as supervisor on supervisor.id = proposals.supervisor_id
+            where proposals.id = '".$proposal_id."'";
+            
             $userResult = $conn->query($query);
 
             if ($userResult->num_rows > 0) {
 
                 while ($row = $userResult->fetch_assoc()) {
                     $notification = $_SESSION['name']." ".$status." ".$row['supervisor_name'].' as your supervisor';
-                    $query2 = "insert into notifications (user_id,status,notification,created_at) values ('".$row['id']."','new' ,'".$notification."', '".date('Y-m-d H:i:s')."')";
+                    $query2 = "insert into notifications (user_id,status,notification,created_at) values ('".$row['students.user_id']."','new' ,'".$notification."', '".date('Y-m-d H:i:s')."')";
                     $conn->query($query2);
                 }
                
@@ -218,10 +220,23 @@
     function getStudentSupervisorPending(){
         global $conn;
         
-        $query = "select users.* , students.id as student_id, students.matric_number, students.semester, students.programmes, students.supervisor_id, students.status, supervisor.name as supervisor_name from users 
-        left join students on students.user_id = users.id
-        left join users as supervisor on supervisor.id = students.supervisor_id
-        where users.roles = 'student' order by supervisor.name desc";
+        $query = "
+        select 
+            proposals.id,
+            users.name,
+            users.email ,
+            users.handphone,
+            students.matric_number, 
+            students.semester, 
+            students.programmes, 
+            students.supervisor_id, 
+            proposals.supervisor_status, 
+            supervisor.name as supervisor_name 
+        from proposals 
+        left join students on students.user_id = proposals.user_id
+        left join users on users.id = proposals.user_id
+        left join users as supervisor on supervisor.id = proposals.supervisor_id
+        order by supervisor.name desc";
         $result = $conn->query($query);
 
         if ($result->num_rows > 0) {

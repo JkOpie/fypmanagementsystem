@@ -112,10 +112,10 @@
                                                 //var_dump($proposal['fyp_coordinator_status'] );
 
                                                 if($proposal['status'] == 'pending' || $proposal['status'] == null){
-                                                    if($_SESSION['roles'] == 'cluster'){
-                                                        $updateApproveStatus = "<button class='btn btn-success btn-sm mb-1' data-status=approved onclick='updateProposalStatus(".$proposal['id'].",this)'>Approve</button>";
-                                                        $updateRejectStatus = '<button class="btn btn-danger btn-sm mb-1" data-status=rejected onclick="updateProposalStatus('.$proposal['id'].',this)">Reject</button>';
-                                                    }
+                                                    // if($_SESSION['roles'] == 'cluster'){
+                                                    //     $updateApproveStatus = "<button class='btn btn-success btn-sm mb-1' data-status=approved onclick='updateProposalStatus(".$proposal['id'].",this)'>Approve</button>";
+                                                    //     $updateRejectStatus = '<button class="btn btn-danger btn-sm mb-1" data-status=rejected onclick="updateProposalStatus('.$proposal['id'].',this)">Reject</button>';
+                                                    // }
                                                 }
                                             
                                                echo '
