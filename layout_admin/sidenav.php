@@ -11,7 +11,7 @@
             </div> -->
 
             <?php
-            $dahboard = 'Dahboard';
+            $dahboard = 'Dashboard';
 
                 echo '
                     <a class="nav-link mt-4" href="/fyp/profiles.php">
