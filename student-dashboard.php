@@ -105,9 +105,10 @@
                                             <th>Title</th>
                                             <th>Submission Date</th>
                                             <!-- <th>Cluster</th> -->
-                                            <th>Status</th>
+                                          
                                             <th>Supervisor</th>
                                             <th>Attachment</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                            
                                         </tr>
@@ -123,7 +124,7 @@
                                                 $editProposal = null;
                                                 $deleteProposal = null;
 
-                                                if($proposal['fyp_coordinator_status'] == 'pending' || $proposal['status'] == 'pending' ){
+                                                if($proposal['fyp_coordinator_status'] == 'pending'){
                                                     $editProposal = "<a class='btn btn-primary btn-sm mb-1' data-status=approved ' href='/fyp/add-proposal.php?type=edit&proposal=".$proposal['id']."'>Edit</a>";
                                                     $deleteProposal = "<a class='btn btn-danger btn-sm mb-1' data-status=approved ' href='/fyp/controllers/student/deleteProposal.php?proposal_id=".$proposal['id']."'>Delete</a>";
                                                 }
@@ -133,9 +134,10 @@
                                                         <tr>
                                                             <td>'.$proposal['title'].'</td>
                                                             <td>'.$proposal['submission_date'].'</td>
-                                                            <td>'.$proposal['fyp_coordinator_status'].'</td>
+                                                           
                                                             <td>'.$proposal['supervisor_name'].'</td>
                                                             <td>'.( $proposal['attachment_name'] ? '<a href="assets/proposals/'.$proposal['attachment'].'" target=blank>'.$proposal["attachment_name"].'</a>' : '-').'</td>
+                                                            <td>'.$proposal['fyp_coordinator_status'].'</td>
                                                             <td>
                                                                 '.$editProposal.' 
                                                                 '.$deleteProposal.'
