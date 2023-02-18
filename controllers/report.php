@@ -9,27 +9,25 @@
     $tr = null;
     $path = 'C:/xampp/htdocs';
 
-    $query = 'select proposals.*, users.name, users.email, users.handphone from proposals
-    left join users on users.id = proposals.user_id order by id desc';
+    $query = 'select proposals.*, users.name, users.email, users.handphone, supervisor.name as supervisor_name
+    from proposals
+    left join users on users.id = proposals.user_id 
+    left join users as supervisor on supervisor.id = proposals.supervisor_id
+    order by id desc';
 
     $result = $conn->query($query);
 
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
-            $image = null;
-            if(isset($_SESSION['image'])){
-                $image =  '/fyp/assets/profile/'.$row['image'];
-            }else{
-                $image = '/fyp/assets/img/illustrations/profiles/profile-1.png';
-            }
+            
             $tr = $tr.'
             <tr>
-                <td><img class="user-img" src="'.$image.'"></td>
-                <td>'.$row['name'].'</td>
-                <td>'.$row['email'].'</td>
-                <td>'.$row['handphone'].'</td>
                 <td>'.$row['title'].'</td>
-                <td>'.ucfirst($row['status']).'</td>
+                <td>'.$row['submission_date'].'</td>
+                <td>'.$row['name'].'</td>
+                <td>'.$row['supervisor_name'].'</td>
+                <td>'.$row['fyp_coordinator_status'].'</td>
+                <td>'.$row['reason'].'</td>
             </tr>
             ';
         }
@@ -71,12 +69,12 @@
     <table class="table table-bordered table-striped table-hover">
     <thead>
         <tr>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th>Proposal Title</th>
+            <th>Proposal Tittle</th>
+            <th>Submission Date</th>
+            <th>Student Name</th>
+            <th>Supervisor Name</th>
             <th>Status</th>
+            <th>Reason</th>
         </tr>
     </thead>  
     <tbody>
