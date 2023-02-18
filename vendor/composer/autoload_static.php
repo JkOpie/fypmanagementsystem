@@ -95,6 +95,7 @@ class ComposerStaticInit023c0137f3a8a62a7069174612d10f0f
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Dompdf\\Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
+        'Shuchkin\\SimpleXLSX' => __DIR__ . '/..' . '/shuchkin/simplexlsx/src/SimpleXLSX.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

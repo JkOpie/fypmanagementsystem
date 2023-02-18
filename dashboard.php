@@ -86,31 +86,108 @@
             }
         ?>
 
+        <?php 
+            $total_students_under_supervisor = null;
+            $sql = "select count(*) as total_students_under_supervisor
+            from proposals 
+            left join users on users.id = proposals.user_id 
+            left join students on students.user_id = proposals.user_id
+            where proposals.supervisor_id = '".$_SESSION['id']."' ";
+
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $total_students_under_supervisor = $row['total_students_under_supervisor'];
+                }
+            }
+        ?>
+
+        <?php
+
+            $total_student_which_has_been_assigned_with_supervisor = null;
+
+            $sql = "
+                select count(distinct(user_id)) as  total_student_which_has_been_assigned_with_supervisor
+                from
+                proposals 
+                where supervisor_id is not null and supervisor_status='approved' and cluster_status='approved'
+            ";
+
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $total_student_which_has_been_assigned_with_supervisor = $row['total_student_which_has_been_assigned_with_supervisor'];
+                }
+            }
+        ?>
+
         <div class="row">
             <?php 
                 if($_SESSION['roles'] != 'hod' &&  $_SESSION['roles'] != 'admin'){?>
 
                     <div class="col-md-12 mt-5">
                     <table class="table table-bordered table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th style="width: 40%;">Total Student</th>
-                                <th style="width: 40%;">Total Proposal</th>
-                                <th style="width: 20%;"></th>
-                            </tr>
-                        </thead>
+                       
                         <tbody>
                             <tr>
+                                <th>Total Students Registered</th>
                                 <td><?php echo $total_students ?></td>
-                                <td><?php echo $total_proposals ?></td>
-                                <td><a class="btn btn-primary" href="/fyp/proposals.php">View Proposals</a</td>
+                                <td><a class="btn btn-primary" href="/fyp/student-list.php">Click</a></td>
                             </tr>
+                            <tr>
+                                <th>Total Proposal Submited</th>
+                                <td><?php echo $total_proposals ?></td>
+                                <td><a class="btn btn-primary" href="/fyp/proposals.php">Click</a</td>
+                            </tr>
+                            <?php
+                            if($_SESSION['roles'] == 'cluster'){ ?>
+                                <tr>
+                                    <th>Register Supervisors</th>
+                                    <td> </td>
+                                    <td><a class="btn btn-primary" href="/fyp/register-supervisor.php">Click</a> </td>
+                                </tr>
+
+                                <tr>
+                                    <th>Total Student which has been assigned with supervisor</th>
+                                    <td><?php echo $total_student_which_has_been_assigned_with_supervisor ?></td>
+                                    <td><a class="btn btn-primary" href="/fyp/supervisor_list.php">Click</a> </td>
+                                </tr>
+                           <?php } ?>
+                            
+                            <?php
+                            if($_SESSION['roles'] == 'supervisor'){ ?>
+                                <tr>
+                                    <th>Total Student Under Supervisor</th>
+                                    <td> <?php echo $total_students_under_supervisor ?> </td>
+                                    <td><a class="btn btn-primary" href="/fyp/student_supervisor.php">Click</a> </td>
+                                </tr>
+                           <?php } ?>
+
+                           <?php
+                            if($_SESSION['roles'] == 'fyp_coordinator'){ ?>
+                                <tr>
+                                    <th>Finalize Supervisor</th>
+                                    <td></td>
+                                    <td><a class="btn btn-primary" href="/fyp/finalize_supervisor.php">Click</a> </td>
+                                </tr>
+                                <tr>
+                                    <th>Register Student</th>
+                                    <td></td>
+                                    <td><a class="btn btn-primary" href="/fyp/register-student.php">Click</a> </td>
+                                </tr>
+
+                                <tr>
+                                    <th>Semester</th>
+                                    <td></td>
+                                    <td><a class="btn btn-primary" href="/fyp/semester.php">Click</a> </td>
+                                </tr>
+                           <?php } ?>
+                            
                         </tbody>
                     </table>
                     </div>
-                 
-           
-           
             <?php   } ?> 
             
         </div>

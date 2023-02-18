@@ -26,7 +26,20 @@
                             <div class="col-xxl-12 col-xl-12">
                              <!-- Basic registration form-->
                              <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header justify-content-center"><h3 class="fw-light my-4">Create Student</h3></div>
+                                    <div class="card-header ">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                        <h3 class="fw-light my-4">Create Student</h3>
+
+                                        <form action="/fyp/controllers/fypcoordinator/ExcelUpload.php" method="post" enctype="multipart/form-data">
+                                            <div class="d-flex justify-content-center">
+                                                <input type="file" name="excel" class="form-control" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                                <button class="btn btn-primary ms-2">Upload</button>
+                                            </div>
+                                        </form>
+                                        
+                                        </div>
+                                    
+                                    </div>
                                     <div class="card-body">
                                         <!-- Registration form-->
                                         <form action="controllers/registeration.php" method="post">

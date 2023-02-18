@@ -46,9 +46,40 @@ require_once("controllers/db_connection.php");
 
                         $supervisors = null;
                         
-                        $query = "select users.* , staffs.id as cluster_id,  staffs.roles as staff_role ,staffs.staff_id, staffs.department, staffs.cluster_status, staffs.user_id from users 
-                        left join staffs on staffs.user_id = users.id
-                        where staffs.roles = 'supervisor' and cluster_id ='".$_SESSION['id']."'  order by users.id desc";
+                        // $query = "select 
+                        //     users.* , staffs.id as cluster_id,  
+                        //     staffs.roles as staff_role ,
+                        //     staffs.staff_id, 
+                        //     staffs.department, 
+                        //     staffs.cluster_status, 
+                        //     staffs.user_id 
+                        // from users 
+                        // left join staffs on staffs.user_id = users.id
+                        // where staffs.roles = 'supervisor' and cluster_id ='".$_SESSION['id']."'  order by users.id desc";
+
+                        $query = "
+                        select 
+                            proposals.id,
+                            proposals.title,
+                            proposals.user_id,
+                            users.name,
+                            users.email ,
+                            users.handphone,
+                            students.matric_number, 
+                            students.semester, 
+                            students.programmes, 
+                            students.supervisor_id, 
+                            proposals.cluster_status, 
+                            supervisor.name as supervisor_name
+                        from proposals 
+                        left join students on students.user_id = proposals.user_id
+                        left join users on users.id = proposals.user_id
+                        left join users as supervisor on supervisor.id = proposals.supervisor_id
+                        left join staffs on staffs.user_id = proposals.supervisor_id
+                        where staffs.cluster_id ='".$_SESSION['id']."'
+                        order by supervisor.name desc";
+
+                        
 
                         $result = $conn->query($query);
 
@@ -67,19 +98,20 @@ require_once("controllers/db_connection.php");
                             <div class="card-body">
                                 <div class="d-flex justify-content-end align-items-center mb-3">
                                     <a href="/fyp/register-supervisor.php" class="btn btn-primary me-2">Add Supervisor</a>
-                                    <a href="controllers/cluster/assignSupervisorToStudentReport.php" class="btn btn-success">Assign Supervisor to Student Report</a>
+                                    <a href="controllers/cluster/assignSupervisorToStudentReport.php" class="btn btn-success">Assign Student to Supervisor Report</a>
                                 </div>
                                 <table class="table table-bordered table-striped table-hover">
                                     <thead>
                                         <tr>
                                             <th></th>
+                                            <th>Proposal Title</th>
                                             <th>Name</th>
-                                            <th>Position</th>
                                             <th>Email</th>
                                             <th>Phone Number</th>
-                                            <th>Staff ID</th>
-                                            <th>Department</th>
-                                            <th>Student</th>
+                                            <th>Matric Number</th>
+                                            <th>Semester</th>
+                                            <th>Supervisor</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -87,44 +119,25 @@ require_once("controllers/db_connection.php");
                                         <?php 
                                             if( $supervisors != NULL){
                                                 foreach ($supervisors as $key => $value) {
-                                                    $students = [];
-
-                                                    if(isset($value['user_id'])){
-                                                        $sql = "select students.*, users.name from students left join users on users.id = students.user_id where students.supervisor_id='".$value['user_id']."'"; 
-                                                        $result = $conn->query($sql);
-    
-                                                        if ($result->num_rows > 0) {
-                                                            while ($row = $result->fetch_assoc()) {
-                                                                $students[] = $row['name'];
-                                                            }
-                                                        }
+                                                    $approvedBtn = '';
+                                                    $rejectBtn = '';
+                                                    if($value['cluster_status'] == '' || $value['cluster_status'] == 'pending'){
+                                                        $approvedBtn = '<a class="btn btn-primary btn-sm mb-1" href="/fyp/controllers/cluster/approveRejectSupervisor.php?proposal_id='.$value['id'].'&cluster_status=approved&supervisor_id='.$value['supervisor_id'].'">Approve Supervisor</a>';
+                                                        $rejectBtn = ' <a class="btn btn-danger btn-sm mb-1" href="/fyp/controllers/cluster/approveRejectSupervisor.php?proposal_id='.$value['id'].'&cluster_status=rejected&student_id='.$value['user_id'].'">Reject Supervisor</a>';
                                                     }
-
-                                                    $image = null; 
-
-                                                    //var_dump($students);
-
-                                                    if(isset($value['image'])){
-                                                        $image = '<img class="user-img" src="/fyp/assets/profile/'.$value['image'].'">';
-                                                    }else{
-                                                        $image = '<img class="user-img" src="/fyp/assets/img/illustrations/profiles/profile-1.png">'; 
-                                                    }
-
-                                                    
-                                                    echo '
+                                                echo '
                                                     <tr>
                                                         <td>'.($key + 1).'</td>
+                                                        <td>'.$value['title'].'</td>
                                                         <td>'.$value['name'].'</td>
-                                                        <td>'.$value['staff_role'].'</td>
                                                         <td>'.$value['email'].'</td>
                                                         <td>'.$value['handphone'].'</td>
-                                                        <td>'.$value['staff_id'].'</td>
-                                                        <td>'.$value['department'].'</td>
-                                                        <td>'.(isset($students) ? implode(',<br>', $students) : '-').'</td>
+                                                        <td>'.$value['matric_number'].'</td>
+                                                        <td>'.$value['semester'].'</td>
+                                                        <td>'.$value['supervisor_name'].'</td>
+                                                        <td>'.(isset($value['cluster_status']) ? $value['cluster_status'] : 'pending' ).'</td>
                                                         <td class="">
-                                                            <a class="btn btn-primary btn-sm mb-1" href="assign_supervisor_student.php?supervisor_id='.$value['user_id'].'">Assign Student</a>
-                                                            <a href="edit-supervisor.php?supervisor_id='.$value['id'].'" class="btn btn-sm btn-secondary mb-1">Edit</a>
-                                                            <a href="controllers/delete-supervisor.php?supervisor_id='.$value['id'].'" class="btn btn-sm btn-danger mb-1">Delete</a>
+                                                            '.$approvedBtn.$rejectBtn.'
                                                         </td>
                                                     </tr>';
                                                 }

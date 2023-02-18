@@ -53,12 +53,13 @@ require_once("controllers/db_connection.php");
                             <div class="card-body">
                                 <div class="d-flex justify-content-end align-items-center mb-3">
                                     <a href="/fyp/register-student.php" class="btn btn-primary me-2">Add Student</a>
-                                    <a href="controllers/fypcoordinator/finalizeStudentReport.php" class="btn btn-success">Finalize Student Report</a>
+                                    <a href="controllers/fypcoordinator/finalizeStudentReport.php" class="btn btn-success">Finalize Supervisors Report</a>
                                 </div>
                                 <table class="table table-bordered table-striped table-hover">
                                     <thead>
                                         <tr>
                                             <th></th>
+                                            <th>Proposal Tittle</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Phone Number</th>
@@ -87,6 +88,7 @@ require_once("controllers/db_connection.php");
                                                     echo '
                                                     <tr>
                                                         <td>'.($key + 1).'</td>
+                                                        <td>'.$value['title'].'</td>
                                                         <td>'.$value['name'].'</td>
                                                         <td>'.$value['email'].'</td>
                                                         <td>'.$value['handphone'].'</td>

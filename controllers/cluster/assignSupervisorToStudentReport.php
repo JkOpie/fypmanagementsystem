@@ -11,9 +11,26 @@
     $index = 0;
 
     $supervisors = null;
-    $query = "select users.* , staffs.id as cluster_id,  staffs.roles as staff_role ,staffs.staff_id, staffs.department, staffs.cluster_status, staffs.user_id from users 
-    left join staffs on staffs.user_id = users.id
-    where staffs.roles = 'supervisor' and cluster_id ='".$_SESSION['id']."'  order by users.id desc";
+    $query = "select 
+        proposals.id,
+        proposals.title,
+        proposals.user_id,
+        users.name,
+        users.email ,
+        users.handphone,
+        students.matric_number, 
+        students.semester, 
+        students.programmes, 
+        students.supervisor_id, 
+        proposals.cluster_status, 
+        supervisor.name as supervisor_name
+    from proposals 
+    left join students on students.user_id = proposals.user_id
+    left join users on users.id = proposals.user_id
+    left join users as supervisor on supervisor.id = proposals.supervisor_id
+    left join staffs on staffs.user_id = proposals.supervisor_id
+    where staffs.cluster_id ='".$_SESSION['id']."'
+    order by supervisor.name desc";
 
     $result = $conn->query($query);
     //var_dump($_SESSION);
@@ -25,41 +42,32 @@
         }
     }
 
+    //var_dump($supervisors);
+    //die();
+
     foreach ($supervisors as $key => $value) {
-
-        $students = [];
-
-        if(isset($value['user_id'])){
-            $sql = "select students.*, users.name from students left join users on users.id = students.user_id where students.supervisor_id='".$value['user_id']."'"; 
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    $students[] = $row['name'];
-                }
-            }
-        }
 
         $tr = $tr.'
         <tr>
             <td>'.($index + 1).'</td>
+            <td>'.$value['title'].'</td>
             <td>'.$value['name'].'</td>
-            <td>'.$value['staff_role'].'</td>
             <td>'.$value['email'].'</td>
             <td>'.$value['handphone'].'</td>
-            <td>'.($value['staff_id'] ?: '-').'</td>
-            <td>'.($value['department'] ?: '-') .'</td>
-            <td>'.(isset($students) ? implode(',<br>', $students) : '-').'</td>
+            <td>'.($value['matric_number'] ?: '-').'</td>
+            <td>'.($value['semester'] ?: '-') .'</td>
+            <td>'.$value['supervisor_name'].'</td>
+            <td>'.$value['cluster_status'].'</td>
         </tr>
         ';
 
         $index++;
         
     }
-      
-  
-    // echo htmlspecialchars($path.'/fyp/assets/img/illustrations/profiles/profile-1.png');
-    // die();
+
+    //var_dump($tr);
+    //die();
+    
   
     $mpdf = new \Mpdf\Mpdf();
 
@@ -88,20 +96,21 @@
     }
     </style>
     <hr>
-        <div style="text-align: center; font-size: 18pt; display:block">Final Year title Management</div>
+        <div style="text-align: center; font-size: 18pt; display:block">Final Year Title Management</div>
     <hr>
     <h4>Assign Supervisor To Student Report</h4>
     <table class="table table-bordered table-striped table-hover">
     <thead>
         <tr>
             <th></th>
+            <th>Proposal Tittle</th>
             <th>Name</th>
-            <th>Position</th>
             <th>Email</th>
             <th>Phone Number</th>
-            <th>Staff ID</th>
-            <th>Department</th>
-            <th>Student</th>
+            <th>Matric Number</th>
+            <th>Semester</th>
+            <th>Supervisor</th>
+            <th>Status</th>
         </tr>
     </thead>  
     <tbody>

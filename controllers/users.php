@@ -223,6 +223,7 @@
         $query = "
         select 
             proposals.id,
+            proposals.title,
             users.name,
             users.email ,
             users.handphone,
@@ -236,6 +237,7 @@
         left join students on students.user_id = proposals.user_id
         left join users on users.id = proposals.user_id
         left join users as supervisor on supervisor.id = proposals.supervisor_id
+        where proposals.cluster_status = 'approved'
         order by supervisor.name desc";
         $result = $conn->query($query);
 
