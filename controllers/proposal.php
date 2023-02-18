@@ -182,15 +182,14 @@
                 $formatedSubmissionDate = new DateTime($submission_date);
               
             
-                $query = "insert into proposals (title,submission_date,status,supervisor_id, supervisor_status ,fyp_coordinator_status ,user_id) values('".$title."','".$formatedSubmissionDate->format('Y-m-d H:i:s')."','pending', '".$supervisor_id."' , 'pending' ,'pending', '".$_SESSION['id']."')";
+                $query = "insert into proposals (title,submission_date,status,supervisor_id, supervisor_status ,fyp_coordinator_status, cluster_status,user_id) values('".$title."','".$formatedSubmissionDate->format('Y-m-d H:i:s')."','pending', '".$supervisor_id."' , 'pending' ,'pending','pending' ,'".$_SESSION['id']."')";
             
                 if($attachment['name'] != ''){
-                    $query = "insert into proposals (title,submission_date,status,supervisor_id, supervisor_status, fyp_coordinator_status,user_id,attachment,attachment_name) values('".$title."','".$formatedSubmissionDate->format('Y-m-d H:i:s')."','pending','".$supervisor_id."','pending' ,'pending','".$_SESSION['id']."','".($unixTime.'.'.$imageFileType)."','".($attachment['name'])."')";
+                    $query = "insert into proposals (title,submission_date,status,supervisor_id, supervisor_status, fyp_coordinator_status,cluster_status,user_id,attachment,attachment_name) values('".$title."','".$formatedSubmissionDate->format('Y-m-d H:i:s')."','pending','".$supervisor_id."','pending' ,'pending', 'pending','".$_SESSION['id']."','".($unixTime.'.'.$imageFileType)."','".($attachment['name'])."')";
                 }
             
                 $result = $conn->query($query);
                 $_SESSION['success'] = 'Proposal Created!.';
-
 
                 $getSupervisorSql = "select users.* from users left join staffs on staffs.user_id = users.id 
                 where staffs.roles in ('supervisor','fyp_coordinator') and users.roles = 'staff'";
