@@ -85,10 +85,15 @@
                                             <th>Title</th>
                                             <th>Submission Date</th>
                                             <th>Student</th>
-                                            <th>Supervisor</th>
+                                          
                                             <th>Attachment</th>
                                             <th>Status</th>
-                                            <th>Reason</th>
+
+                                            <?php if($_SESSION['roles'] != 'cluster'){ ?>
+                                                <th>Comments</th>
+                                            <?php } ?>
+                                            
+                                          
                                             <th>Action</th>
                                            
                                         </tr>
@@ -102,6 +107,7 @@
                                                 $updateSupervisor = null;
                                                 $editProposal = null;
                                                 $deleteProposal = null;
+                                                $comment = null;
 
                                                 if($proposal['fyp_coordinator_status'] == 'pending' || $proposal['fyp_coordinator_status'] == null ){
                                                     if($_SESSION['roles'] == 'supervisor'){
@@ -117,16 +123,19 @@
                                                     //     $updateRejectStatus = '<button class="btn btn-danger btn-sm mb-1" data-status=rejected onclick="updateProposalStatus('.$proposal['id'].',this)">Reject</button>';
                                                     // }
                                                 }
+                                                if($_SESSION['roles'] != 'cluster'){
+                                                    $comment = ' <td>'.($proposal['reason'] ?? '-') .'</td>';
+                                                 }
                                             
                                                echo '
                                                         <tr>
                                                             <td>'.$proposal['title'].'</td>
                                                             <td>'.$proposal['submission_date'].'</td>
                                                             <td>'.( $proposal['student'] ?? '-') .'</td>
-                                                            <td>'.( $proposal['supervisor'] ?? '-') .'</td>
+                                                         
                                                             <td>'.( $proposal['attachment_name'] ? '<a href="assets/proposals/'.$proposal['attachment'].'" target=blank>'.$proposal["attachment_name"].'</a>' : '-').'</td>
                                                             <td>'.$proposal['fyp_coordinator_status'].'</td>
-                                                            <td>'.($proposal['reason'] ?? '-') .'</td>
+                                                           '.$comment.'
                                                             <td>
                                                                 '.$editProposal.' 
                                                                 '.$updateApproveStatus.'

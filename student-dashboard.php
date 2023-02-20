@@ -104,9 +104,6 @@
                                         <tr>
                                             <th>Title</th>
                                             <th>Submission Date</th>
-                                            <!-- <th>Cluster</th> -->
-                                          
-                                            <th>Supervisor</th>
                                             <th>Attachment</th>
                                             <th>Status</th>
                                             <th>Action</th>
@@ -134,8 +131,6 @@
                                                         <tr>
                                                             <td>'.$proposal['title'].'</td>
                                                             <td>'.$proposal['submission_date'].'</td>
-                                                           
-                                                            <td>'.$proposal['supervisor_name'].'</td>
                                                             <td>'.( $proposal['attachment_name'] ? '<a href="assets/proposals/'.$proposal['attachment'].'" target=blank>'.$proposal["attachment_name"].'</a>' : '-').'</td>
                                                             <td>'.$proposal['fyp_coordinator_status'].'</td>
                                                             <td>

@@ -41,6 +41,16 @@
                     </div>
                     <hr>
                     ';
+                    
+                    echo '
+                        <div class="">
+                            <a class="nav-link" href="/fyp/supervisor_preferences.php">
+                                Supervisor Preferences
+                            </a>
+                        </div>
+                    <hr>
+                    ';
+                    
                 }
 
                 // if($_SESSION['roles'] == 'supervisor'){
@@ -149,29 +159,29 @@
                    
                 // }
 
-                if($_SESSION['roles'] == 'hod'){
-                    echo '
-                        <a class="nav-link" href="/fyp/register-fypcoordinator.php">
-                            Register FYP Coordinator
-                        </a>
+                // if($_SESSION['roles'] == 'hod'){
+                //     echo '
+                //         <a class="nav-link" href="/fyp/register-fypcoordinator.php">
+                //             Register FYP Coordinator
+                //         </a>
 
-                        <hr>
+                //         <hr>
 
-                        <a class="nav-link" href="/fyp/fyp-coordinator-list.php">
-                           FYP Cooordinator list
-                        </a>
+                //         <a class="nav-link" href="/fyp/fyp-coordinator-list.php">
+                //            FYP Cooordinator list
+                //         </a>
 
-                        <hr>
+                //         <hr>
 
-                        <a class="nav-link" href="/fyp/appoint-lead-cluster.php">
-                            Appoint Lead Cluster
-                        </a>
+                //         <a class="nav-link" href="/fyp/appoint-lead-cluster.php">
+                //             Appoint Lead Cluster
+                //         </a>
 
-                        <hr>
+                //         <hr>
 
                       
-                    ';
-                }
+                //     ';
+                // }
 
                 // if($_SESSION['roles'] == 'hod' || $_SESSION['roles'] == 'fyp_coordinator' ){
                 //     echo '
@@ -183,31 +193,31 @@
                 // }
 
 
-                if($_SESSION['roles'] == 'cluster'){
-                    // echo '
-                    //     <a class="nav-link" href="/fyp/register-supervisor.php">
-                    //         Register Supervisors
-                    //     </a>
-                    //     <hr>
+                // if($_SESSION['roles'] == 'cluster'){
+                //     echo '
+                //         <a class="nav-link" href="/fyp/register-supervisor.php">
+                //             Register Supervisors
+                //         </a>
+                //         <hr>
 
-                    // ';
+                //     ';
 
-                    // if($_SESSION['cluster_status'] != 'lead_cluster'){
-                    //     echo '
-                    //     <a class="nav-link" href="/fyp/supervisor_list.php">
-                    //         Assign Student to Supervisor
-                    //     </a>
-                    //     <hr>
-                    // ';
-                    // }else{
-                    //     echo '
-                    //     <a class="nav-link" href="/fyp/supervisor_list.php">
-                    //         Assign Student to Supervisor
-                    //     </a>
-                    //     <hr>
-                    // ';
-                    // }
-                }
+                //     if($_SESSION['cluster_status'] != 'lead_cluster'){
+                //         echo '
+                //         <a class="nav-link" href="/fyp/supervisor_list.php">
+                //             Assign Student to Supervisor
+                //         </a>
+                //         <hr>
+                //     ';
+                //     }else{
+                //         echo '
+                //         <a class="nav-link" href="/fyp/supervisor_list.php">
+                //             Assign Student to Supervisor
+                //         </a>
+                //         <hr>
+                //     ';
+                //     }
+                // }
                 
                 // if(isset($_SESSION["cluster_status"])){
                 //     if($_SESSION["cluster_status"]  == 'lead_cluster' && $_SESSION['roles'] == 'cluster'){

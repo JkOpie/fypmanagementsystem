@@ -20,7 +20,7 @@
         }
 
         if($type == 'create'){
-            return create($_POST['title'], $_POST['submission_date'], $_POST['supervisor_id'], $_FILES['attachment']);
+            return create($_POST['title'], $_POST['submission_date'], $_FILES['attachment']);
         }
 
         if($type == 'assignSupervisor'){
@@ -152,7 +152,7 @@
         }
     }
 
-    function create($title, $submission_date, $supervisor_id ,$attachment ){
+    function create($title, $submission_date ,$attachment ){
         global $conn;
         $target_dir = "C:/xampp/htdocs/fyp/assets/proposals/";
 
@@ -182,10 +182,10 @@
                 $formatedSubmissionDate = new DateTime($submission_date);
               
             
-                $query = "insert into proposals (title,submission_date,status,supervisor_id, supervisor_status ,fyp_coordinator_status, cluster_status,user_id) values('".$title."','".$formatedSubmissionDate->format('Y-m-d H:i:s')."','pending', '".$supervisor_id."' , 'pending' ,'pending','pending' ,'".$_SESSION['id']."')";
+                $query = "insert into proposals (title,submission_date,status, supervisor_status ,fyp_coordinator_status, cluster_status,user_id) values('".$title."','".$formatedSubmissionDate->format('Y-m-d H:i:s')."','pending', 'pending' ,'pending','pending' ,'".$_SESSION['id']."')";
             
                 if($attachment['name'] != ''){
-                    $query = "insert into proposals (title,submission_date,status,supervisor_id, supervisor_status, fyp_coordinator_status,cluster_status,user_id,attachment,attachment_name) values('".$title."','".$formatedSubmissionDate->format('Y-m-d H:i:s')."','pending','".$supervisor_id."','pending' ,'pending', 'pending','".$_SESSION['id']."','".($unixTime.'.'.$imageFileType)."','".($attachment['name'])."')";
+                    $query = "insert into proposals (title,submission_date,status, supervisor_status, fyp_coordinator_status,cluster_status,user_id,attachment,attachment_name) values('".$title."','".$formatedSubmissionDate->format('Y-m-d H:i:s')."','pending','pending' ,'pending', 'pending','".$_SESSION['id']."','".($unixTime.'.'.$imageFileType)."','".($attachment['name'])."')";
                 }
             
                 $result = $conn->query($query);

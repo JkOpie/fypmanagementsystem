@@ -132,7 +132,7 @@ require_once("controllers/db_connection.php");
                         
                                             ?>
 
-                                            <div class="col-md-12 mb-3">
+                                            <!-- <div class="col-md-12 mb-3">
                                                 <label class="small mb-1">Supervisor</label>
                                                 <select name="supervisor_id" class="form-control">
                                                     <option>Select Supervisor</option>
@@ -140,7 +140,6 @@ require_once("controllers/db_connection.php");
                                                         if(isset($supervisors)){
                                                             foreach ($supervisors as $key => $value) { ?>
                                                                 <?php
-                                                                var_dump($proposals);
                                                                     if(isset($proposals['supervisor_id'])){?>
                                                                     <option value="<?php echo $value['user_id'];?>"  <?php if($proposals['supervisor_id'] == $value['user_id']){ echo 'selected' ; } ?> > <?php echo $value['name'] ?></option>
                                                                 <?php }else{?>
@@ -151,7 +150,7 @@ require_once("controllers/db_connection.php");
                                                         }
                                                     ?>
                                                 </select>
-                                            </div>
+                                            </div> -->
                                         <hr>
 
                                         <?php 

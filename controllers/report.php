@@ -25,7 +25,6 @@
                 <td>'.$row['title'].'</td>
                 <td>'.$row['submission_date'].'</td>
                 <td>'.$row['name'].'</td>
-                <td>'.$row['supervisor_name'].'</td>
                 <td>'.$row['fyp_coordinator_status'].'</td>
                 <td>'.$row['reason'].'</td>
             </tr>
@@ -72,9 +71,9 @@
             <th>Proposal Tittle</th>
             <th>Submission Date</th>
             <th>Student Name</th>
-            <th>Supervisor Name</th>
+          
             <th>Status</th>
-            <th>Reason</th>
+            <th>Comments</th>
         </tr>
     </thead>  
     <tbody>

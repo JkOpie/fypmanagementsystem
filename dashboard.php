@@ -125,7 +125,7 @@
 
         <div class="row">
             <?php 
-                if($_SESSION['roles'] != 'hod' &&  $_SESSION['roles'] != 'admin'){?>
+                if($_SESSION['roles'] != 'admin'){?>
 
                     <div class="col-md-12 mt-5">
                     <table class="table table-bordered table-striped table-hover">
@@ -182,6 +182,28 @@
                                     <th>Semester</th>
                                     <td></td>
                                     <td><a class="btn btn-primary" href="/fyp/semester.php">Click</a> </td>
+                                </tr>
+                           <?php } ?>
+
+                           <?php
+                            if($_SESSION['roles'] == 'hod'){ ?>
+                              
+                                <tr>
+                                    <th>Register FYP Coordinator</th>
+                                    <td></td>
+                                    <td><a class="btn btn-primary" href="/fyp/register-fypcoordinator.php">Click</a> </td>
+                                </tr>
+
+                                <tr>
+                                    <th>FYP Cooordinator list</th>
+                                    <td></td>
+                                    <td><a class="btn btn-primary" href="/fyp/fyp-coordinator-list.php">Click</a> </td>
+                                </tr>
+
+                                <tr>
+                                    <th>Appoint Lead Cluster</th>
+                                    <td></td>
+                                    <td><a class="btn btn-primary" href="/fyp/appoint-lead-cluster.php">Click</a> </td>
                                 </tr>
                            <?php } ?>
                             
