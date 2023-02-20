@@ -47,7 +47,7 @@ require_once("controllers/db_connection.php");
                     
                         $query = '
                         select 
-                            users.id,
+                            student_supervisor_preferrences.id,
                             users.name,
                             users.email,
                             users.handphone,
@@ -73,7 +73,7 @@ require_once("controllers/db_connection.php");
                         <div class="card mb-4">
                             <div class="card-body">
                                 <div class="d-flex justify-content-end align-items-center mb-3">
-                                    <a href="/fyp/register-supervisor.php" class="btn btn-primary me-2">Add Supervisor Preferences</a>
+                                    <a href="/fyp/add-supervisor_preferences.php" class="btn btn-primary me-2">Add Supervisor Preferences</a>
                                 </div>
                                 <table class="table table-bordered table-striped table-hover">
                                     <thead>
@@ -100,7 +100,7 @@ require_once("controllers/db_connection.php");
                                                         <td>'.$value['handphone'].'</td>
                                                         <td>'.$value['department'].'</td>
                                                         <td class="">
-                                                            <a hre="#" class="btn btn-danger btn-sm">Delete</a>
+                                                            <a href="/fyp/controllers/student/delete-supervisor-preferrences.php?student_supervisor_preferrences_id='.$value['id'].'" class="btn btn-danger btn-sm">Delete</a>
                                                         </td>
                                                     </tr>';
                                                 }

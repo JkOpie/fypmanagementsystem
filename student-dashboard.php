@@ -106,6 +106,7 @@
                                             <th>Submission Date</th>
                                             <th>Attachment</th>
                                             <th>Status</th>
+                                            <th>Comments</th>
                                             <th>Action</th>
                                            
                                         </tr>
@@ -133,6 +134,7 @@
                                                             <td>'.$proposal['submission_date'].'</td>
                                                             <td>'.( $proposal['attachment_name'] ? '<a href="assets/proposals/'.$proposal['attachment'].'" target=blank>'.$proposal["attachment_name"].'</a>' : '-').'</td>
                                                             <td>'.$proposal['fyp_coordinator_status'].'</td>
+                                                            <td>'.$proposal['reason'].'</td>
                                                             <td>
                                                                 '.$editProposal.' 
                                                                 '.$deleteProposal.'
