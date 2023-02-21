@@ -89,10 +89,8 @@
         <?php 
             $total_students_under_supervisor = null;
             $sql = "select count(*) as total_students_under_supervisor
-            from proposals 
-            left join users on users.id = proposals.user_id 
-            left join students on students.user_id = proposals.user_id
-            where proposals.supervisor_id = '".$_SESSION['id']."' ";
+            from students 
+            where supervisor_id is not null and programmes='".$_SESSION['department']."'";
 
             $result = $conn->query($sql);
 
@@ -142,7 +140,7 @@
                                 <td><a class="btn btn-primary" href="/fyp/proposals.php">Click</a</td>
                             </tr>
                             <?php
-                            if($_SESSION['roles'] == 'cluster'){ ?>
+                            if($_SESSION['roles'] == 'cluster' ){ ?>
                                 <tr>
                                     <th>Register Supervisors</th>
                                     <td> </td>

@@ -63,13 +63,6 @@
                         <div class="row">
                             <div class="col-xxl-12 mb-5">
                                 <div class="d-flex justify-content-end align-items-center">
-                                    <select name="filter_status" class="form-select me-2" style="width: 18%;" onchange="enterKeyChange(event)">
-                                        <option value="">Select Status</option>
-                                        <option value="pending">Pending</option>
-                                        <option value="rejected">Rejected</option>
-                                        <option value="approved">Approved</option>
-                                    </select>
-
                                     <button class="btn btn-info me-2" onclick="window.location.replace('/fyp/dashboard.php')">Reset Search</button>
                                     <?php 
                                         
@@ -85,11 +78,10 @@
                                             <th>Title</th>
                                             <th>Submission Date</th>
                                             <th>Student</th>
-                                          
                                             <th>Attachment</th>
                                             <th>Status</th>
 
-                                            <?php if($_SESSION['roles'] != 'cluster'){ ?>
+                                            <?php if(in_array($_SESSION['roles'], ['students', 'supervisor'])){ ?>
                                                 <th>Comments</th>
                                             <?php } ?>
                                             
@@ -117,15 +109,15 @@
                                                 }
                                                 //var_dump($proposal['fyp_coordinator_status'] );
 
-                                                if($proposal['status'] == 'pending' || $proposal['status'] == null){
-                                                    // if($_SESSION['roles'] == 'cluster'){
-                                                    //     $updateApproveStatus = "<button class='btn btn-success btn-sm mb-1' data-status=approved onclick='updateProposalStatus(".$proposal['id'].",this)'>Approve</button>";
-                                                    //     $updateRejectStatus = '<button class="btn btn-danger btn-sm mb-1" data-status=rejected onclick="updateProposalStatus('.$proposal['id'].',this)">Reject</button>';
-                                                    // }
+                                                if($proposal['fyp_coordinator_status'] == 'pending'){
+                                                    if($_SESSION['roles'] == 'fyp_coordinator'){
+                                                        $updateApproveStatus = "<a class='btn btn-success btn-sm mb-1' data-status=approved href='/fyp/controllers/fypcoordinator/updateProposalStatus.php?proposal_id=".$proposal['id']."&status=approved'>Collect</a>";
+                                                        //$updateRejectStatus = "<a class='btn btn-danger btn-sm mb-1' data-status=rejected href='/fyp/controllers/fypcoordinator/updateProposalStatus.php?proposal_id=".$proposal['id']."&type=reject'>Reject</a>';
+                                                    }
                                                 }
-                                                if($_SESSION['roles'] != 'cluster'){
+                                                if(in_array($_SESSION['roles'], ['students', 'supervisor'])){
                                                     $comment = ' <td>'.($proposal['reason'] ?? '-') .'</td>';
-                                                 }
+                                                }
                                             
                                                echo '
                                                         <tr>
@@ -201,8 +193,6 @@
         var url = new URL(window.location.href);
         var title = url.searchParams.get("title");
         var status = url.searchParams.get("status");
-        
-        console.log(title,status);
         
         if(title != null && title != ''){
             console.log($('input[name=search-proposal]'));

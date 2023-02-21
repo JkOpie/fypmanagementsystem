@@ -44,9 +44,13 @@
         left join users as supervisor on supervisor.id = proposals.supervisor_id";
 
         if($_SESSION['roles'] == 'student'){
-            $sql .= "where student.id = ".$_SESSION['id'];
+            $sql .= " where student.id = ".$_SESSION['id'];
         }
 
+        if($_SESSION['cluster_status'] == 'lead_cluster'){
+            $sql .= " where proposals.fyp_coordinator_status='approved'";
+        }
+        
         // if($_SESSION['roles'] == 'supervisor'){
         //     $sql .= "where supervisor_id = ".$_SESSION['id'];
         // }
@@ -256,6 +260,7 @@
         }
        
     }
+    
 
     function updateStatus($status, $reason, $proposal_id){
         global $conn;
