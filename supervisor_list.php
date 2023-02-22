@@ -44,7 +44,7 @@ require_once("controllers/db_connection.php");
                         $conn = setDbConnection();
                         //var_dump($_SESSION['id']);
 
-                        $supervisors = null;
+                        $students = null;
                         
                         // $query = "select 
                         //     users.* , staffs.id as cluster_id,  
@@ -78,7 +78,7 @@ require_once("controllers/db_connection.php");
                 
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                $supervisors[] = $row;
+                                $students[] = $row;
                             }
                         }
                         
@@ -107,8 +107,8 @@ require_once("controllers/db_connection.php");
                                     </thead>
                                     <tbody>
                                         <?php 
-                                            if( $supervisors != NULL){
-                                                foreach ($supervisors as $key => $value) {
+                                            if( $students != NULL){
+                                                foreach ($students as $key => $value) {
                                                     $approvedBtn = '';
                                                     $rejectBtn = '';
                                                    

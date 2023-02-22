@@ -47,10 +47,10 @@ require_once("controllers/db_connection.php");
                         
                         //var_dump($_SESSION['id']);
                         $query = "select students.*, users.name, users.email, users.handphone 
-                        from proposals 
-                        left join users on users.id = proposals.user_id 
-                        left join students on students.user_id = proposals.user_id
-                        where proposals.supervisor_id = '".$_SESSION['id']."' ";
+                        from students 
+                        left join users on users.id = students.user_id 
+                        where students.supervisor_id = '".$_SESSION['id']."'";
+
                         $result = $conn->query($query);
 
                         if ($result->num_rows > 0) {

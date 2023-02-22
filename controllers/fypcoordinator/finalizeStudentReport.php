@@ -8,9 +8,9 @@
     $path = 'C:/xampp/htdocs';
     $index = 0;
 
-    $query = "select 
-        proposals.id,
-        proposals.title,
+    $query = "
+    select 
+        students.user_id,
         users.name,
         users.email ,
         users.handphone,
@@ -18,14 +18,13 @@
         students.semester, 
         students.programmes, 
         students.supervisor_id, 
-        proposals.supervisor_status, 
+        students.status,
         supervisor.name as supervisor_name 
-    from proposals 
-    left join students on students.user_id = proposals.user_id
-    left join users on users.id = proposals.user_id
-    left join users as supervisor on supervisor.id = proposals.supervisor_id
-    where proposals.cluster_status = 'approved'
-    order by supervisor.name desc";
+    from students 
+    left join users on users.id = students.user_id
+    left join users as supervisor on supervisor.id = students.supervisor_id
+    where students.supervisor_id is not null
+    order by students.status desc";
 
     $result = $conn->query($query);
 
@@ -40,13 +39,12 @@
             $tr = $tr.'
             <tr>
                 <td>'.($index + 1).'</td>
-                <td>'.$row['title'].'</td>
                 <td>'.$row['name'].'</td>
                 <td>'.$row['email'].'</td>
                 <td>'.$row['handphone'].'</td>
                 <td>'.($row['semester'] ?: '-').'</td>
                 <td>'.($row['supervisor_name'] ?: '-') .'</td>
-                <td>'.($row['supervisor_status'] ?: '-') .'</td>
+                <td>'.($row['status'] ?: '-') .'</td>
             </tr>
             ';
 
@@ -91,7 +89,6 @@
     <thead>
         <tr>
             <th></th>
-            <th>Proposal Tittle</th>
             <th>Name</th>
             <th>Email</th>
             <th>Phone Number</th>

@@ -10,27 +10,23 @@
     $path = 'C:/xampp/htdocs';
     $index = 0;
 
-    $supervisors = null;
-    $query = "select 
-        proposals.id,
-        proposals.title,
-        proposals.user_id,
+    $students = null;
+    $query = "
+    select 
         users.name,
-        users.email ,
         users.handphone,
-        students.matric_number, 
-        students.semester, 
-        students.programmes, 
-        students.supervisor_id, 
-        proposals.cluster_status, 
+        users.email,
+        students.matric_number,
+        students.semester,
+        students.programmes,
+        students.supervisor_id,
+        students.user_id,
         supervisor.name as supervisor_name
-    from proposals 
-    left join students on students.user_id = proposals.user_id
-    left join users on users.id = proposals.user_id
-    left join users as supervisor on supervisor.id = proposals.supervisor_id
-    left join staffs on staffs.user_id = proposals.supervisor_id
-    where staffs.cluster_id ='".$_SESSION['id']."'
-    order by supervisor.name desc";
+    from students 
+    left join users on users.id = students.user_id
+    left join users as supervisor on supervisor.id = students.supervisor_id
+    where programmes='".$_SESSION['department']."'
+    order by students.id desc";
 
     $result = $conn->query($query);
     //var_dump($_SESSION);
@@ -38,26 +34,24 @@
 
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            $supervisors[] = $row;
+            $students[] = $row;
         }
     }
 
     //var_dump($supervisors);
     //die();
 
-    foreach ($supervisors as $key => $value) {
+    foreach ($students as $key => $value) {
 
         $tr = $tr.'
         <tr>
             <td>'.($index + 1).'</td>
-            <td>'.$value['title'].'</td>
             <td>'.$value['name'].'</td>
             <td>'.$value['email'].'</td>
             <td>'.$value['handphone'].'</td>
             <td>'.($value['matric_number'] ?: '-').'</td>
             <td>'.($value['semester'] ?: '-') .'</td>
             <td>'.$value['supervisor_name'].'</td>
-            <td>'.$value['cluster_status'].'</td>
         </tr>
         ';
 
@@ -103,14 +97,12 @@
     <thead>
         <tr>
             <th></th>
-            <th>Proposal Tittle</th>
             <th>Name</th>
             <th>Email</th>
             <th>Phone Number</th>
             <th>Matric Number</th>
             <th>Semester</th>
             <th>Supervisor</th>
-            <th>Status</th>
         </tr>
     </thead>  
     <tbody>

@@ -57,9 +57,11 @@ require_once("controllers/db_connection.php");
                     
                     if($_SESSION['roles'] == 'student'){
                         
-                        $sql = "select users.name as supervisor_name from proposals
-                        left join users on users.id = proposals.supervisor_id
-                        where proposals.user_id = '".$_SESSION['id']."' and supervisor_status = 'approved'";
+                        $sql = "select 
+                            users.name as supervisor_name 
+                        from students
+                        left join users on users.id = students.supervisor_id
+                        where students.user_id = '".$_SESSION['id']."' and status = 'approved'";
                         $result = $conn->query($sql);
 
                         if ($result->num_rows > 0) {

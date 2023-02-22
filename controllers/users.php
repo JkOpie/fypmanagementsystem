@@ -39,23 +39,27 @@
         }
 
         if($type == 'updateSupervisorStatus'){
-            updateSupervisorStatus($_POST['proposal_id'], $_POST['status']);
+            updateSupervisorStatus($_POST['student_id'], $_POST['status']);
         }
     }
 
-    function updateSupervisorStatus($proposal_id, $status){
+    function updateSupervisorStatus($student_id, $status){
         global $conn;
         session_start();
-        $query = "update proposals set supervisor_status='".$status."' where id = '".$proposal_id."'";
+
+        $query = "update students set status='".$status."' where user_id = '".$student_id."'";
         $result = $conn->query($query);
 
         if($result){
 
-            $query = "select users.id, users.name as student_name, supervisor.name as supervisor_name 
-            from proposals
+            $query = "select 
+                students.user_id,
+                users.name as student_name, 
+                supervisor.name as supervisor_name 
+            from students
             left join users on students.user_id = users.id
-            left join users as supervisor on supervisor.id = proposals.supervisor_id
-            where proposals.id = '".$proposal_id."'";
+            left join users as supervisor on supervisor.id = students.supervisor_id
+            where students.user_id = '".$student_id."'";
             
             $userResult = $conn->query($query);
 
@@ -63,7 +67,7 @@
 
                 while ($row = $userResult->fetch_assoc()) {
                     $notification = $_SESSION['name']." ".$status." ".$row['supervisor_name'].' as your supervisor';
-                    $query2 = "insert into notifications (user_id,status,notification,created_at) values ('".$row['students.user_id']."','new' ,'".$notification."', '".date('Y-m-d H:i:s')."')";
+                    $query2 = "insert into notifications (user_id,status,notification,created_at) values ('".$row['user_id']."','new' ,'".$notification."', '".date('Y-m-d H:i:s')."')";
                     $conn->query($query2);
                 }
                

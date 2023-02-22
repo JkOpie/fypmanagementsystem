@@ -90,8 +90,7 @@
             $total_students_under_supervisor = null;
             $sql = "select count(*) as total_students_under_supervisor
             from students 
-            where supervisor_id is not null and programmes='".$_SESSION['department']."'";
-
+            where supervisor_id='".$_SESSION['id']."' and programmes='".$_SESSION['department']."'";
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
@@ -105,12 +104,9 @@
 
             $total_student_which_has_been_assigned_with_supervisor = null;
 
-            $sql = "
-                select count(distinct(user_id)) as  total_student_which_has_been_assigned_with_supervisor
-                from
-                proposals 
-                where supervisor_id is not null and supervisor_status='approved' and cluster_status='approved'
-            ";
+            $sql = $sql = "select count(*) as total_student_which_has_been_assigned_with_supervisor
+            from students 
+            where supervisor_id is not null and programmes='".$_SESSION['department']."'";;
 
             $result = $conn->query($sql);
 
@@ -119,6 +115,7 @@
                     $total_student_which_has_been_assigned_with_supervisor = $row['total_student_which_has_been_assigned_with_supervisor'];
                 }
             }
+            
         ?>
 
         <div class="row">

@@ -41,10 +41,34 @@ require_once("controllers/db_connection.php");
                     <!-- Main page content-->
 
                     <?php 
-                        include('controllers/users.php');
+                        $students=null;
 
                         if($_SESSION['roles'] == 'fyp_coordinator'){
-                            $students = getStudentSupervisorPending();
+                            $query = "
+                                select 
+                                    students.user_id,
+                                    users.name,
+                                    users.email ,
+                                    users.handphone,
+                                    students.matric_number, 
+                                    students.semester, 
+                                    students.programmes, 
+                                    students.supervisor_id, 
+                                    students.status,
+                                    supervisor.name as supervisor_name 
+                                from students 
+                                left join users on users.id = students.user_id
+                                left join users as supervisor on supervisor.id = students.supervisor_id
+                                where students.supervisor_id is not null
+                                order by students.status desc";
+                                $result = $conn->query($query);
+
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        $students[] = $row;
+                                    }
+                                   
+                                }
                         }
                     ?>
 
@@ -59,7 +83,7 @@ require_once("controllers/db_connection.php");
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th>Proposal Tittle</th>
+                                         
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Phone Number</th>
@@ -80,21 +104,20 @@ require_once("controllers/db_connection.php");
                                                     $rejectbtn = null;
                                                  
 
-                                                    if($value['supervisor_status'] == 'pending'){
-                                                        $approvebtn = "<button class='btn btn-success btn-sm me-1 mb-1' onclick='approveSupervisor(".$value['id'].")'>Approve Supervisor</button><br>";
-                                                        $rejectbtn = "<button class='btn btn-secondary btn-sm me-1 mb-1' onclick='rejectSupervisor(".$value['id'].")'>Reject Supervisor</button> <br>";
+                                                    if($value['status'] == 'pending'){
+                                                        $approvebtn = "<button class='btn btn-success btn-sm me-1 mb-1' onclick='approveSupervisor(".$value['user_id'].")'>Approve Supervisor</button><br>";
+                                                        $rejectbtn = "<button class='btn btn-secondary btn-sm me-1 mb-1' onclick='rejectSupervisor(".$value['user_id'].")'>Reject Supervisor</button> <br>";
                                                     }
     
                                                     echo '
                                                     <tr>
                                                         <td>'.($key + 1).'</td>
-                                                        <td>'.$value['title'].'</td>
                                                         <td>'.$value['name'].'</td>
                                                         <td>'.$value['email'].'</td>
                                                         <td>'.$value['handphone'].'</td>
                                                         <td>'.(isset($value['semester']) ? $value['semester'] : '-' ).'</td>
                                                         <td>'.(isset($value['supervisor_name']) ? $value['supervisor_name'] : '-').'</td>
-                                                        <td>'.(isset($value['supervisor_status']) ? $value['supervisor_status'] : '-').'</td>
+                                                        <td>'.(isset($value['status']) ? $value['status'] : '-').'</td>
                                                         <td> '.$approvebtn.$rejectbtn.'</td>
                                                     </tr>';
                                                 }
@@ -173,14 +196,14 @@ require_once("controllers/db_connection.php");
             $('#updateSemester input[name=student_id]').val(student_id);
         }
 
-        function approveSupervisor(proposal_id){
+        function approveSupervisor(student_id){
             
             $.ajax({
                 type: "POST",
                 url: '/fyp/controllers/users.php',
                 data: {
                     'type' : 'updateSupervisorStatus',
-                    'proposal_id' : proposal_id,
+                    'student_id' : student_id,
                     'status' : 'approved',
                 }, // serializes the form's elements.
                 success: function(data) { 
@@ -189,14 +212,14 @@ require_once("controllers/db_connection.php");
             });
         }
 
-        function rejectSupervisor(proposal_id){
+        function rejectSupervisor(student_id){
             
             $.ajax({
                 type: "POST",
                 url: '/fyp/controllers/users.php',
                 data: {
                     'type' : 'updateSupervisorStatus',
-                    'proposal_id' : proposal_id,
+                    'student_id' : student_id,
                     'status' : 'rejected',
                 }, // serializes the form's elements.
                 success: function(data) { 
