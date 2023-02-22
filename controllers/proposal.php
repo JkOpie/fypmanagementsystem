@@ -91,6 +91,7 @@
                     'attachment' => $row['attachment'] ?? null,
                     'attachment_name' => $row['attachment_name'] ?? null,
                     'fyp_coordinator_status' => $row['fyp_coordinator_status'] ?? null,
+                    'supervisor_status' => $row['supervisor_status'] ?? null,
                     'reason' => $row['reason'] ?? null,
                     'supervisor' => $row['supervisor_name'] ?? null,
                 ];
@@ -266,7 +267,11 @@
         global $conn;
         session_start();
 
-        if($_SESSION['roles'] == 'supervisor' || $_SESSION['roles'] == 'fyp_coordinator'){
+        if($_SESSION['roles'] == 'supervisor'){
+            $query = "update proposals set supervisor_status = '".$status."', reason = '".$reason."' where id = '".$proposal_id."'";
+        }
+
+        if($_SESSION['roles'] == 'fyp_coordinator'){
             $query = "update proposals set fyp_coordinator_status = '".$status."', reason = '".$reason."' where id = '".$proposal_id."'";
         }
 

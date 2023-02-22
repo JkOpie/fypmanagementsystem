@@ -100,23 +100,37 @@
                                                 $editProposal = null;
                                                 $deleteProposal = null;
                                                 $comment = null;
+                                                $status = '';
 
-                                                if($proposal['fyp_coordinator_status'] == 'pending' || $proposal['fyp_coordinator_status'] == null ){
-                                                    if($_SESSION['roles'] == 'supervisor'){
-                                                        $updateApproveStatus = "<button class='btn btn-success btn-sm mb-1' data-status=approved data-bs-toggle='modal'  data-bs-target='#approveProposal' onclick='updateProposalStatus(".$proposal['id'].",this)'>Approve</button>";
-                                                        $updateRejectStatus = '<button class="btn btn-danger btn-sm mb-1" data-status=rejected data-bs-toggle="modal"  data-bs-target="#approveProposal" onclick="updateProposalStatus('.$proposal['id'].',this)">Reject</button>';
-                                                    }
-                                                }
+                                               
                                                 //var_dump($proposal['fyp_coordinator_status'] );
 
                                                 if($proposal['fyp_coordinator_status'] == 'pending'){
-                                                    if($_SESSION['roles'] == 'fyp_coordinator'){
-                                                        $updateApproveStatus = "<a class='btn btn-success btn-sm mb-1' data-status=approved href='/fyp/controllers/fypcoordinator/updateProposalStatus.php?proposal_id=".$proposal['id']."&status=approved'>Collect</a>";
-                                                        //$updateRejectStatus = "<a class='btn btn-danger btn-sm mb-1' data-status=rejected href='/fyp/controllers/fypcoordinator/updateProposalStatus.php?proposal_id=".$proposal['id']."&type=reject'>Reject</a>';
-                                                    }
+                                                    
                                                 }
                                                 if(in_array($_SESSION['roles'], ['students', 'supervisor'])){
                                                     $comment = ' <td>'.($proposal['reason'] ?? '-') .'</td>';
+                                                }
+
+                                                if(($_SESSION['roles'] ==  'supervisor')){
+                                                    
+                                                    $status = $proposal['supervisor_status'];
+
+                                                    if($proposal['supervisor_status'] == 'pending'){
+                                                        $updateApproveStatus = "<button class='btn btn-success btn-sm mb-1' data-status=approved data-bs-toggle='modal'  data-bs-target='#approveProposal' onclick='updateProposalStatus(".$proposal['id'].",this)'>Approve</button>";
+                                                        $updateRejectStatus = '<button class="btn btn-danger btn-sm mb-1" data-status=rejected data-bs-toggle="modal"  data-bs-target="#approveProposal" onclick="updateProposalStatus('.$proposal['id'].',this)">Reject</button>';
+                                                    }
+
+                                                }else if($_SESSION['roles'] ==  'fyp_coordinator'){
+
+                                                    if($proposal['fyp_coordinator_status'] == 'pending' || $proposal['fyp_coordinator_status'] == null ){
+                                                       
+                                                        if($proposal['fyp_coordinator_status'] == 'pending'){
+                                                            $updateApproveStatus = "<a class='btn btn-success btn-sm mb-1' data-status=approved href='/fyp/controllers/fypcoordinator/updateProposalStatus.php?proposal_id=".$proposal['id']."&status=approved'>Collect</a>";
+                                                            //$updateRejectStatus = "<a class='btn btn-danger btn-sm mb-1' data-status=rejected href='/fyp/controllers/fypcoordinator/updateProposalStatus.php?proposal_id=".$proposal['id']."&type=reject'>Reject</a>';
+                                                        }
+                                                    }
+                                                    $status = $proposal['fyp_coordinator_status'];
                                                 }
                                             
                                                echo '
@@ -126,7 +140,7 @@
                                                             <td>'.( $proposal['student'] ?? '-') .'</td>
                                                          
                                                             <td>'.( $proposal['attachment_name'] ? '<a href="assets/proposals/'.$proposal['attachment'].'" target=blank>'.$proposal["attachment_name"].'</a>' : '-').'</td>
-                                                            <td>'.$proposal['fyp_coordinator_status'].'</td>
+                                                            <td>'. $status .'</td>
                                                            '.$comment.'
                                                             <td>
                                                                 '.$editProposal.' 

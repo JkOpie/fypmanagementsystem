@@ -71,7 +71,6 @@ require_once("controllers/db_connection.php");
                         from students 
                         left join users on users.id = students.user_id
                         left join users as supervisor on supervisor.id = students.supervisor_id
-                        where programmes='".$_SESSION['department']."'
                         order by students.id desc";
 
                         $result = $conn->query($query);
