@@ -27,7 +27,7 @@
     if (move_uploaded_file($_FILES["excel"]["tmp_name"], $target_dir.$fileName )) {
         if ( $xlsx = \Shuchkin\SimpleXLSX::parse($target_dir.$fileName) ) {
             foreach( $xlsx->rows() as $key =>  $r ) {
-                if($key == 1){
+                if($key > 0){
                     $sql = 'insert into users (name,email,handphone,roles,password) values ("'.$r[0].'","'.$r[1].'","'.$r[2].'","staffs","Abc123!")';
                     $result = $conn->query($sql);
                     if($result){
@@ -41,7 +41,7 @@
             die();
         }
         
-        $_SESSION['success'] = "Student Registered";
+        $_SESSION['success'] = "upervisor Registered";
         header("Location: /fyp/dashboard.php");
        
     } else {

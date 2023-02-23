@@ -43,6 +43,7 @@
                 <td>'.$row['email'].'</td>
                 <td>'.$row['handphone'].'</td>
                 <td>'.($row['semester'] ?: '-').'</td>
+                <td>'.($row['programmes'] ?: '-').'</td>
                 <td>'.($row['supervisor_name'] ?: '-') .'</td>
                 <td>'.($row['status'] ?: '-') .'</td>
             </tr>
@@ -93,6 +94,7 @@
             <th>Email</th>
             <th>Phone Number</th>
             <th>Semester</th>
+            <th>Programmes</th>
             <th>Supervisor</th>
             <th>Status</th>
         </tr>

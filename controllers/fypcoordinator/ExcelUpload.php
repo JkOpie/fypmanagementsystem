@@ -27,11 +27,11 @@
     if (move_uploaded_file($_FILES["excel"]["tmp_name"], $target_dir.$fileName )) {
         if ( $xlsx = \Shuchkin\SimpleXLSX::parse($target_dir.$fileName) ) {
             foreach( $xlsx->rows() as $key =>  $r ) {
-                if($key == 1){
+                if($key > 0){
                     $sql = 'insert into users (name,email,handphone,roles,password) values ("'.$r[0].'","'.$r[1].'","'.$r[2].'","student","Abc123!")';
                     $result = $conn->query($sql);
                     if($result){
-                        $sql = 'insert into students (user_id,matric_number,semester,programmes) values ("'.$conn->insert_id.'","'.$r[3].'","'.$r[4].'","'.$r[5].'")';
+                        $sql = 'insert into students (user_id,matric_number,semester,programmes) values ("'.$conn->insert_id.'","'.$r[3].'","'.$r[5].'","'.$r[4].'")';
                         $result = $conn->query($sql);
                     }
                 }

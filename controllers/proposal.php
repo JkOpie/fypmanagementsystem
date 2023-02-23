@@ -38,6 +38,7 @@
 
     
     function index(){
+        
         global $conn;
         $sql = "select proposals.*, student.id as student_id, student.name as student_name, supervisor.name as supervisor_name from proposals
         left join users as student on proposals.user_id = student.id 
@@ -47,10 +48,12 @@
             $sql .= " where student.id = ".$_SESSION['id'];
         }
 
-        if($_SESSION['cluster_status'] == 'lead_cluster'){
-            $sql .= " where proposals.fyp_coordinator_status='approved'";
+        if(isset($_SESSION['cluster_status'])){
+            if($_SESSION['cluster_status'] == 'lead_cluster'){
+                $sql .= " where proposals.fyp_coordinator_status='approved'";
+            }
         }
-        
+
         // if($_SESSION['roles'] == 'supervisor'){
         //     $sql .= "where supervisor_id = ".$_SESSION['id'];
         // }

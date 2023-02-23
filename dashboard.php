@@ -131,13 +131,16 @@
                                 <tr>
                                     <th>Register Supervisors</th>
                                     <td> </td>
-                                    <td><a class="btn btn-primary" href="/fyp/register-supervisor.php">Click</a> </td>
+                                    <td>   
+                                        <a class="btn btn-primary" href="/fyp/register-supervisor.php">Click</a> 
+                                        <a href="/fyp/list-supervisor.php" class="btn btn-primary">Registered Supervisor</a>
+                                    </td>
                                 </tr>
 
                                 <tr>
                                     <th>Total Student which has been assigned with supervisor</th>
                                     <td><?php echo $total_student_which_has_been_assigned_with_supervisor ?></td>
-                                    <td><a class="btn btn-primary" href="/fyp/supervisor_list.php">Click</a> </td>
+                                    <td><a class="btn btn-primary" href="/fyp/supervisor-list.php">Click</a> </td>
                                 </tr>
                            <?php } ?>
                             

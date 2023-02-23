@@ -25,7 +25,7 @@
                             <div class="col-xxl-12 col-xl-12">
                              <!-- Basic registration form-->
                              <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header justify-content-center"><h3 class="fw-light my-4">Create Account</h3></div>
+                                    <div class="card-header justify-content-center"><h3 class="fw-light my-4">Create Semester</h3></div>
                                     <div class="card-body">
                                         <!-- Registration form-->
                                         <form action="controllers/fypcoordinator/register-semester.php" method="post">
@@ -34,7 +34,7 @@
                                                 <div class="col-12">
                                                     <div class="mb-3">
                                                         <label class="small mb-1" >Semester</label>
-                                                        <input type="text" name="name"  placeholder="Enter Semester" class="form-control">
+                                                        <input type="text" name="name"  placeholder="Ex: 123456" class="form-control">
                                                     </div>
                                                 </div>
                                             </div>

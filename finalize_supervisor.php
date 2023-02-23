@@ -88,6 +88,7 @@ require_once("controllers/db_connection.php");
                                             <th>Email</th>
                                             <th>Phone Number</th>
                                             <th>Semester</th>
+                                            <th>Programmes</th>
                                             <th>Supervisor</th>
                                             <th>Status</th>
                                             <th>Action</th>
@@ -116,6 +117,7 @@ require_once("controllers/db_connection.php");
                                                         <td>'.$value['email'].'</td>
                                                         <td>'.$value['handphone'].'</td>
                                                         <td>'.(isset($value['semester']) ? $value['semester'] : '-' ).'</td>
+                                                        <td>'.(isset($value['programmes']) ? $value['programmes'] : '-' ).'</td>
                                                         <td>'.(isset($value['supervisor_name']) ? $value['supervisor_name'] : '-').'</td>
                                                         <td>'.(isset($value['status']) ? $value['status'] : '-').'</td>
                                                         <td> '.$approvebtn.$rejectbtn.'</td>
