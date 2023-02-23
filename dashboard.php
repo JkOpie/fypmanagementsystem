@@ -86,35 +86,11 @@
             }
         ?>
 
-        <?php 
-            $total_students_under_supervisor = null;
-            $sql = "select count(*) as total_students_under_supervisor
-            from students 
-            where supervisor_id='".$_SESSION['id']."' and programmes='".$_SESSION['department']."'";
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    $total_students_under_supervisor = $row['total_students_under_supervisor'];
-                }
-            }
-        ?>
+      
 
         <?php
 
-            $total_student_which_has_been_assigned_with_supervisor = null;
-
-            $sql = $sql = "select count(*) as total_student_which_has_been_assigned_with_supervisor
-            from students 
-            where supervisor_id is not null and programmes='".$_SESSION['department']."'";;
-
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    $total_student_which_has_been_assigned_with_supervisor = $row['total_student_which_has_been_assigned_with_supervisor'];
-                }
-            }
+           
             
         ?>
 
@@ -137,6 +113,20 @@
                                 <td><a class="btn btn-primary" href="/fyp/proposals.php">Click</a</td>
                             </tr>
                             <?php
+                            $total_student_which_has_been_assigned_with_supervisor = null;
+
+                            $sql = $sql = "select count(*) as total_student_which_has_been_assigned_with_supervisor
+                            from students 
+                            where supervisor_id is not null and programmes='".$_SESSION['department']."'";;
+                
+                            $result = $conn->query($sql);
+                
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    $total_student_which_has_been_assigned_with_supervisor = $row['total_student_which_has_been_assigned_with_supervisor'];
+                                }
+                            }
+
                             if($_SESSION['roles'] == 'cluster' ){ ?>
                                 <tr>
                                     <th>Register Supervisors</th>
@@ -152,6 +142,19 @@
                            <?php } ?>
                             
                             <?php
+                            
+                            $total_students_under_supervisor = null;
+                            $sql = "select count(*) as total_students_under_supervisor
+                            from students 
+                            where supervisor_id='".$_SESSION['id']."' and programmes='".$_SESSION['department']."'";
+                            $result = $conn->query($sql);
+                
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    $total_students_under_supervisor = $row['total_students_under_supervisor'];
+                                }
+                            }
+                          
                             if($_SESSION['roles'] == 'supervisor'){ ?>
                                 <tr>
                                     <th>Total Student Under Supervisor</th>

@@ -57,7 +57,10 @@
             $query3 = "insert into staffs (user_id,roles,staff_id,department,cluster_status) values ('".$conn->insert_id."','".$roles."', '".$staff_id."', '".$department."', 'cluster')";
         }else if($roles == 'supervisor'){
             $query3 = "insert into staffs (user_id,roles,staff_id,department,cluster_id) values ('".$conn->insert_id."','".$roles."', '".$staff_id."', '".$department."', '".$_POST['cluster_id']."')";
-        }else{
+        }else if($roles == "hod"){
+            $query3 = "insert into staffs (user_id,roles,staff_id,cluster_id) values ('".$conn->insert_id."','".$roles."', '".$staff_id."', '".$_POST['cluster_id']."')";
+        }
+        else{
             $query3 = "insert into staffs (user_id,roles,staff_id,department) values ('".$conn->insert_id."','".$roles."', '".$staff_id."', '".$department."')";
         }
 

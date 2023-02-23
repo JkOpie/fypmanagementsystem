@@ -68,19 +68,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- Form Row    -->
-                                            <div class="row gx-3 department">
-                                                <div class="col-md-12">
-                                                    <div class="mb-3 ">
-                                                        <label class="small mb-1">Department</label>
-                                                        <select name="department" class="form-select">
-                                                            <option value="multimedia">Multimedia</option>
-                                                            <option value="information_system">Information System</option>
-                                                            <option value="computer_science">Computer Science</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                          
 
                                             <div class="row gx-3">
                                                 <div class="col-md-6">
