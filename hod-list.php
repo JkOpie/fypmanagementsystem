@@ -71,7 +71,6 @@ require_once("controllers/db_connection.php");
                                             <th>Email</th>
                                             <th>Phone Number</th>
                                             <th>Staff ID</th>
-                                            <th>Department</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -96,9 +95,7 @@ require_once("controllers/db_connection.php");
                                                         <td>'.$value['roles'].'</td>
                                                         <td>'.$value['email'].'</td>
                                                         <td>'.$value['handphone'].'</td>
-                                                        <td>'.$value['staff_id'].'</td>
-                                                        <td>'.$value['department'].'</td>
-                                                        <td class="text-center">
+                                                        <td>'.$value['staff_id'].'</td>                                                        <td class="text-center">
                                                             <a href="edit-hod.php?hod_id='.$value['id'].'" class="btn btn-sm btn-primary">Edit</a>
                                                             <a href="controllers/delete-hod.php?hod_id='.$value['id'].'" class="btn btn-sm btn-danger">Delete</a>
                                                         </td>
