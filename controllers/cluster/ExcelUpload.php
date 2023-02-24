@@ -28,7 +28,7 @@
         if ( $xlsx = \Shuchkin\SimpleXLSX::parse($target_dir.$fileName) ) {
             foreach( $xlsx->rows() as $key =>  $r ) {
                 if($key > 0){
-                    $sql = 'insert into users (name,email,handphone,roles,password) values ("'.$r[0].'","'.$r[1].'","'.$r[2].'","staffs","Abc123!")';
+                    $sql = 'insert into users (name,email,handphone,roles,password) values ("'.$r[0].'","'.$r[1].'","'.$r[2].'","staff","Abc123!")';
                     $result = $conn->query($sql);
                     if($result){
                         $sql = 'insert into staffs (user_id,roles,staff_id,department) values ("'.$conn->insert_id.'","supervisor","'.$r[3].'","'.$r[4].'")';
