@@ -30,7 +30,7 @@
             header('location: /fyp/supervisor_preferences.php');
         }
     }else{
-        $_SESSION['error'] = 'Maximum 3 supervisor preferences!';
+        $_SESSION['error'] = 'Erro : Please select one supervisor!';
         header('location: /fyp/supervisor_preferences.php');
     }
 
