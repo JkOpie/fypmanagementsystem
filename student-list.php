@@ -48,7 +48,8 @@ require_once("controllers/db_connection.php");
                             users.email,
                             users.handphone, 
                             students.matric_number,
-                            students.programmes 
+                            students.programmes,
+                            students.semester
                         from students 
                         left join users on students.user_id = users.id
                         order by users.id desc";
@@ -76,6 +77,7 @@ require_once("controllers/db_connection.php");
                                             <th>Email</th>
                                             <th>Phone Number</th>
                                             <th>Matric Number</th>
+                                            <th>Semester</th>
                                             <th>Programmes</th>
                                            
                                         </tr>
@@ -92,6 +94,7 @@ require_once("controllers/db_connection.php");
                                                         <td>'.$value['email'].'</td>
                                                         <td>'.$value['handphone'].'</td>
                                                         <td>'.$value['matric_number'].'</td>
+                                                        <td>'.$value['semester'].'</td>
                                                         <td>'.ucwords(str_replace('_',' ', $value['programmes'])).'</td>
                                                     </tr>';
                                                 }
