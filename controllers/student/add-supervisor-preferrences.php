@@ -18,12 +18,16 @@
 
             $_SESSION['success'] = 'Supervisor preferences added';
             header('location: /fyp/supervisor_preferences.php');
+        }else{
+            $_SESSION['error'] = 'Error : Preference Supervisor already exists!';
+            header('location: /fyp/supervisor_preferences.php');
         }
 
-        $_SESSION['error'] = 'Error : Preference Supervisor already exists!';
+      
+    }else{
+        $_SESSION['error'] = 'Maximum 3 supervisor preferences!';
         header('location: /fyp/supervisor_preferences.php');
     }
 
-    $_SESSION['error'] = 'Maximum 3 supervisor preferences!';
-    header('location: /fyp/supervisor_preferences.php');
+
 ?>
