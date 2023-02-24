@@ -106,7 +106,7 @@ require_once("controllers/db_connection.php");
                                                  
 
                                                     if($value['status'] == 'pending'){
-                                                        $approvebtn = "<button class='btn btn-success btn-sm me-1 mb-1' onclick='approveSupervisor(".$value['user_id'].")'>Approve Supervisor</button><br>";
+                                                        $approvebtn = "<button class='btn btn-success btn-sm me-1 mb-1' onclick='approveSupervisor(".$value['user_id'].")'>Finalize Supervisor</button><br>";
                                                         $rejectbtn = "<button class='btn btn-secondary btn-sm me-1 mb-1' onclick='rejectSupervisor(".$value['user_id'].")'>Reject Supervisor</button> <br>";
                                                     }
     
