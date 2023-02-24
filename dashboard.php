@@ -103,14 +103,14 @@
                        
                         <tbody>
                             <tr>
-                                <th>Total Students Registered</th>
-                                <td><?php echo $total_students ?></td>
-                                <td><a class="btn btn-primary" href="/fyp/student-list.php">Click</a></td>
+                                <th style="width:65%">Total Students Registered</th>
+                                <td style="width:10%"><?php echo $total_students ?></td>
+                                <td style="width:25%"><a class="btn btn-primary" href="/fyp/student-list.php">Click</a></td>
                             </tr>
                             <tr>
-                                <th>Total Proposal Submited</th>
-                                <td><?php echo $total_proposals ?></td>
-                                <td><a class="btn btn-primary" href="/fyp/proposals.php">Click</a</td>
+                                <th style="width:65%">Total Proposal Submited</th>
+                                <td style="width:10%"><?php echo $total_proposals ?></td>
+                                <td style="width:25%"><a class="btn btn-primary" href="/fyp/proposals.php">Click</a</td>
                             </tr>
                             <?php
                             $total_student_which_has_been_assigned_with_supervisor = null;
