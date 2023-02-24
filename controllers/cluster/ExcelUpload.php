@@ -46,5 +46,5 @@
        
     } else {
         $_SESSION['error'] = "Sorry, there was an error uploading your file.";
-        header("Location: /fyp/register-student.php");
+        header("Location: /fyp/register-supervisor.php");
     }
