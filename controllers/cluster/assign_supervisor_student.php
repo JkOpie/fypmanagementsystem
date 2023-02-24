@@ -15,13 +15,14 @@ if($_POST['supervisor_id'] != 'Please Select Supervisor'){
         while ($row = $result->fetch_assoc()) {
             $total_student_under_supervisor = $row['total_student_under_supervisor'];
         }
+
     }else{
         $_SESSION['error'] = "Error!: ";
         Header('Location: /fyp/supervisor-list.php');
     }
 
     if(intval($total_student_under_supervisor) < 3){
-        $query = "update students set supervisor_id={$_POST['supervisor_id']} where user_id={$_POST['student_id']}";
+        $query = "update students set supervisor_id={$_POST['supervisor_id']},status='pending' where user_id={$_POST['student_id']}";
         $conn->query($query);
     
         $_SESSION['success'] = "Success! Student Assign Under Supervisor";
