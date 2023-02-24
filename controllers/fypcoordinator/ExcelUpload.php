@@ -41,7 +41,7 @@
             die();
         }
         
-        $_SESSION['success'] = "Supervisor Registered";
+        $_SESSION['success'] = "Student Registered";
         header("Location: /fyp/dashboard.php");
        
     } else {
